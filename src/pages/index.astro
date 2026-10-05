@@ -1,0 +1,44 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="MODEC - Decoración Integral">
+  <header class="bg-blue-600 text-white py-12">
+    <div class="max-w-6xl mx-auto px-4">
+      <h1 class="text-4xl font-bold mb-4">MODEC</h1>
+      <p class="text-xl">Decoración Integral - Persianas, Cortineros, Piso Laminado, Papel Tapiz e Instalación</p>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 py-12">
+    <section class="mb-12">
+      <h2 class="text-3xl font-bold mb-6">Nuestros Servicios</h2>
+      <div class="grid grid-cols-2 gap-6">
+        <a href="/productos/persianas" class="p-6 border rounded-lg hover:shadow-lg transition">
+          <h3 class="text-xl font-bold mb-2">🪟 Persianas</h3>
+          <p class="text-gray-600">Roller, Verticales, Blackout, Aluminio</p>
+        </a>
+        <a href="/productos/cortineros" class="p-6 border rounded-lg hover:shadow-lg transition">
+          <h3 class="text-xl font-bold mb-2">🎯 Cortineros</h3>
+          <p class="text-gray-600">Aluminio, Hierro Forjado, Madera</p>
+        </a>
+        <a href="/productos/piso-laminado" class="p-6 border rounded-lg hover:shadow-lg transition">
+          <h3 class="text-xl font-bold mb-2">🪵 Piso Laminado</h3>
+          <p class="text-gray-600">Roble, Cerezo, Nogal</p>
+        </a>
+        <a href="/productos/papel-tapiz" class="p-6 border rounded-lg hover:shadow-lg transition">
+          <h3 class="text-xl font-bold mb-2">📋 Papel Tapiz</h3>
+          <p class="text-gray-600">Clásico, Moderno, Infantil</p>
+        </a>
+      </div>
+    </section>
+
+    <section class="bg-gray-100 p-8 rounded-lg">
+      <h2 class="text-2xl font-bold mb-4">Solicita una Cotización</h2>
+      <p class="text-gray-600 mb-6">Contáctanos para asesoramiento profesional</p>
+      <a href="/contacto" class="inline-block bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700">
+        📞 Solicitar Cotización
+      </a>
+    </section>
+  </main>
+</Layout>
