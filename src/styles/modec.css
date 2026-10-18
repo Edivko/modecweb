@@ -1,0 +1,882 @@
+/* Estilos de MODEC. Se importan desde src/pages/index.astro. */
+
+body:has(.modec) {
+  margin: 0;
+  padding: 0;
+  background: #fff;
+  color: #151515;
+}
+
+.modec {
+  font-family: var(--fuente-textos);
+  line-height: 1.5;
+}
+
+.modec * {
+  box-sizing: border-box;
+}
+
+.modec :is(h1, h2, h3, p, figure) {
+  margin: 0;
+}
+
+.modec a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.modec button,
+.modec input,
+.modec select {
+  font: inherit;
+}
+
+.modec button,
+.modec a {
+  touch-action: manipulation;
+}
+
+.modec a:focus-visible,
+.modec button:focus-visible,
+.modec input:focus-visible,
+.modec select:focus-visible {
+  outline: 3px solid #bd6a00;
+  outline-offset: 5px;
+}
+
+.contenedor {
+  width: 90%;
+  max-width: 1600px;
+  margin-inline: auto;
+}
+.cabecera {
+  background: #fff;
+}
+
+.navegacion {
+  width: 89%;
+  max-width: 1600px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6%;
+  min-height: 105px;
+  margin-inline: auto;
+}
+
+.marca {
+  flex: 0 0 28%;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding-right: 35px;
+  border-right: 1px solid #777;
+}
+
+.marca img {
+  width: 250px;
+  height: 82px;
+  max-width: 100%;
+  object-position: left center;
+}
+
+#menu-principal {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  font-size: 14px;
+}
+
+#menu-principal a:hover {
+  color: #ff8f06;
+}
+
+.nav-contacto {
+  min-width: 166px;
+  padding: 9px 26px;
+  background: #000000;
+  color: #fff !important;
+  border: 1px solid #ff8f06;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 21px;
+  line-height: 1.3;
+}
+
+.menu-boton {
+  display: none;
+}
+
+/* Hero */
+.boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  min-height: 46px;
+  padding: 11px 26px;
+  border: 0;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.boton span {
+  font-size: 24px;
+  line-height: 1;
+}
+
+.amarillo {
+  background: var(--secundario);
+  color: #17130b !important;
+}
+
+.cristal {
+  background: #383838;
+  border: 1px solid #aaa;
+  color: #fff;
+}
+
+.negro {
+  background: #000;
+  color: #fff !important;
+}
+
+.redondo {
+  border-radius: 28px;
+}
+
+/* Indicadores */
+/* Secciones generales */
+.titulo-seccion {
+  text-align: center;
+  padding: 45px 20px 24px;
+}
+
+.etiqueta {
+  color: #a85500;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 14px !important;
+}
+
+h2 {
+  font-family: Georgia, 'Times New Roman', serif;
+  text-transform: uppercase;
+  font-size: 28px;
+  line-height: 1.14;
+  font-weight: 400;
+}
+
+.seccion {
+  padding-block: 80px;
+}
+
+/* Contacto */
+.contacto {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6%;
+  align-items: center;
+  position: relative;
+}
+
+.contacto:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -5.56%;
+  height: 18px;
+  width: 35%;
+  background: var(--primario);
+}
+
+.contacto-texto h2 {
+  max-width: 540px;
+}
+
+.contacto-texto > p:not(.etiqueta) {
+  font-size: 14px;
+  margin: 30px 0 !important;
+}
+
+.contacto-texto .boton {
+  float: right;
+}
+
+.formulario {
+  background: #000;
+  color: #fff;
+  border-radius: 9px;
+  padding: 40px 28px;
+  display: grid;
+  grid-template-columns: 30% minmax(0, 1fr);
+  column-gap: 16px;
+  gap: 9px;
+}
+
+.formulario h3 {
+  grid-column: 1;
+  grid-row: 1 / span 4;
+  margin-bottom: 12px;
+  font-size: 20px;
+}
+
+.formulario > :not(h3) {
+  grid-column: 2;
+}
+
+.formulario label {
+  font-size: 14px;
+}
+
+.formulario input,
+.formulario select {
+  width: 100%;
+  min-height: 44px;
+  font-size: 16px;
+  color: #151515;
+  background: white;
+  border: 2px solid #8a8a8a;
+  padding: 7px 10px;
+  border-radius: 0;
+  margin-bottom: 7px;
+}
+
+.formulario input[aria-invalid="true"],
+.formulario select[aria-invalid="true"] {
+  border-color: #ffadad;
+}
+
+.formulario .boton {
+  justify-self: end;
+  min-width: 130px;
+  font-style: italic;
+  margin-top: 12px;
+}
+
+.error-campo {
+  color: #ffbaba;
+  font-size: 14px;
+}
+
+.error-campo:empty {
+  display: none;
+}
+
+.estado-formulario {
+  color: #fff;
+  font-size: 14px;
+}
+
+.form-nota {
+  font-size: 14px;
+  color: #ccc;
+}
+
+/* Servicios & Nosotros */
+.servicios,
+.nosotros {
+  display: grid;
+  grid-template-columns: 0.85fr 1fr;
+  align-items: center;
+  gap: 80px;
+}
+
+
+.foto-corte,
+.foto-poligono {
+  background: #e5e4e1;
+  height: 540px;
+  overflow: hidden;
+}
+
+.foto-corte {
+  clip-path: polygon(0 0, 65% 0, 100% 50%, 65% 100%, 0 100%);
+}
+
+.foto-poligono {
+  clip-path: polygon(18% 0, 75% 0, 100% 77%, 67% 100%, 0 88%, 0 38%);
+}
+
+.foto-corte img,
+.foto-poligono img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pasos {
+  list-style: none;
+  padding: 0;
+  margin: 32px 0;
+  counter-reset: paso;
+}
+
+.pasos li {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin: 10px 0;
+  background: #f7f7f5;
+  border-bottom: 1px solid #ccc;
+}
+
+.pasos li:nth-child(3) {
+  background: #000;
+  color: #fff;
+}
+
+.pasos span {
+  background: var(--primario);
+  color: #000;
+  font: 30px Georgia;
+  padding: 12px;
+}
+
+.pasos p {
+  font-size: 14px;
+}
+
+.introduccion {
+  font-size: 15px;
+  margin-top: 20px !important;
+}
+
+.beneficios {
+  list-style: none;
+  padding: 0;
+  margin: 28px 0;
+}
+
+.beneficios li {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  margin: 16px 0;
+  font-size: 14px;
+}
+
+.beneficios span {
+  font-weight: bold;
+  font-size: 38px;
+}
+
+/* Testimonios & Pie */
+.testimonios {
+  background: #161616;
+  color: white;
+  text-align: center;
+}
+
+.testimonios .etiqueta {
+  color: var(--primario);
+}
+
+.opiniones {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 36px;
+}
+
+.opiniones figure {
+  background: #e5e4e1;
+  color: #111;
+  padding: 32px;
+  border-radius: 8px;
+}
+
+.opiniones figcaption {
+  font-weight: bold;
+  margin-top: 18px;
+}
+
+.pie {
+  background: #050505;
+  color: #ddd;
+  padding: 48px 0 24px;
+}
+
+.pie-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.3fr;
+  gap: 50px;
+}
+
+.pie h2 {
+  font: 600 14px Arial;
+  margin-bottom: 20px;
+}
+
+.pie a,
+.pie p {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.pie a {
+  width: fit-content;
+  min-height: 32px;
+  padding-block: 6px;
+}
+
+.pie .pie-marca {
+  font: 36px Georgia;
+}
+
+.pie-marca span {
+  display: block;
+  font: 11px Arial;
+  margin-top: 8px;
+}
+
+.copyright {
+  border-top: 1px solid #333;
+  padding-top: 20px;
+  margin-top: 32px !important;
+}
+
+/* ========================================================= */
+/* BOTÓN UNIFICADO DE WHATSAPP (ÚNICO BLOQUE EN TODO EL CSS) */
+/* ========================================================= */
+.whatsapp {
+  position: fixed !important;
+  right: 24px !important;
+  bottom: 24px !important;
+  top: auto !important;
+  left: auto !important;
+  z-index: 9999 !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  width: 62px !important;
+  height: 62px !important;
+  border-radius: 50% !important;
+
+  background-color: #25d366 !important;
+  color: #ffffff !important;
+
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35) !important;
+  text-decoration: none !important;
+  transition: transform 0.25s ease, box-shadow 0.25s ease !important;
+}
+
+.whatsapp svg {
+  width: 38px !important;
+  height: 38px !important;
+}
+
+/* Punto rojo de notificación */
+.whatsapp::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background-color: #e90036;
+  border: 2px solid #ffffff;
+}
+
+/* Accesibilidad & Interacciones generales */
+.saltar {
+  position: fixed;
+  top: -100px;
+  left: 16px;
+  background: #fff;
+  color: #000;
+  padding: 14px;
+  z-index: 100;
+}
+
+.saltar:focus,
+.saltar:focus-visible {
+  top: 12px;
+}
+
+.modec [id] {
+  scroll-margin-top: 24px;
+}
+
+.modec :is(.boton, .nav-contacto, .menu-boton, .whatsapp, .producto) {
+  transition: background-color 180ms ease, color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.modec :is(.boton, .nav-contacto, .menu-boton) {
+  min-height: 44px;
+}
+
+.modec nav a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+}
+
+.modec .datos a,
+.modec a.red-social {
+  min-height: 32px;
+}
+
+.modec :is(a, button, input, select):focus-visible {
+  outline: 3px solid #111;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px #fff;
+}
+
+.modec button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .modec :is(.boton, .nav-contacto, .menu-boton):hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 12px #0003;
+  }
+  .modec .amarillo:hover {
+    background: #fcc009;
+  }
+  .modec :is(.negro, .nav-contacto, .cristal):hover {
+    background: #45413a;
+  }
+  .modec .producto:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 18px #0003;
+  }
+  .modec .producto:hover img {
+    transform: scale(1.035);
+  }
+  .whatsapp:hover {
+    transform: scale(1.1) !important;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4) !important;
+  }
+  .modec nav a:not(.nav-contacto):hover {
+    text-decoration: underline;
+    text-underline-offset: 6px;
+  }
+}
+
+.modec :is(.boton, .nav-contacto, .menu-boton, .whatsapp):active {
+  transform: translateY(1px);
+  box-shadow: none;
+}
+
+
+/* ==========================================
+   MODEC - DISEÑO RESPONSIVE
+   ========================================== */
+
+/* TABLETS Y PANTALLAS MEDIANAS */
+@media (min-width: 801px) and (max-width: 1100px) {
+  .navegacion {
+    width: 94%;
+    gap: 3%;
+  }
+
+  .marca {
+    flex-basis: 24%;
+    padding-right: 20px;
+  }
+
+  #menu-principal {
+    gap: 12px;
+    font-size: 12px;
+  }
+
+  .nav-contacto {
+    min-width: 120px;
+    font-size: 18px;
+    padding-inline: 16px;
+  }
+}
+
+/* PANTALLAS MENORES A 1050 PX */
+@media (max-width: 1050px) {
+  .marca {
+    flex-basis: 25%;
+  }
+
+  #menu-principal {
+    gap: 10px;
+  }
+
+  .indicadores {
+    gap: 20px;
+    padding-inline: 4%;
+  }
+
+  .indicador svg {
+    width: 50px;
+    height: 50px;
+  }
+
+  .indicador .cifra {
+    font-size: 28px;
+  }
+
+  .contacto,
+  .servicios,
+  .nosotros {
+    gap: 45px;
+  }
+
+  .formulario {
+    grid-template-columns: 1fr;
+  }
+
+  .formulario h3,
+  .formulario > :not(h3) {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .modec .indicador-imagen {
+    flex-basis: 60px;
+    width: 60px;
+    height: 60px;
+  }
+}
+
+/* TABLETS PEQUEÑAS Y MÓVILES */
+@media (max-width: 800px) {
+  .contenedor {
+    width: calc(100% - 36px);
+  }
+
+  /* Navbar */
+  .navegacion {
+    width: calc(100% - 36px);
+    flex-wrap: wrap;
+    gap: 0;
+    padding-block: 14px;
+    min-height: 80px;
+  }
+
+  .marca {
+    flex: 0 1 240px;
+    height: 60px;
+    border: 0;
+    padding: 0;
+  }
+
+  .marca img {
+    width: 210px;
+    height: 60px;
+  }
+
+  .menu-boton {
+    display: block;
+    border: 1px solid #ccc;
+    background: white;
+    padding: 10px 14px;
+    cursor: pointer;
+  }
+
+  #menu-principal {
+    flex: 0 0 100%;
+    flex-direction: column;
+    align-items: stretch;
+    padding-top: 18px;
+    gap: 8px;
+    font-size: 14px;
+    display: none;
+  }
+
+  #menu-principal.abierto {
+    display: flex;
+  }
+
+  #menu-principal a {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .nav-contacto {
+    min-width: 0;
+    font-size: 18px;
+  }
+
+  /* Hero */
+  /* Indicadores */
+  .modec .indicadores {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    padding: 24px;
+  }
+
+  /* Productos */
+  
+
+  /* Secciones generales */
+  .contacto,
+  .servicios,
+  .nosotros {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .contacto:before {
+    left: 0;
+  }
+
+  .seccion {
+    padding-block: 50px;
+  }
+
+  .contacto-texto .boton {
+    float: none;
+  }
+
+  .formulario {
+    padding: 28px;
+  }
+
+  .foto-corte,
+  .foto-poligono {
+    height: 360px;
+  }
+
+  .servicios {
+    border-top-width: 12px;
+  }
+  /* Testimonios */
+  .opiniones {
+    grid-template-columns: 1fr;
+  }
+
+  h2 {
+    font-size: 25px;
+  }
+
+  /* Footer */
+  .pie-grid {
+    gap: 24px;
+  }
+
+  /* Menú antes de inicializar JavaScript */
+  .modec .navegacion:not(.menu-listo) #menu-principal {
+    display: flex;
+  }
+
+  .modec .navegacion:not(.menu-listo) .menu-boton {
+    display: none;
+  }
+}
+
+/* CELULARES */
+@media (max-width: 500px) {
+  /* Hero */
+  /* Indicadores */
+  .modec .indicadores {
+    padding: 20px 14px;
+    gap: 22px 12px;
+  }
+
+  .modec .indicador {
+    gap: 9px;
+  }
+
+  .modec .indicador-imagen {
+    flex-basis: 44px;
+    width: 44px;
+    height: 44px;
+  }
+
+  .indicador .cifra {
+    font-size: 25px;
+  }
+
+  .indicador p {
+    font-size: 10px;
+  }
+
+  .indicador svg {
+    width: 32px;
+    height: 38px;
+  }
+
+  /* Productos */
+
+  .catalogo {
+    padding: 28px 0;
+  }
+
+  /* Formulario */
+  .formulario {
+    padding: 24px;
+  }
+
+  .formulario .boton {
+    justify-self: stretch;
+    padding-inline: 12px;
+  }
+
+  /* Footer */
+  .pie-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .pie-marca {
+    grid-column: 1 / -1;
+  }
+  /* WhatsApp */
+  .whatsapp {
+    width: 52px !important;
+    height: 52px !important;
+    right: 16px !important;
+    bottom: 16px !important;
+  }
+
+  .whatsapp svg {
+    width: 30px !important;
+    height: 30px !important;
+  }
+}
+
+/* CELULARES MUY PEQUEÑOS */
+@media (max-width: 380px) {
+  .marca {
+    flex-basis: 185px;
+  }
+
+  .marca img {
+    width: 175px;
+  }
+}
+
+@media (max-width: 360px) {
+  .modec .indicadores {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ACCESIBILIDAD */
+@media (prefers-reduced-motion: reduce) {
+  .modec *,
+  .modec *::before,
+  .modec *::after {
+    transition: none !important;
+    animation: none !important;
+    scroll-behavior: auto !important;
+  }
+
+  .modec :is(
+    .boton,
+    .nav-contacto,
+    .menu-boton,
+    .producto,
+    .whatsapp
+  ):is(:hover, :active),
+  .modec .producto:hover img {
+    transform: none !important;
+  }
+}

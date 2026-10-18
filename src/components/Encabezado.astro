@@ -1,0 +1,420 @@
+
+---
+import { negocio, menu } from '../data/modec';
+---
+
+<!-- BARRA SUPERIOR -->
+<div class="barra">
+  <div class="barra-interior">
+
+    <div class="datos">
+      {negocio.correo && (
+        <a class="dato-correo" href={`mailto:${negocio.correo}`}>
+          <span class="icono-encabezado" aria-hidden="true">
+            <img src="/icons/gmail.svg" alt="" />
+          </span>
+          {negocio.correo}
+        </a>
+      )}
+
+      <a
+        href={`tel:+${negocio.whatsapp}`}
+        aria-label={`Llamar a MODEC: ${negocio.telefono}`}
+      >
+        <span class="icono-encabezado" aria-hidden="true">
+          <img src="/icons/telefono.svg" alt="" />
+        </span>
+        {negocio.telefono}
+      </a>
+    </div>
+
+    <div class="redes" aria-label="Redes sociales">
+      {negocio.redes.map(red => (
+        red.url ? (
+          <a
+            class="red-social"
+            href={red.url}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span class="icono-encabezado" aria-hidden="true">
+              <img
+                src={`/icons/${red.nombre.toLowerCase()}.svg`}
+                alt=""
+              />
+            </span>
+            {red.nombre}
+          </a>
+        ) : (
+          <span class="red-social">
+            <span class="icono-encabezado" aria-hidden="true">
+              <img
+                src={`/icons/${red.nombre.toLowerCase()}.svg`}
+                alt=""
+              />
+            </span>
+            {red.nombre}
+          </span>
+        )
+      ))}
+    </div>
+
+  </div>
+</div>
+
+<!-- NAVEGACIÓN PRINCIPAL -->
+<header class="cabecera">
+  <div class="navegacion">
+
+    <a class="marca" href="/" aria-label="MODEC, inicio">
+      <img
+        src="/images/logo.jpeg"
+        alt="MODEC — Decoración integral"
+        width="210"
+        height="64"
+      />
+    </a>
+
+    <button
+      class="menu-boton"
+      type="button"
+      aria-expanded="false"
+      aria-controls="menu-principal"
+    >
+      Menú <span aria-hidden="true">☰</span>
+    </button>
+
+    <nav id="menu-principal" aria-label="Navegación principal">
+      {menu.map(([nombre, href]) => (
+        <a
+          href={href}
+          class:list={{ 'nav-contacto': nombre === 'Contacto' }}
+        >
+          {nombre}
+        </a>
+      ))}
+    </nav>
+
+  </div>
+</header>
+
+<script>
+  import "../scripts/menu.ts";
+</script>
+
+<style>
+  /* ==================================
+     BARRA SUPERIOR
+     ================================== */
+
+  .barra {
+    background: var(--blanco);
+    color: var(--negro);
+    font-size: 15px;
+  }
+
+  .barra-interior {
+    width: 89%;
+    max-width: 1600px;
+    min-height: 40px;
+    margin-inline: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .datos,
+  .redes {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .datos a,
+  .red-social {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+  }
+
+  .dato-correo {
+    font-size: 13px;
+  }
+
+  .datos a:last-child {
+    font-size: 17px;
+    line-height: 1.2;
+  }
+
+  .icono-encabezado {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    flex: 0 0 24px;
+  }
+
+  .icono-encabezado img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .redes {
+    gap: 24px;
+    margin-left: auto;
+    font-size: 15px;
+  }
+
+  /* ==================================
+     NAVBAR
+     ================================== */
+
+  .cabecera {
+    background: #FFFFFF;
+  }
+
+  .navegacion {
+    width: 89%;
+    max-width: 1600px;
+    min-height: 75px;
+    margin-inline: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3%;
+  }
+
+  /* Logotipo */
+  .marca {
+    flex: 0 0 25%;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    padding-right: 25px;
+    border-right: 1px solid #777;
+  }
+
+  .marca img {
+    width: 190px;
+    height: auto;
+    max-width: 100%;
+    object-fit: contain;
+    object-position: left center;
+  }
+
+  /* Enlaces del menú */
+  #menu-principal {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    font-size: 18px;
+  }
+
+  #menu-principal a:hover {
+    color: #F4981A;
+  }
+
+  /* Botón de contacto */
+  .nav-contacto {
+    min-width: 150px;
+    padding: 8px 18px;
+    background: #000000;
+    color: #FFFFFF !important;
+    border: 1px solid #F4981A;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 18px;
+    line-height: 1.3;
+  }
+
+  /* Menú móvil: oculto en escritorio */
+  .menu-boton {
+    display: none;
+  }
+
+  /* ==================================
+     RESPONSIVE
+     ================================== */
+
+  /* Tablets */
+  @media (min-width: 801px) and (max-width: 1100px) {
+    .barra-interior,
+    .navegacion {
+      width: 94%;
+    }
+
+    .redes {
+      gap: 16px;
+      font-size: 11px;
+    }
+
+    .datos {
+      gap: 12px;
+    }
+
+    .datos a:last-child {
+      font-size: 21px;
+    }
+
+    .dato-correo {
+      font-size: 11px;
+    }
+
+    .navegacion {
+      gap: 3%;
+    }
+
+    .marca {
+      flex-basis: 24%;
+      padding-right: 20px;
+    }
+
+    #menu-principal {
+      gap: 12px;
+      font-size: 12px;
+    }
+
+    .nav-contacto {
+      min-width: 120px;
+      font-size: 18px;
+      padding-inline: 16px;
+    }
+  }
+
+  @media (max-width: 1050px) {
+    .marca {
+      flex-basis: 25%;
+    }
+
+    #menu-principal {
+      gap: 10px;
+    }
+  }
+
+  /* Tablets pequeñas y celulares */
+  @media (max-width: 800px) {
+    .barra-interior {
+      width: calc(100% - 32px);
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px 20px;
+      padding-block: 8px;
+    }
+
+    .datos {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px 18px;
+    }
+
+    .datos a:last-child {
+      font-size: 20px;
+    }
+
+    .dato-correo {
+      font-size: 12px;
+    }
+
+    .redes {
+      margin-left: 0;
+      gap: 24px;
+      font-size: 12px;
+    }
+
+    .icono-encabezado {
+      width: 20px;
+      height: 20px;
+      flex-basis: 20px;
+    }
+
+    .navegacion {
+      width: calc(100% - 36px);
+      flex-wrap: wrap;
+      gap: 0;
+      padding-block: 14px;
+      min-height: 80px;
+    }
+
+    .marca {
+      flex: 0 1 240px;
+      height: 60px;
+      border: 0;
+      padding: 0;
+    }
+
+    .marca img {
+      width: 210px;
+      height: 60px;
+    }
+
+    .menu-boton {
+      display: block;
+      border: 1px solid #ccc;
+      background: white;
+      padding: 10px 14px;
+      cursor: pointer;
+    }
+
+    #menu-principal {
+      flex: 0 0 100%;
+      flex-direction: column;
+      align-items: stretch;
+      padding-top: 18px;
+      gap: 8px;
+      font-size: 14px;
+      display: none;
+    }
+
+    #menu-principal.abierto {
+      display: flex;
+    }
+
+    #menu-principal a {
+      padding: 12px;
+      font-size: 14px;
+    }
+
+    .nav-contacto {
+      min-width: 0;
+      font-size: 18px;
+    }
+
+    /* Menú antes de inicializar el script */
+    .navegacion:not(.menu-listo) #menu-principal {
+      display: flex;
+    }
+
+    .navegacion:not(.menu-listo) .menu-boton {
+      display: none;
+    }
+  }
+
+  /* Celulares pequeños */
+  @media (max-width: 500px) {
+    .datos {
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .marca {
+      flex-basis: 185px;
+    }
+
+    .marca img {
+      width: 175px;
+    }
+
+    .redes {
+      gap: 16px;
+    }
+  }
+</style>

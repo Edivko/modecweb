@@ -1,0 +1,5 @@
+---
+import { negocio, menu, whatsapp } from '../data/modec';
+---
+
+<footer class="pie"><div class="contenedor pie-grid"><a href="#inicio" class="pie-marca">MODEC<span>Decoración integral</span></a><div><h2>Menú</h2>{menu.map(([nombre, href]) => <a href={href}>{nombre}</a>)}</div><div><h2>Contacto</h2><a href={`tel:+${negocio.whatsapp}`}>{negocio.telefono}</a>{negocio.correo && <a href={`mailto:${negocio.correo}`}>{negocio.correo}</a>}<p>Ecatepec de Morelos,<br />Estado de México</p><a href={whatsapp} target="_blank" rel="noopener noreferrer">Cotizar por WhatsApp</a></div></div><p class="contenedor copyright">© {new Date().getFullYear()} MODEC. Todos los derechos reservados.</p></footer>

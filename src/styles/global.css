@@ -1,19 +1,31 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
+/* ==================================
+   MODEC - ESTILOS GLOBALES
+   ================================== */
+
+/* Tipografías */
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400&family=Poppins:ital,wght@0,400;0,700;1,500&display=swap');
+
+/* Identidad visual */
 :root {
-  --primary-color: #0066cc;
-  --secondary-color: #00aa55;
-  --text-primary: #1f2937;
-  --text-secondary: #6b7280;
+  /* Colores de marca */
+  --primario: #FCC009;
+  --secundario: #F8AB14;
+  --naranja: #F4981A;
+  --blanco: #E5E4E1;
+  --negro: #000000;
+
+  /* Tipografías */
+  --fuente-titulos: 'Bodoni Moda', serif;
+  --fuente-textos: 'Poppins', sans-serif;
 }
 
-html {
-  font-family: system-ui, sans-serif;
-}
-
+/* Tipografía general */
 body {
-  background: #f3f4f6;
-  color: #1f2937;
+  font-family: var(--fuente-textos);
+}
+
+/* Títulos */
+h1, h2, h3 {
+  font-family: var(--fuente-titulos);
 }

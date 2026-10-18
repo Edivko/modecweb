@@ -1,0 +1,535 @@
+
+---
+import { productos, cotizar } from '../data/modec';
+---
+
+<section id="productos" aria-labelledby="titulo-productos">
+  <div class="productos-contenedor">
+
+    <!-- Encabezado -->
+    <div class="productos-encabezado">
+      <div>
+        <p class="etiqueta">NUESTROS PRODUCTOS</p>
+        <h2 id="titulo-productos">
+          Soluciones para transformar tus espacios
+        </h2>
+      </div>
+
+      <p class="productos-descripcion">
+        Descubre opciones para decorar y renovar cada espacio.
+      </p>
+    </div>
+
+    <!-- Carrusel -->
+    <div class="productos-carrusel" id="lista-productos">
+      {productos.map(producto => (
+        <a
+          class="producto"
+          href={cotizar(`Hola, me interesa cotizar ${producto.nombre.toLowerCase()}.`)}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`Consultar sobre ${producto.nombre}`}
+        >
+          <img
+            src={`/images/${producto.foto}`}
+            alt={producto.nombre}
+            width="400"
+            height="500"
+            loading="lazy"
+          />
+
+          <div class="producto-info">
+            <h3>{producto.nombre}</h3>
+            <p>{producto.descripcion}</p>
+            <span aria-hidden="true">↗</span>
+          </div>
+        </a>
+      ))}
+    </div>
+
+    <!-- Controles inferiores -->
+    <div class="productos-controles">
+      <a class="boton-catalogo" href="#contacto">
+        Solicitar cotización <span aria-hidden="true">↗</span>
+      </a>
+
+      <div class="flechas">
+        <button
+          class="flecha anterior"
+          type="button"
+          aria-label="Productos anteriores"
+          aria-controls="lista-productos"
+          disabled
+        >←</button>
+
+        <button
+          class="flecha siguiente"
+          type="button"
+          aria-label="Siguientes productos"
+          aria-controls="lista-productos"
+        >→</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Franja de marcas, pendiente de acabado -->
+
+<!-- Carrusel automático de marcas -->
+<div class="proveedores">
+  <div class="proveedores-contenedor">
+
+    <div class="proveedores-encabezado">
+      <h3>Marcas con las que trabajamos</h3>
+      <p>Calidad y variedad para cada espacio</p>
+    </div>
+
+    <div class="marcas-carrusel" aria-label="Marcas de referencia">
+      <div class="marcas-pista">
+
+        <!-- Grupo original -->
+        <div class="marcas-grupo">
+          <span class="marca-item vertilux">VERTILUX</span>
+          <span class="marca-item mirage">Mirage</span>
+          <span class="marca-item tekno">TEKNO-STEP</span>
+          <span class="marca-item mazahua">mazahua</span>
+          <span class="marca-item somfy">somfy.</span>
+        </div>
+
+        <!-- Copia para movimiento continuo -->
+        <div class="marcas-grupo" aria-hidden="true">
+          <span class="marca-item vertilux">VERTILUX</span>
+          <span class="marca-item mirage">Mirage</span>
+          <span class="marca-item tekno">TEKNO-STEP</span>
+          <span class="marca-item mazahua">mazahua</span>
+          <span class="marca-item somfy">somfy.</span>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+</section>
+<script>
+  const carrusel = document.querySelector<HTMLElement>('.productos-carrusel');
+  const anterior = document.querySelector<HTMLButtonElement>('.anterior');
+  const siguiente = document.querySelector<HTMLButtonElement>('.siguiente');
+
+  if (carrusel && anterior && siguiente) {
+    const actualizar = () => {
+      anterior.disabled = carrusel.scrollLeft <= 2;
+      siguiente.disabled =
+        carrusel.scrollLeft >= carrusel.scrollWidth - carrusel.clientWidth - 2;
+    };
+
+    const mover = (direccion: number) => {
+      const tarjeta = carrusel.querySelector<HTMLElement>('.producto');
+      if (!tarjeta) return;
+
+      const gap = parseFloat(getComputedStyle(carrusel).gap) || 0;
+      const distancia = tarjeta.getBoundingClientRect().width + gap;
+
+      carrusel.scrollBy({
+        left: direccion * distancia,
+        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+          ? 'instant'
+          : 'smooth'
+      });
+    };
+
+    anterior.addEventListener('click', () => mover(-1));
+    siguiente.addEventListener('click', () => mover(1));
+    carrusel.addEventListener('scroll', actualizar, { passive: true });
+    window.addEventListener('resize', actualizar);
+
+    actualizar();
+  }
+</script>
+
+<style>
+  #productos {
+    background: var(--blanco);
+    padding: 48px 20px 0;
+  }
+
+  .productos-contenedor {
+    max-width: 1300px;
+    margin: auto;
+    padding: 42px;
+    background: #fff;
+    border-radius: 22px;
+  }
+
+  /* Encabezado */
+  .productos-encabezado {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 32px;
+    margin-bottom: 28px;
+  }
+
+  .etiqueta {
+    color: var(--naranja);
+    font-family: var(--fuente-textos);
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+
+  h2 {
+    max-width: 700px;
+    color: #201915;
+    font-family: var(--fuente-titulos);
+    font-size: clamp(28px, 3vw, 42px);
+    font-weight: 400;
+    line-height: 1.1;
+    text-transform: uppercase;
+  }
+
+  .productos-descripcion {
+    max-width: 240px;
+    color: #666;
+    font-size: 12px;
+    font-family: var(--fuente-textos);
+  }
+
+  /* Carrusel */
+  .productos-carrusel {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+  }
+
+  .productos-carrusel::-webkit-scrollbar {
+    display: none;
+  }
+
+  .producto {
+    position: relative;
+    flex: 0 0 calc((100% - 36px) / 4);
+    height: 320px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #302722;
+    scroll-snap-align: start;
+  }
+
+  .producto img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  /* Información sobre fotografía */
+  .producto-info {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 28px 16px 16px;
+    color: #fff;
+    background: linear-gradient(
+      transparent,
+      rgba(0, 0, 0, 0.9)
+    );
+  }
+
+  .producto-info h3 {
+    font-family: var(--fuente-textos);
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+
+  .producto-info p {
+    font-family: var(--fuente-textos);
+    font-size: 10px;
+    line-height: 1.4;
+    padding-right: 16px;
+  }
+
+  .producto-info span {
+    position: absolute;
+    right: 14px;
+    bottom: 18px;
+    font-size: 20px;
+    color: var(--primario);
+  }
+
+  /* Controles */
+  .productos-controles {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 26px;
+  }
+
+  .boton-catalogo {
+    display: inline-flex;
+    align-items: center;
+    gap: 22px;
+    background: #282522;
+    color: #fff;
+    padding: 13px 24px;
+    border-radius: 30px;
+    font-family: var(--fuente-textos);
+    font-size: 12px;
+    font-weight: 500;
+    transition: background 0.2s ease;
+  }
+
+  .flechas {
+    display: flex;
+    gap: 10px;
+  }
+
+  .flecha {
+    width: 44px;
+    height: 44px;
+    border: 1px solid #e5e4e1;
+    border-radius: 50%;
+    background: #fff;
+    color: #242424;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+
+  .flecha:disabled {
+    opacity: 0.35;
+    cursor: default;
+  }
+
+  /* Interacciones */
+  @media (hover: hover) and (pointer: fine) {
+    .producto:hover img {
+      transform: scale(1.045);
+    }
+
+    .flecha:not(:disabled):hover {
+      background: var(--primario);
+    }
+
+    .boton-catalogo:hover {
+      background: #48413a;
+    }
+  }
+
+  /* Tablet */
+  @media (max-width: 1000px) {
+    .producto {
+      flex-basis: calc((100% - 24px) / 3);
+    }
+
+    .productos-encabezado {
+      align-items: start;
+    }
+  }
+
+  @media (max-width: 700px) {
+    .productos-contenedor {
+      padding: 24px;
+    }
+
+    .productos-encabezado {
+      display: block;
+    }
+
+    .productos-descripcion {
+      margin-top: 12px;
+    }
+
+    .producto {
+      flex-basis: calc((100% - 12px) / 2);
+      height: 290px;
+    }
+  }
+
+  /* Móvil */
+  @media (max-width: 480px) {
+    #productos {
+      padding: 24px 12px 0;
+    }
+
+    .productos-contenedor {
+      padding: 22px 14px;
+    }
+
+    .producto {
+      flex-basis: 82%;
+      height: 330px;
+    }
+
+    .boton-catalogo {
+      padding: 12px 16px;
+      gap: 8px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .producto img,
+    .flecha,
+    .boton-catalogo {
+      transition: none;
+    }
+  }
+  
+/* ======================================
+   MODEC - CARRUSEL DE PROVEEDORES
+   ====================================== */
+
+
+/* Sección de distribuidores */
+.proveedores {
+  width: 100%;
+  padding: 24px 20px 48px;
+  background: var(--blanco);
+}
+
+.proveedores-contenedor {
+  width: 100%;
+  max-width: 1300px;
+  margin-inline: auto;
+  padding: 30px 42px;
+  background: var(--blanco);
+  border-radius: 22px;
+  overflow: hidden;
+}
+
+
+/* Encabezado */
+.proveedores-encabezado {
+  margin-bottom: 26px;
+}
+
+.proveedores-encabezado h3 {
+  font-family: var(--fuente-textos);
+  font-size: 17px;
+  font-weight: 700;
+  color: #24201E;
+}
+
+.proveedores-encabezado p {
+  font-family: var(--fuente-textos);
+  font-size: 12px;
+  color: #777;
+  margin-top: 5px;
+}
+
+/* Área visible */
+.marcas-carrusel {
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Pista animada */
+.marcas-pista {
+  display: flex;
+  width: max-content;
+  animation: desplazar-marcas 40s linear infinite;
+}
+
+/* Cada grupo ocupa exactamente el mismo ancho */
+.marcas-grupo {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 70px;
+  padding-right: 70px;
+  flex-shrink: 0;
+}
+
+/* Apariencia general */
+.marca-item {
+  display: inline-block;
+  white-space: nowrap;
+  font-size: 24px;
+  line-height: 1.5;
+}
+
+/* Colores de referencia */
+.vertilux {
+  font-family: var(--fuente-textos);
+  color: #8D6170;
+  font-weight: 600;
+}
+
+.mirage {
+  font-family: var(--fuente-titulos);
+  font-style: italic;
+  color: #98A65D;
+}
+
+.tekno {
+  font-family: var(--fuente-textos);
+  font-weight: 700;
+  color: #D92436;
+}
+
+.mazahua {
+  font-family: var(--fuente-textos);
+  color: #705857;
+}
+
+.somfy {
+  font-family: var(--fuente-textos);
+  font-weight: 700;
+  color: #E99515;
+}
+
+/* Animación continua */
+@keyframes desplazar-marcas {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Pausa al interactuar */
+.marcas-carrusel:hover .marcas-pista,
+.marcas-carrusel:focus-within .marcas-pista {
+  animation-play-state: paused;
+}
+
+/* Móvil */
+@media (max-width: 600px) {
+  .proveedores {
+    padding: 28px 16px;
+  }
+
+  .marcas-grupo {
+    gap: 40px;
+    padding-right: 40px;
+  }
+
+  .marca-item {
+    font-size: 20px;
+  }
+  .proveedores-contenedor {
+  padding: 24px 18px;
+  border-radius: 14px;
+}
+}
+
+/* Accesibilidad */
+@media (prefers-reduced-motion: reduce) {
+  .marcas-pista {
+    animation: none;
+  }
+
+  .marcas-carrusel {
+    overflow-x: auto;
+  }
+}
+
+</style>

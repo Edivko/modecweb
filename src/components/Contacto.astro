@@ -1,0 +1,408 @@
+
+---
+import { negocio, cotizar, whatsapp } from '../data/modec';
+---
+
+<section id="contacto" aria-labelledby="titulo-contacto">
+  <div class="contacto-contenedor">
+
+    <!-- Panel izquierdo: imagen y presentación -->
+    <div class="contacto-visual">
+      <div class="contacto-marca">
+        <span>MODEC</span>
+        <p>DECORACIÓN INTEGRAL</p>
+      </div>
+
+      <div class="contacto-texto">
+        <p class="etiqueta">Cotización sin compromiso</p>
+
+        <h2 id="titulo-contacto">
+          Cotiza tu<br />
+          proyecto<br />
+          <span>hoy mismo</span>
+        </h2>
+
+        <p class="descripcion">
+          Transformamos tus espacios a la medida.
+          Te asesoramos y tomamos medidas en sitio.
+        </p>
+
+        <a
+          class="boton-visita"
+          href={cotizar('Hola, quisiera conocer su ubicación y horario para visitarlos.')}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Visítanos
+          <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Panel derecho: formulario -->
+    <form
+      id="cotizacion"
+      class="formulario contacto-formulario"
+      action={`https://wa.me/${negocio.whatsapp}`}
+      method="get"
+      data-whatsapp={negocio.whatsapp}
+    >
+      <div class="formulario-encabezado">
+        <h3>Contáctanos</h3>
+        <p>Cuéntanos sobre tu proyecto y te asesoraremos.</p>
+        <p class="form-nota">Todos los campos son obligatorios.</p>
+      </div>
+
+      <div class="campo">
+        <label for="nombre">Nombre</label>
+        <input
+          id="nombre"
+          name="nombre"
+          type="text"
+          autocomplete="name"
+          aria-describedby="error-nombre"
+          maxlength="100"
+          placeholder="Tu nombre"
+          required
+        />
+        <p class="error-campo" id="error-nombre"></p>
+      </div>
+
+      <div class="campo">
+        <label for="telefono">Número telefónico</label>
+        <input
+          id="telefono"
+          name="telefono"
+          type="tel"
+          inputmode="tel"
+          autocomplete="tel"
+          aria-describedby="error-telefono"
+          maxlength="25"
+          placeholder="Tu número de contacto"
+          required
+        />
+        <p class="error-campo" id="error-telefono"></p>
+      </div>
+
+      <div class="campo">
+        <label for="servicio">Producto o servicio de interés</label>
+        <select
+          id="servicio"
+          name="servicio"
+          aria-describedby="error-servicio"
+          required
+        >
+          <option value="">Selecciona una opción</option>
+          {[
+            'Persianas',
+            'Decoración de muros',
+            'Cortinas y cortineros',
+            'Pisos',
+            'Toldos',
+            'Instalación'
+          ].map(s => <option value={s}>{s}</option>)}
+        </select>
+        <p class="error-campo" id="error-servicio"></p>
+      </div>
+
+      <p class="form-nota aviso-whatsapp">
+        Se abrirá WhatsApp con tu solicitud.
+        Tú decides cuándo enviarla.
+      </p>
+
+      <button class="boton-enviar" type="submit">
+        Cotizar por WhatsApp
+        <span aria-hidden="true">↗</span>
+      </button>
+
+      <p
+        class="estado-formulario"
+        id="estado-cotizacion"
+        role="status"
+        aria-live="polite"
+      ></p>
+
+      <noscript>
+        <p>
+          Para cotizar,
+          <a href={whatsapp}>escríbenos directamente por WhatsApp</a>.
+        </p>
+      </noscript>
+    </form>
+
+  </div>
+</section>
+
+<script>
+  import "../scripts/cotizacion.ts";
+</script>
+
+<style>
+  /* ======================================
+     MODEC - CONTACTO
+     ====================================== */
+
+/* Sección de contacto a todo el ancho */
+#contacto {
+  width: 100%;
+  background: var(--blanco);
+  padding: 0;
+}
+
+/* Distribución de dos columnas */
+.contacto-contenedor {
+  width: 100%;
+  max-width: none;
+  min-height: 600px;
+  margin: 0;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  overflow: hidden;
+  border-radius: 0;
+}
+
+
+  /* Panel izquierdo */
+  .contacto-visual {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 65px;
+    padding: 35px 48px 45px;
+
+    color: #FFFFFF;
+    background:
+      linear-gradient(
+        90deg,
+        rgba(18, 13, 12, 0.85),
+        rgba(18, 13, 12, 0.55)
+      ),
+      url('/images/fondo_hero.jpeg') center / cover no-repeat;
+  }
+
+  .contacto-marca span {
+    font-family: var(--fuente-titulos);
+    font-size: 28px;
+    color: var(--primario);
+  }
+
+  .contacto-marca p {
+    font-family: var(--fuente-textos);
+    font-size: 10px;
+    letter-spacing: 2px;
+  }
+
+  .contacto-texto .etiqueta {
+    color: var(--naranja);
+    font-family: var(--fuente-textos);
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+
+  .contacto-texto h2 {
+    font-family: var(--fuente-titulos);
+    font-size: clamp(35px, 3.4vw, 54px);
+    font-weight: 400;
+    line-height: 1.08;
+    text-transform: uppercase;
+  }
+
+  .contacto-texto h2 span {
+    color: var(--primario);
+  }
+
+  .descripcion {
+    max-width: 350px;
+    font-family: var(--fuente-textos);
+    font-size: 13px;
+    line-height: 1.7;
+    margin-top: 24px;
+    margin-bottom: 30px;
+  }
+
+  .boton-visita {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 28px;
+    padding: 13px 22px;
+    border-radius: 30px;
+    background: var(--primario);
+    color: var(--negro);
+    font-family: var(--fuente-textos);
+    font-size: 13px;
+    font-weight: 500;
+    font-style: italic;
+    text-decoration: none;
+    transition: transform 0.25s ease;
+  }
+
+  /* Panel derecho */
+  .contacto-formulario {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 48px;
+    background: var(--primario);
+    color: #24201E;
+    font-family: var(--fuente-textos);
+  }
+
+  .formulario-encabezado {
+    margin-bottom: 12px;
+  }
+
+  .formulario-encabezado h3 {
+    font-family: var(--fuente-textos);
+    font-size: clamp(27px, 2.4vw, 35px);
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .formulario-encabezado > p {
+    font-size: 12px;
+    line-height: 1.5;
+    margin-top: 8px;
+  }
+
+  .formulario-encabezado .form-nota {
+    font-size: 11px;
+    color: #5A461F;
+  }
+
+  /* Campos */
+  .campo {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .campo label {
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .campo input,
+  .campo select {
+    width: 100%;
+    min-width: 0;
+    min-height: 43px;
+    padding: 11px 13px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    background: #FFFFFF;
+    color: #24201E;
+    font: inherit;
+    font-size: 13px;
+  }
+
+  .campo input:focus-visible,
+  .campo select:focus-visible {
+    outline: 2px solid #24201E;
+    outline-offset: 2px;
+  }
+
+  .error-campo {
+    color: #8A1C13;
+    font-size: 11px;
+  }
+
+  .error-campo:empty,
+  .estado-formulario:empty {
+    display: none;
+  }
+
+  .aviso-whatsapp {
+    font-size: 11px;
+    line-height: 1.5;
+    color: #59451E;
+    margin-top: 8px;
+  }
+
+  /* Botón enviar */
+  .boton-enviar {
+    align-self: flex-end;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 22px;
+    min-height: 43px;
+    padding: 12px 22px;
+    margin-top: 8px;
+    border: 0;
+    border-radius: 30px;
+    background: #24201E;
+    color: #FFFFFF;
+    font-family: var(--fuente-textos);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: transform 0.25s ease;
+  }
+
+  .estado-formulario {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  /* Microinteracciones */
+  @media (hover: hover) and (pointer: fine) {
+    .boton-visita:hover,
+    .boton-enviar:hover {
+      transform: translateY(-3px);
+    }
+  }
+
+  /* Tablet */
+  @media (max-width: 900px) {
+    .contacto-visual {
+      padding: 32px;
+    }
+
+    .contacto-formulario {
+      padding: 32px;
+    }
+
+    .contacto-texto h2 {
+      font-size: 36px;
+    }
+  }
+
+  /* Móvil */
+  @media (max-width: 700px) {
+    #contacto {
+      padding: 40px 16px;
+    }
+
+    .contacto-contenedor {
+      grid-template-columns: 1fr;
+      border-radius: 20px;
+    }
+
+    .contacto-visual {
+      min-height: 390px;
+      padding: 28px;
+      gap: 45px;
+    }
+
+    .contacto-formulario {
+      padding: 30px 24px;
+    }
+
+    .contacto-texto h2 {
+      font-size: clamp(30px, 7vw, 40px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .boton-visita,
+    .boton-enviar {
+      transition: none;
+    }
+  }
+</style>
