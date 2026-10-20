@@ -1,8 +1,483 @@
+
 ---
-import { whatsapp } from '../data/modec';
+import { cotizar } from '../data/modec';
+
+const beneficios = [
+  {
+    numero: '01',
+    titulo: 'Asesoría personalizada',
+    detalle: 'Atención a domicilio'
+  },
+  {
+    numero: '02',
+    titulo: 'Atención profesional',
+    detalle: 'En cada instalación'
+  },
+  {
+    numero: '03',
+    titulo: 'Entregas puntuales',
+    detalle: 'Compromiso con tu proyecto'
+  }
+];
 ---
 
-<section class="contenedor nosotros seccion" id="nosotros" aria-labelledby="titulo-nosotros">
-        <div class="foto-poligono" id="nuestro-trabajo"><img src="/images/nosotros.webp" alt="Espacio decorado con acabados de interior" width="700" height="800" loading="lazy" /></div>
-        <div><p class="etiqueta">Sobre nosotros</p><h2 id="titulo-nosotros">Pasión por el detalle en cada espacio</h2><p class="introduccion">En MODEC transformamos espacios con materiales de alta calidad.</p><ol class="beneficios"><li><span>01</span>Asesoría personalizada a domicilio</li><li><span>02</span>Atención en cada instalación</li><li><span>03</span>Tiempos de entrega puntuales</li></ol><a class="boton amarillo" href={whatsapp} target="_blank" rel="noopener noreferrer">Conocer más sobre nosotros</a></div>
-      </section>
+<section id="nosotros" aria-labelledby="titulo-nosotros">
+  <div class="sobre-contenedor">
+
+    <!-- Composición de imágenes -->
+    <div class="sobre-galeria" id="nuestro-trabajo">
+
+      <div class="foto-principal">
+        <img
+          src="/images/nosotros.webp"
+          alt="Proyecto de decoración de interiores de MODEC"
+          width="700"
+          height="800"
+          loading="lazy"
+        />
+      </div>
+
+      <div class="foto-secundaria">
+        <img
+          src="/images/fondo_hero.jpeg"
+          alt="Persianas instaladas en un espacio interior"
+          width="500"
+          height="650"
+          loading="lazy"
+        />
+      </div>
+
+      <div class="galeria-etiqueta">
+        <span>MODEC</span>
+        <p>Decoración integral</p>
+      </div>
+
+    </div>
+
+    <!-- Información de la empresa -->
+    <div class="sobre-contenido">
+
+      <div class="sobre-encabezado">
+        <p class="etiqueta">SOBRE NOSOTROS</p>
+
+        <h2 id="titulo-nosotros">
+          Pasión por el detalle
+          <span>en cada espacio</span>
+        </h2>
+
+        <p class="introduccion">
+          En MODEC transformamos espacios con materiales
+          de alta calidad, atención personalizada y
+          soluciones que se adaptan a cada proyecto.
+        </p>
+      </div>
+
+
+
+      <!-- Tarjetas inferiores -->
+      <div class="sobre-tarjetas">
+        {beneficios.map(beneficio => (
+          <div class="sobre-tarjeta">
+            <span class="tarjeta-numero">{beneficio.numero}</span>
+            <h3>{beneficio.titulo}</h3>
+            <p>{beneficio.detalle}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="sobre-acciones">
+        <a
+          class="boton-conocer"
+          href={cotizar('Hola, me gustaría conocer más sobre MODEC y sus servicios.')}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Conoce más por WhatsApp
+          <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<style>
+
+/* =========================================
+   MODEC - SOBRE NOSOTROS
+   ========================================= */
+
+#nosotros {
+  background: var(--secundario);
+  padding: 75px 24px;
+}
+
+/* Contenedor principal */
+.sobre-contenedor {
+  width: 100%;
+  max-width: 1300px;
+  margin-inline: auto;
+
+  display: grid;
+  grid-template-columns: 0.95fr 1.05fr;
+  align-items: center;
+  gap: 55px;
+}
+
+/* =========================================
+   GALERÍA FOTOGRÁFICA
+   ========================================= */
+
+.sobre-galeria {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(3, 150px);
+  gap: 12px;
+  min-width: 0;
+}
+
+.foto-principal,
+.foto-secundaria {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #30201D;
+}
+
+.foto-principal {
+  grid-column: 1;
+  grid-row: 1 / 4;
+}
+
+.foto-secundaria {
+  grid-column: 2;
+  grid-row: 1 / 3;
+}
+
+.sobre-galeria img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.45s ease;
+}
+
+/* Identidad MODEC */
+.galeria-etiqueta {
+  grid-column: 2;
+  grid-row: 3;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 24px;
+
+  background: var(--negro);
+  border-radius: 12px;
+}
+
+.galeria-etiqueta span {
+  font-family: var(--fuente-titulos);
+  font-size: 34px;
+  color: var(--primario);
+}
+
+.galeria-etiqueta p {
+  font-family: var(--fuente-textos);
+  font-size: 11px;
+  color: #FFFFFF;
+  margin-top: 5px;
+}
+
+/* =========================================
+   CONTENIDO Y TIPOGRAFÍA
+   ========================================= */
+
+.sobre-contenido {
+  min-width: 0;
+}
+
+/* Etiqueta editorial */
+.etiqueta {
+  display: inline-block;
+  padding: 7px 12px;
+  margin-bottom: 17px;
+
+  border-radius: 4px;
+  background: rgba(247, 45, 0, 0.12);
+  color:var(--negro);
+
+  font-family: var(--fuente-textos);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+/* Título principal */
+.sobre-encabezado h2 {
+  max-width: 650px;
+
+  font-family: var(--fuente-titulos);
+  font-size: clamp(32px, 3vw, 45px);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.5px;
+  text-transform: uppercase;
+
+  color: var(--negro);
+}
+
+/* Segunda línea */
+.sobre-encabezado h2 span {
+  display: block;
+  color: var(--negro);
+}
+
+/* Descripción */
+.introduccion {
+  max-width: 490px;
+  margin-top: 22px;
+
+  color: var(--negro);
+  font-family: var(--fuente-textos);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+/* =========================================
+   TARJETAS DE FORTALEZAS
+   ========================================= */
+
+.sobre-tarjetas {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 34px;
+}
+
+.sobre-tarjeta {
+  position: relative;
+  min-width: 0;
+  min-height: 155px;
+  padding: 22px 16px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  background: var(--negro);
+  border-radius: 10px;
+  border-bottom: 3px solid var(--primario);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+/* Numeración */
+.tarjeta-numero {
+  color: var(--primario);
+  font-family: var(--fuente-titulos);
+  font-size: 30px;
+  line-height: 1;
+}
+
+/* Título de la fortaleza */
+.sobre-tarjeta h3 {
+  color: #FFFFFF;
+  font-family: var(--fuente-textos);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.45;
+  margin-top: 20px;
+}
+
+/* Descripción */
+.sobre-tarjeta p {
+  color: #E5E4E1;
+  font-family: var(--fuente-textos);
+  font-size: 11px;
+  line-height: 1.5;
+  margin-top: 7px;
+}
+
+/* =========================================
+   BOTÓN PRINCIPAL
+   ========================================= */
+
+.sobre-acciones {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 28px;
+}
+
+.boton-conocer {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 26px;
+
+  padding: 14px 23px;
+  border-radius: 30px;
+
+  background: var(--negro);
+  color: #FFFFFF;
+
+  font-family: var(--fuente-textos);
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease;
+}
+
+.boton-conocer span {
+  color: var(--primario);
+  font-size: 18px;
+}
+
+/* =========================================
+   MICROINTERACCIONES
+   ========================================= */
+
+@media (hover: hover) and (pointer: fine) {
+  .sobre-galeria img:hover {
+    transform: scale(1.04);
+  }
+
+  .sobre-tarjeta:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 22px rgba(44, 27, 23, 0.18);
+  }
+
+  .boton-conocer:hover {
+    transform: translateY(-3px);
+    background: var(--negro);
+  }
+}
+
+.boton-conocer:focus-visible {
+  outline: 3px solid var(--negro);
+  outline-offset: 4px;
+}
+
+/* =========================================
+   TABLETS
+   ========================================= */
+
+@media (max-width: 1050px) {
+  #nosotros {
+    padding: 55px 20px;
+  }
+
+  .sobre-contenedor {
+    gap: 30px;
+  }
+
+  .sobre-galeria {
+    grid-template-rows: repeat(3, 120px);
+  }
+
+  .sobre-encabezado h2 {
+    font-size: clamp(29px, 3.5vw, 38px);
+  }
+
+  .sobre-tarjetas {
+    gap: 8px;
+  }
+
+  .sobre-tarjeta {
+    min-height: 145px;
+    padding: 17px 12px;
+  }
+
+  .sobre-tarjeta h3 {
+    font-size: 11px;
+  }
+}
+
+/* =========================================
+   MÓVILES
+   ========================================= */
+
+@media (max-width: 700px) {
+  #nosotros {
+    padding: 45px 16px;
+  }
+
+  .sobre-contenedor {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .sobre-galeria {
+    grid-template-rows: repeat(3, 110px);
+    gap: 10px;
+  }
+
+  .sobre-encabezado h2 {
+    font-size: clamp(30px, 7vw, 40px);
+  }
+
+  .introduccion {
+    font-size: 13px;
+  }
+
+  .sobre-tarjetas {
+    margin-top: 28px;
+  }
+
+  .sobre-tarjeta {
+    min-height: 140px;
+  }
+}
+
+/* Celulares pequeños */
+@media (max-width: 480px) {
+  .sobre-galeria {
+    grid-template-rows: repeat(3, 95px);
+  }
+
+  .galeria-etiqueta {
+    padding: 16px;
+  }
+
+  .galeria-etiqueta span {
+    font-size: 26px;
+  }
+
+  .sobre-tarjetas {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .sobre-tarjeta {
+    min-height: auto;
+    padding: 18px;
+  }
+
+  .sobre-tarjeta h3 {
+    margin-top: 10px;
+  }
+
+  .boton-conocer {
+    width: 100%;
+  }
+}
+
+/* =========================================
+   ACCESIBILIDAD
+   ========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .sobre-galeria img,
+  .sobre-tarjeta,
+  .boton-conocer {
+    transition: none;
+  }
+}
+</style>

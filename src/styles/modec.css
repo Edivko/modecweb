@@ -276,94 +276,6 @@ h2 {
   color: #ccc;
 }
 
-/* Servicios & Nosotros */
-.servicios,
-.nosotros {
-  display: grid;
-  grid-template-columns: 0.85fr 1fr;
-  align-items: center;
-  gap: 80px;
-}
-
-
-.foto-corte,
-.foto-poligono {
-  background: #e5e4e1;
-  height: 540px;
-  overflow: hidden;
-}
-
-.foto-corte {
-  clip-path: polygon(0 0, 65% 0, 100% 50%, 65% 100%, 0 100%);
-}
-
-.foto-poligono {
-  clip-path: polygon(18% 0, 75% 0, 100% 77%, 67% 100%, 0 88%, 0 38%);
-}
-
-.foto-corte img,
-.foto-poligono img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.pasos {
-  list-style: none;
-  padding: 0;
-  margin: 32px 0;
-  counter-reset: paso;
-}
-
-.pasos li {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-  margin: 10px 0;
-  background: #f7f7f5;
-  border-bottom: 1px solid #ccc;
-}
-
-.pasos li:nth-child(3) {
-  background: #000;
-  color: #fff;
-}
-
-.pasos span {
-  background: var(--primario);
-  color: #000;
-  font: 30px Georgia;
-  padding: 12px;
-}
-
-.pasos p {
-  font-size: 14px;
-}
-
-.introduccion {
-  font-size: 15px;
-  margin-top: 20px !important;
-}
-
-.beneficios {
-  list-style: none;
-  padding: 0;
-  margin: 28px 0;
-}
-
-.beneficios li {
-  display: flex;
-  align-items: center;
-  gap: 22px;
-  margin: 16px 0;
-  font-size: 14px;
-}
-
-.beneficios span {
-  font-weight: bold;
-  font-size: 38px;
-}
-
 /* Testimonios & Pie */
 .testimonios {
   background: #161616;
@@ -740,10 +652,6 @@ h2 {
     padding: 28px;
   }
 
-  .foto-corte,
-  .foto-poligono {
-    height: 360px;
-  }
 
   .servicios {
     border-top-width: 12px;

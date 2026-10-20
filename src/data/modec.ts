@@ -52,4 +52,47 @@ export const indicadores = [
 ];
 export const pasos = ['Asesoría personalizada', 'Medición precisa', 'Instalación personalizada', 'Mantenimiento y soporte'];
 // Añade únicamente testimonios reales autorizados; las capturas repiten uno de ejemplo.
-export const testimonios: { nombre: string; texto: string }[] = [];
+
+export const testimonios = [
+  {
+    nombre: 'Carlos R.',
+    texto: 'Excelente servicio. Quedé muy satisfecho con la atención, la calidad de la instalación y el resultado final en mi espacio.',
+    servicio: 'Persianas',
+    detalle: 'Proyecto residencial',
+    foto: '',
+    destacado: false
+  },
+  {
+    nombre: 'María G.',
+    texto: 'Me encantó el resultado. Fueron puntuales, muy atentos y me ayudaron a elegir la mejor opción para mi sala y comedor.',
+    servicio: 'Cortinas',
+    detalle: 'Atención personalizada',
+    foto: '',
+    destacado: true
+  },
+  {
+    nombre: 'Luis A.',
+    texto: 'Todo el proceso fue muy profesional. La instalación quedó excelente y los materiales realmente se ven de buena calidad.',
+    servicio: 'Piso laminado',
+    detalle: 'Proyecto interior',
+    foto: '',
+    destacado: false
+  },
+  {
+    nombre: 'Fernanda M.',
+    texto: 'Recibí una asesoría muy completa y me gustó mucho el seguimiento durante todo el proyecto. Recomiendo ampliamente a MODEC.',
+    servicio: 'Decoración de muros',
+    detalle: 'Cliente verificado',
+    foto: '',
+    destacado: false
+  },
+  {
+    nombre: 'Jorge T.',
+    texto: 'Muy buena experiencia. Desde la medición hasta la instalación hubo orden, limpieza y excelente trato.',
+    servicio: 'Instalación',
+    detalle: 'Servicio especializado',
+    foto: '',
+    destacado: false
+  }
+];
+

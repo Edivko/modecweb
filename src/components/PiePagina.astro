@@ -1,5 +1,394 @@
+
 ---
 import { negocio, menu, whatsapp } from '../data/modec';
+
+const anio = new Date().getFullYear();
+
+const redesActivas = negocio.redes.filter(red => red.url);
 ---
 
-<footer class="pie"><div class="contenedor pie-grid"><a href="#inicio" class="pie-marca">MODEC<span>Decoración integral</span></a><div><h2>Menú</h2>{menu.map(([nombre, href]) => <a href={href}>{nombre}</a>)}</div><div><h2>Contacto</h2><a href={`tel:+${negocio.whatsapp}`}>{negocio.telefono}</a>{negocio.correo && <a href={`mailto:${negocio.correo}`}>{negocio.correo}</a>}<p>Ecatepec de Morelos,<br />Estado de México</p><a href={whatsapp} target="_blank" rel="noopener noreferrer">Cotizar por WhatsApp</a></div></div><p class="contenedor copyright">© {new Date().getFullYear()} MODEC. Todos los derechos reservados.</p></footer>
+<footer class="pie" aria-label="Pie de página de MODEC">
+
+  <div class="pie-contenedor">
+
+    <!-- Información principal -->
+    <div class="pie-grid">
+
+      <!-- Marca -->
+      <div class="pie-identidad">
+        <a href="#inicio" class="pie-marca" aria-label="Volver al inicio de MODEC">
+          <img
+            src="/images/logo.jpeg"
+            alt="MODEC"
+            width="210"
+            height="64"
+            loading="lazy"
+          />
+        </a>
+
+        <p class="pie-descripcion">
+          Decoración y estilo para tus espacios.
+          Soluciones a la medida para transformar
+          cada ambiente.
+        </p>
+
+        <!-- Redes sociales configuradas -->
+        {redesActivas.length > 0 && (
+          <div class="pie-redes" aria-label="Redes sociales">
+            {redesActivas.map(red => (
+              <a
+                href={red.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Visitar ${red.nombre} de MODEC`}
+              >
+                <img
+                  src={`/icons/${red.nombre.toLowerCase()}.svg`}
+                  alt=""
+                  width="22"
+                  height="22"
+                  loading="lazy"
+                />
+              </a>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <!-- Navegación -->
+      <nav class="pie-columna" aria-label="Navegación del pie de página">
+        <h2>Explora</h2>
+
+        {menu.map(([nombre, href]) => (
+          <a href={href}>{nombre}</a>
+        ))}
+      </nav>
+
+      <!-- Contacto -->
+      <div class="pie-columna">
+        <h2>Contacto</h2>
+
+        <a href={`tel:+${negocio.whatsapp}`}>
+          <span class="icono" aria-hidden="true">☎</span>
+          {negocio.telefono}
+        </a>
+
+        {negocio.correo && (
+          <a href={`mailto:${negocio.correo}`}>
+            <span class="icono" aria-hidden="true">✉</span>
+            {negocio.correo}
+          </a>
+        )}
+
+        <p>
+          <span class="icono" aria-hidden="true">⌖</span>
+          Ecatepec de Morelos,<br />
+          Estado de México
+        </p>
+      </div>
+
+      <!-- Atención -->
+      <div class="pie-columna">
+        <h2>Atención personalizada</h2>
+
+        <p>
+          ¿Tienes un proyecto en mente?
+          Te ayudamos a encontrar la mejor
+          solución para tu espacio.
+        </p>
+
+        <a class="enlace-atencion" href="#contacto">
+          Solicitar asesoría
+          <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Parte inferior -->
+    <div class="pie-inferior">
+      <p>
+        © {anio} MODEC. Todos los derechos reservados.
+      </p>
+
+      <a href="#inicio" class="volver-inicio">
+        Volver arriba ↑
+      </a>
+    </div>
+
+  </div>
+</footer>
+
+<style>
+  /* ==================================
+     MODEC - FOOTER
+     ================================== */
+
+  .pie {
+    background: var(--negro);
+    color: #E5E4E1;
+    padding: 65px 24px 25px;
+  }
+
+  .pie-contenedor {
+    max-width: 1300px;
+    width: 100%;
+    margin-inline: auto;
+  }
+
+  /* ==================================
+     DISTRIBUCIÓN PRINCIPAL
+     ================================== */
+
+  .pie-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 0.8fr 1.15fr 1fr;
+    gap: 45px;
+    align-items: start;
+    padding-bottom: 45px;
+  }
+
+  /* Marca */
+  .pie-identidad {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .pie-marca {
+    display: inline-block;
+    padding: 7px;
+    background: #FFFFFF;
+    border-radius: 6px;
+  }
+
+  .pie-marca img {
+    display: block;
+    width: 170px;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .pie-descripcion {
+    max-width: 255px;
+    color: #CFBEBA;
+    font-family: var(--fuente-textos);
+    font-size: 12px;
+    line-height: 1.8;
+  }
+
+  /* Redes */
+  .pie-redes {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .pie-redes a {
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    background: #E5E4E1;
+    border-radius: 50%;
+    transition:
+      transform 0.25s ease,
+      background 0.25s ease;
+  }
+
+  .pie-redes img {
+    width: 21px;
+    height: 21px;
+    object-fit: contain;
+  }
+
+  /* Columnas */
+  .pie-columna {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    min-width: 0;
+  }
+
+  .pie-columna h2 {
+    color: var(--primario);
+    font-family: var(--fuente-textos);
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 9px;
+  }
+
+  .pie-columna a,
+  .pie-columna p {
+    color: #DFD0CB;
+    font-family: var(--fuente-textos);
+    font-size: 12px;
+    line-height: 1.7;
+    text-decoration: none;
+    overflow-wrap: anywhere;
+  }
+
+  .pie-columna a {
+    transition: color 0.25s ease;
+  }
+
+  .pie-columna .icono {
+    display: inline-block;
+    width: 22px;
+    color: var(--primario);
+    font-size: 16px;
+  }
+
+  .pie-columna .enlace-atencion {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--primario);
+    font-weight: 600;
+    margin-top: 6px;
+  }
+
+  /* ==================================
+     COTIZACIÓN
+     ================================== */
+
+  .pie-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+
+    padding: 27px 32px;
+    margin-bottom: 37px;
+
+    border: 1px solid var(--primario);
+    border-radius: 14px;
+    background: var(--negro);
+  }
+
+  .pie-cta h2 {
+    color: #FFFFFF;
+    font-family: var(--fuente-titulos);
+    font-size: clamp(22px, 2.4vw, 30px);
+    font-weight: 400;
+    line-height: 1.2;
+  }
+
+  .pie-cta p {
+    color: #D6C8C3;
+    font-family: var(--fuente-textos);
+    font-size: 12px;
+    line-height: 1.6;
+    margin-top: 8px;
+  }
+
+  /* ==================================
+     COPYRIGHT
+     ================================== */
+
+  .pie-inferior {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+
+    padding-top: 22px;
+    border-top: 1px var(--primario) solid;
+  }
+
+  .pie-inferior p,
+  .volver-inicio {
+    color: #BCA8A2;
+    font-family: var(--fuente-textos);
+    font-size: 11px;
+    text-decoration: none;
+  }
+
+  /* ==================================
+     INTERACCIONES
+     ================================== */
+
+  @media (hover: hover) and (pointer: fine) {
+    .pie-columna a:hover,
+    .volver-inicio:hover {
+      color: var(--primario);
+    }
+
+    .pie-redes a:hover {
+      transform: translateY(-3px);
+      background: var(--primario);
+    }
+  }
+
+  .pie a:focus-visible {
+    outline: 2px solid var(--primario);
+    outline-offset: 4px;
+  }
+
+  /* ==================================
+     TABLETS
+     ================================== */
+
+  @media (max-width: 1000px) {
+    .pie-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 35px;
+    }
+  }
+
+  /* ==================================
+     CELULARES
+     ================================== */
+
+  @media (max-width: 600px) {
+    .pie {
+      padding: 45px 18px 24px;
+    }
+
+    .pie-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 30px 18px;
+      padding-bottom: 35px;
+    }
+
+    .pie-identidad {
+      grid-column: 1 / -1;
+    }
+
+    .pie-columna:last-child {
+      grid-column: 1 / -1;
+    }
+
+    .pie-cta {
+      flex-direction: column;
+      align-items: stretch;
+      padding: 23px 20px;
+      gap: 22px;
+    }
+    .pie-inferior {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .pie-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .pie-identidad,
+    .pie-columna:last-child {
+      grid-column: auto;
+    }
+  }
+
+  /* Accesibilidad */
+  @media (prefers-reduced-motion: reduce) {
+    .pie a {
+      transition: none;
+    }
+  }
+</style>
