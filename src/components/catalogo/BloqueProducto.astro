@@ -1,0 +1,236 @@
+---
+interface Props {
+  categoria: string;
+  nombreCategoria: string;
+  producto: { nombre: string; slug: string };
+  indice: number;
+  enlaceCotizacion: string;
+}
+
+const { categoria, nombreCategoria, producto, indice, enlaceCotizacion } = Astro.props;
+const invertido = indice % 2 === 1;
+const ruta = `/images/catalogo/${categoria}/${producto.slug}`;
+const fotoPrincipal = `${ruta}.webp`;
+const miniaturas = [1, 2, 3, 4].map(numero => `${ruta}-${numero}.webp`);
+---
+
+<article id={producto.slug} class:list={{ 'bloque-producto': true, 'invertido': invertido }} aria-labelledby={`titulo-${producto.slug}`}>
+  <div class="bloque-informacion">
+    <div class="bloque-etiqueta">
+      <span>{nombreCategoria.toUpperCase()}</span>
+      <span class="bloque-linea" aria-hidden="true"></span>
+      <span>{String(indice + 1).padStart(2, '0')}</span>
+    </div>
+
+    <h2 id={`titulo-${producto.slug}`}>
+      <span>{nombreCategoria === 'Persianas' ? 'PERSIANA' : nombreCategoria.toUpperCase()}</span>
+      <strong>{producto.nombre.toUpperCase()}</strong>
+    </h2>
+
+    <p class="bloque-descripcion">
+      Conoce la línea {producto.nombre.toLowerCase()} de {nombreCategoria.toLowerCase()}.
+      Te asesoramos para elegir materiales, acabados y medidas que se adapten a tu espacio.
+    </p>
+
+    <div class="bloque-muestras" aria-label={`Fotografías adicionales de ${producto.nombre}`}>
+      {miniaturas.map((imagen, miniIndice) => (
+        <button
+          type="button"
+          class="miniatura"
+          data-imagen={imagen}
+          aria-label={`Ver fotografía ${miniIndice + 1} de ${producto.nombre}`}
+          aria-pressed="false"
+        >
+          <span class="imagen-pendiente" aria-hidden="true">MODEC</span>
+          <img
+            src={imagen}
+            alt=""
+            width="130"
+            height="130"
+            loading="lazy"
+            decoding="async"
+            onerror="this.style.display='none'; this.parentElement.disabled=true"
+          />
+        </button>
+      ))}
+    </div>
+
+    <a class="bloque-cotizar" href={enlaceCotizacion} target="_blank" rel="noopener noreferrer">
+      Solicitar cotización <span aria-hidden="true">↗</span>
+    </a>
+
+    <div class="bloque-atributos" aria-label="Servicios incluidos en la atención">
+      <span>Asesoría</span>
+      <span>Medición</span>
+      <span>Instalación</span>
+    </div>
+  </div>
+
+  <div class="bloque-visual">
+    <div class="bloque-imagen">
+      <div class="imagen-marcador" aria-hidden="true">
+        <span>MODEC</span>
+        <small>Agrega la fotografía de este producto</small>
+      </div>
+      <img
+        class="fotografia-principal"
+        src={fotoPrincipal}
+        alt={`${nombreCategoria}: ${producto.nombre}`}
+        width="900"
+        height="1100"
+        loading="lazy"
+        decoding="async"
+        onerror="this.style.display='none'"
+      />
+    </div>
+    <span class="bloque-barra" aria-hidden="true">MODEC</span>
+    <span class="bloque-figura" aria-hidden="true"></span>
+  </div>
+</article>
+
+<style>
+  .bloque-producto {
+    display: grid;
+    grid-template-columns: minmax(0, 46%) minmax(0, 54%);
+    min-height: 570px;
+    background: var(--blanco);
+    color: var(--negro);
+    scroll-margin-top: 110px;
+    isolation: isolate;
+  }
+
+  .bloque-producto.invertido { grid-template-columns: minmax(0, 54%) minmax(0, 46%); }
+  .bloque-producto.invertido .bloque-visual { grid-column: 1; grid-row: 1; }
+  .bloque-producto.invertido .bloque-informacion { grid-column: 2; grid-row: 1; }
+
+  .bloque-informacion {
+    min-width: 0;
+    padding: clamp(28px, 4.7vw, 70px);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  .bloque-etiqueta {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    font: 600 11px var(--fuente-textos);
+    letter-spacing: .12em;
+  }
+
+  .bloque-linea { height: 1px; width: 70px; background: var(--naranja); }
+
+  .bloque-informacion h2 {
+    margin: 28px 0 16px;
+    font-family: var(--fuente-titulos);
+    font-weight: 400;
+    font-size: clamp(35px, 4vw, 64px);
+    line-height: 1.02;
+    text-transform: uppercase;
+    overflow-wrap: anywhere;
+  }
+
+  .bloque-informacion h2 span, .bloque-informacion h2 strong { display: block; }
+  .bloque-informacion h2 strong {
+    margin-top: 9px;
+    font-family: var(--fuente-textos);
+    font-size: clamp(18px, 2vw, 26px);
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  .bloque-descripcion {
+    margin: 0;
+    max-width: 420px;
+    font: 400 14px/1.75 var(--fuente-textos);
+  }
+
+  .bloque-muestras { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 9px; width: 100%; margin-top: 24px; }
+  .miniatura { position: relative; aspect-ratio: 1; min-width: 0; padding: 0; border: 2px solid transparent; background: rgb(0 0 0 / 8%); overflow: hidden; cursor: pointer; }
+  .miniatura[aria-pressed="true"] { border-color: var(--primario); }
+  .miniatura:focus-visible { outline: 2px solid var(--negro); outline-offset: 2px; }
+  .miniatura:disabled { cursor: not-allowed; }
+  .miniatura img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .imagen-pendiente { position: absolute; inset: 0; display: grid; place-items: center; color: rgb(0 0 0 / 35%); font: 400 13px var(--fuente-titulos); }
+
+  .bloque-cotizar {
+    display: inline-flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 23px;
+    padding: 12px 19px;
+    min-height: 46px;
+    background: var(--primario);
+    color: var(--negro);
+    font: 600 12px var(--fuente-textos);
+    text-decoration: none;
+    transition: background .2s ease;
+  }
+  .bloque-cotizar:hover { background: var(--secundario); }
+  .bloque-cotizar:focus-visible { outline: 3px solid var(--negro); outline-offset: 3px; }
+  .bloque-atributos { display: flex; gap: 0; flex-wrap: wrap; margin-top: 25px; border-top: 1px solid rgb(0 0 0 / 20%); padding-top: 15px; font: 500 11px var(--fuente-textos); }
+  .bloque-atributos span + span::before { content: '·'; margin: 0 10px; color: var(--naranja); }
+
+  .bloque-visual { position: relative; min-width: 0; min-height: 520px; overflow: hidden; background: var(--negro); }
+  .bloque-imagen { position: absolute; inset: 0; }
+  .bloque-imagen img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .imagen-marcador { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 12px; color: var(--blanco); }
+  .imagen-marcador span { font: 400 clamp(45px, 6vw, 100px) var(--fuente-titulos); opacity: .4; }
+  .imagen-marcador small { max-width: 70%; text-align: center; font: 400 12px var(--fuente-textos); }
+  .bloque-barra { position: absolute; top: 0; right: 12%; width: 47px; min-height: 140px; display: grid; place-items: center; background: var(--naranja); color: var(--blanco); font: 700 13px var(--fuente-textos); writing-mode: vertical-rl; transform: rotate(180deg); }
+  .bloque-figura { position: absolute; bottom: -70px; right: -70px; width: 220px; height: 220px; border: 19px solid var(--blanco); transform: rotate(24deg); pointer-events: none; }
+  .invertido .bloque-barra { left: 12%; right: auto; }
+  .invertido .bloque-figura { left: -70px; right: auto; }
+
+  @media (max-width: 900px) {
+    .bloque-producto, .bloque-producto.invertido { grid-template-columns: 1fr 1fr; min-height: 510px; }
+    .bloque-informacion { padding: 30px; }
+    .bloque-visual { min-height: 490px; }
+    .bloque-informacion h2 { font-size: clamp(32px, 4vw, 48px); }
+  }
+  @media (max-width: 650px) {
+    .bloque-producto, .bloque-producto.invertido { display: flex; flex-direction: column; }
+    .bloque-producto.invertido .bloque-informacion, .bloque-producto.invertido .bloque-visual { grid-column: auto; grid-row: auto; }
+    .bloque-informacion { padding: 35px 20px 29px; }
+    .bloque-informacion h2 { margin-top: 20px; font-size: 43px; }
+    .bloque-informacion h2 strong { font-size: 19px; }
+    .bloque-descripcion { font-size: 13px; }
+    .bloque-visual { min-height: 350px; }
+    .bloque-barra { width: 38px; min-height: 110px; }
+    .bloque-figura { width: 160px; height: 160px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .bloque-cotizar { transition: none; }
+  }
+</style>
+
+<script>
+  // Se aplica a todos los bloques, sin duplicar scripts por categoría.
+  document.querySelectorAll<HTMLElement>('.bloque-producto').forEach((bloque) => {
+    const principal = bloque.querySelector<HTMLImageElement>('.fotografia-principal');
+    const miniaturas = bloque.querySelectorAll<HTMLButtonElement>('.miniatura');
+    if (!principal || !miniaturas.length) return;
+
+    // Solo las miniaturas cargadas pueden cambiar la imagen principal.
+    miniaturas.forEach((boton) => {
+      const imagen = boton.querySelector<HTMLImageElement>('img');
+      if (imagen?.complete && imagen.naturalWidth === 0) boton.disabled = true;
+
+      boton.addEventListener('click', () => {
+        if (boton.disabled || !imagen || imagen.naturalWidth === 0) return;
+        const nuevaRuta = boton.dataset.imagen;
+        if (!nuevaRuta) return;
+
+        principal.src = nuevaRuta;
+        principal.style.display = '';
+        miniaturas.forEach((otra) => {
+          otra.setAttribute('aria-pressed', String(otra === boton));
+        });
+      });
+    });
+  });
+</script>

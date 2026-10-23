@@ -1,0 +1,501 @@
+
+---
+import { categoriasCatalogo } from '../../data/catalogo';
+---
+
+<div class="menu-productos" data-menu-productos>
+  <button
+    class="menu-productos-boton"
+    type="button"
+    aria-expanded="false"
+    aria-controls="panel-productos"
+  >
+    Productos
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="m6 9 6 6 6-6" stroke="currentColor"
+        stroke-width="2" stroke-linecap="round"
+        stroke-linejoin="round" />
+    </svg>
+  </button>
+
+  <div class="menu-productos-panel" id="panel-productos" hidden>
+          <!-- Enlace al catálogo general -->
+  <a href="/productos" class="enlace-catalogo-general">
+    Ver catálogo completo <span aria-hidden="true">→</span>
+  </a>
+    <div class="menu-productos-categorias">
+      <p class="menu-productos-etiqueta">CATEGORÍAS</p>
+
+      {categoriasCatalogo.map((categoria, index) => (
+        <div
+          class:list={{
+            'menu-productos-opcion': true,
+            'seleccionada': index === 0
+          }}
+          data-opcion={index}
+        >
+          <button
+            class="categoria-selector"
+            type="button"
+            data-categoria={index}
+            aria-label={`Mostrar tipos de ${categoria.nombre}`}
+            aria-pressed={index === 0}
+          >
+            {categoria.nombre}
+          </button>
+
+          <a
+            class="categoria-enlace"
+            href={`/productos/${categoria.slug}`}
+            aria-label={`Ver categoría ${categoria.nombre}`}
+          >
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      ))}
+    </div>
+
+    <div class="menu-productos-subcategorias">
+      {categoriasCatalogo.map((categoria, index) => (
+        <div
+          class="submenu-tipos"
+          data-panel-categoria={index}
+          hidden={index !== 0}
+        >
+          <p class="menu-productos-etiqueta">
+            {categoria.nombre.toUpperCase()}
+          </p>
+
+          <a
+            class="submenu-ver-todos"
+            href={`/productos/${categoria.slug}`}
+          >
+            Ver {categoria.nombre.toLowerCase()}
+            <span aria-hidden="true">↗</span>
+          </a>
+
+          {categoria.tipos.length > 0 ? (
+            <div class="submenu-lista">
+              {categoria.tipos.map((tipo) => (
+                <a href={`/productos/${categoria.slug}#${tipo.slug}`}>
+                  {tipo.nombre}
+                </a>
+              ))}
+            </div>
+          ) : (
+            <p class="submenu-vacio">
+              Explora nuestros productos de esta categoría.
+            </p>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+</div>
+
+<script>
+  const menus = document.querySelectorAll<HTMLElement>(
+    '[data-menu-productos]'
+  );
+
+  menus.forEach((menu) => {
+    const boton = menu.querySelector<HTMLButtonElement>(
+      '.menu-productos-boton'
+    );
+
+    const panel = menu.querySelector<HTMLElement>(
+      '.menu-productos-panel'
+    );
+
+    const selectores = Array.from(
+      menu.querySelectorAll<HTMLButtonElement>('[data-categoria]')
+    );
+
+    const opciones = Array.from(
+      menu.querySelectorAll<HTMLElement>('[data-opcion]')
+    );
+
+    const paneles = Array.from(
+      menu.querySelectorAll<HTMLElement>('[data-panel-categoria]')
+    );
+
+    if (!boton || !panel) return;
+
+    const abrir = (): void => {
+      panel.hidden = false;
+      boton.setAttribute('aria-expanded', 'true');
+      menu.classList.add('abierto');
+    };
+
+    const cerrar = (): void => {
+      panel.hidden = true;
+      boton.setAttribute('aria-expanded', 'false');
+      menu.classList.remove('abierto');
+    };
+
+    const seleccionar = (indice: number): void => {
+      selectores.forEach((selector, index) => {
+        selector.setAttribute(
+          'aria-pressed',
+          String(index === indice)
+        );
+      });
+
+      opciones.forEach((opcion, index) => {
+        opcion.classList.toggle('seleccionada', index === indice);
+      });
+
+      paneles.forEach((panelCategoria, index) => {
+        panelCategoria.hidden = index !== indice;
+      });
+    };
+
+    boton.addEventListener('click', () => {
+      if (panel.hidden) abrir();
+      else cerrar();
+    });
+
+    selectores.forEach((selector, index) => {
+
+    selector.addEventListener('click', () => {
+    // En móvil, abrir la página de la categoría.
+    if (window.matchMedia('(max-width: 800px)').matches) {
+        const enlace = opciones[index]?.querySelector<HTMLAnchorElement>(
+        '.categoria-enlace'
+        );
+
+        if (enlace) {
+        window.location.assign(enlace.href);
+        }
+
+        return;
+    }
+
+    // En escritorio, mostrar las subcategorías.
+    seleccionar(index);
+    abrir();
+    });
+
+
+      selector.addEventListener('pointerenter', (evento) => {
+        if (evento.pointerType === 'mouse') {
+          seleccionar(index);
+        }
+      });
+
+      selector.addEventListener('focus', () => {
+        seleccionar(index);
+      });
+    });
+
+    // Hover solo en dispositivos con mouse.
+    const mouse = window.matchMedia(
+      '(hover: hover) and (pointer: fine)'
+    );
+
+    menu.addEventListener('mouseenter', () => {
+      if (mouse.matches) abrir();
+    });
+
+    menu.addEventListener('mouseleave', () => {
+      if (mouse.matches) cerrar();
+    });
+
+    // Cerrar al hacer clic fuera.
+    document.addEventListener('pointerdown', (evento) => {
+      if (!menu.contains(evento.target as Node)) {
+        cerrar();
+      }
+    });
+
+    // Cerrar con Escape.
+    menu.addEventListener('keydown', (evento) => {
+      if (evento.key === 'Escape') {
+        cerrar();
+        boton.focus();
+      }
+    });
+
+    // Cerrar cuando se abandona el menú con teclado.
+    menu.addEventListener('focusout', (evento) => {
+      if (!menu.contains(evento.relatedTarget as Node | null)) {
+        cerrar();
+      }
+    });
+  });
+</script>
+
+<style>
+  .menu-productos {
+    position: relative;
+    font-family: var(--fuente-textos);
+    color: #211A17;
+  }
+
+  .menu-productos-boton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 6px;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    font: inherit;
+    white-space: nowrap;
+  }
+
+  .menu-productos-boton svg {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.2s ease;
+  }
+
+  .menu-productos.abierto .menu-productos-boton svg {
+    transform: rotate(180deg);
+  }
+
+  .menu-productos-boton:hover,
+  .menu-productos.abierto .menu-productos-boton {
+    color: #A16B00;
+  }
+
+  /* Panel de dos columnas */
+  .menu-productos-panel {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-37%);
+    z-index: 1200;
+
+    display: grid;
+    grid-template-columns: 255px 295px;
+
+    width: 550px;
+    max-height: min(70vh, 520px);
+    overflow-y: auto;
+
+    background: #FFFFFF;
+    border-top: 3px solid var(--primario);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.16);
+  }
+/* Enlace al catálogo general */
+.enlace-catalogo-general {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  background: #FFF2C4;
+  color: #211A17;
+  font-family: var(--fuente-textos);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.enlace-catalogo-general:hover {
+  background: var(--primario);
+}
+  .menu-productos-panel[hidden],
+  .submenu-tipos[hidden] {
+    display: none !important;
+  }
+
+  .menu-productos-categorias {
+    padding: 19px 0;
+    background: #FFFFFF;
+  }
+
+  .menu-productos-subcategorias {
+    padding: 19px 20px;
+    background: #F6F4F1;
+    border-left: 1px solid #EAE5DF;
+  }
+
+  .menu-productos-etiqueta {
+    margin: 0 20px 14px;
+    color: #936300;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+
+  .menu-productos-subcategorias .menu-productos-etiqueta {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  /* Categorías principales */
+  .menu-productos-opcion {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 12px 0 8px;
+    border-left: 3px solid transparent;
+    transition: background-color 0.2s ease;
+  }
+
+  .menu-productos-opcion.seleccionada {
+    background: #FFF2C4;
+    border-left-color: var(--primario);
+  }
+
+  .categoria-selector {
+    flex: 1;
+    min-width: 0;
+    padding: 15px 10px;
+    border: 0;
+    background: transparent;
+    color: #211A17;
+    font-family: var(--fuente-textos);
+    font-size: 14px;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .categoria-enlace {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    min-height: 38px;
+    color: #211A17;
+    font-size: 20px;
+    text-decoration: none;
+  }
+
+  /* Tipos de producto */
+  .submenu-ver-todos {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+
+    margin-bottom: 12px;
+    padding: 11px 12px;
+
+    background: #FFFFFF;
+    border-radius: 5px;
+    color: #211A17;
+
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .submenu-ver-todos span {
+    color: #936300;
+    font-size: 17px;
+  }
+
+  .submenu-lista {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .submenu-lista a {
+    padding: 10px 12px;
+    color: #211A17;
+    font-size: 13px;
+    line-height: 1.5;
+    text-decoration: none;
+    transition:
+      color 0.2s ease,
+      background-color 0.2s ease;
+  }
+
+  .submenu-vacio {
+    margin: 0;
+    color: #655A53;
+    font-size: 12px;
+    line-height: 1.6;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .submenu-lista a:hover,
+    .submenu-ver-todos:hover {
+      background: #FFF2C4;
+      color: #000000;
+    }
+
+    .menu-productos-opcion:hover {
+      background: #FFF2C4;
+    }
+  }
+
+  .menu-productos :is(button, a):focus-visible {
+    outline: 2px solid #A16B00;
+    outline-offset: 2px;
+  }
+
+  /* Tablet y móvil */
+  @media (max-width: 800px) {
+    .menu-productos {
+      width: 100%;
+    }
+
+    .menu-productos-boton {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    gap: 8px;
+    padding: 12px;
+    }
+
+    .menu-productos-panel {
+      position: static;
+      transform: none;
+
+      grid-template-columns: 1fr;
+      width: 100%;
+      max-height: 60vh;
+
+      border-top: 2px solid var(--primario);
+      box-shadow: none;
+    }
+
+    .menu-productos-categorias {
+      padding: 12px 0;
+    }
+
+    .menu-productos-subcategorias {
+      padding: 16px;
+      border-left: 0;
+      border-top: 1px solid #EAE5DF;
+    }
+
+    .categoria-selector {
+      padding: 12px 10px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .menu-productos-boton svg,
+    .menu-productos-opcion,
+    .submenu-lista a {
+      transition: none;
+    }
+  }
+  
+/* Menú simplificado en tablet y móvil */
+@media (max-width: 800px) {
+  .menu-productos-subcategorias {
+    display: none !important;
+  }
+
+  .menu-productos-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .menu-productos-opcion {
+    border-bottom: 1px solid #EAE5DF;
+  }
+
+  .menu-productos-opcion:last-child {
+    border-bottom: none;
+  }
+}
+
+</style>

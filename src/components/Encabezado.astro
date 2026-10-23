@@ -1,6 +1,7 @@
 
 ---
 import { negocio, menu } from '../data/modec';
+import MenuProductos from './catalogo/MenuProductos.astro';
 ---
 
 <!-- BARRA SUPERIOR -->
@@ -84,16 +85,22 @@ import { negocio, menu } from '../data/modec';
       Menú <span aria-hidden="true">☰</span>
     </button>
 
-    <nav id="menu-principal" aria-label="Navegación principal">
-      {menu.map(([nombre, href]) => (
-        <a
-          href={href}
-          class:list={{ 'nav-contacto': nombre === 'Contacto' }}
-        >
-          {nombre}
-        </a>
-      ))}
-    </nav>
+
+<nav id="menu-principal" aria-label="Navegación principal">
+  {menu.map(([nombre, href]) =>
+    nombre === 'Productos' ? (
+      <MenuProductos />
+    ) : (
+      <a
+        href={href}
+        class:list={{ 'nav-contacto': nombre === 'Contacto' }}
+      >
+        {nombre}
+      </a>
+    )
+  )}
+</nav>
+
 
   </div>
 </header>

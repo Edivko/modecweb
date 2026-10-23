@@ -1,0 +1,143 @@
+---
+import type { GetStaticPaths } from 'astro';
+import Layout from '../../layouts/Layout.astro';
+import Encabezado from '../../components/Encabezado.astro';
+import PiePagina from '../../components/PiePagina.astro';
+import BotonWhatsApp from '../../components/BotonWhatsApp.astro';
+import BloqueProducto from '../../components/catalogo/BloqueProducto.astro';
+import { categoriasCatalogo, type CategoriaCatalogo } from '../../data/catalogo';
+import { productos, cotizar } from '../../data/modec';
+import '../../styles/global.css';
+import '../../styles/modec.css';
+
+export const getStaticPaths = (() =>
+  categoriasCatalogo.map((categoria) => ({
+    params: { categoria: categoria.slug },
+    props: { categoria },
+  }))
+) satisfies GetStaticPaths;
+
+interface Props { categoria: CategoriaCatalogo }
+const { categoria } = Astro.props;
+const informacion = productos.find(item => item.nombre === categoria.nombre);
+const portada = `/images/catalogo/${categoria.slug}/portada.webp`;
+const descripcion = informacion?.descripcion ?? 'Soluciones de decoración para tus espacios.';
+---
+
+<Layout title={`${categoria.nombre} | Catálogo MODEC`}>
+  <div class="modec">
+    <Encabezado />
+    <main>
+      <section class="categoria-portada" aria-labelledby="titulo-categoria">
+        <div class="portada-fotografia" aria-hidden="true">
+          {portada && (
+            <img src={portada} alt="" width="1400" height="850" onerror="this.style.display='none'" />
+          )}
+        </div>
+        <div class="portada-capa"></div>
+        <div class="portada-interior">
+          <nav class="categoria-ruta" aria-label="Ruta de navegación">
+            <a href="/">Inicio</a><span aria-hidden="true">/</span>
+            <a href="/productos">Productos</a><span aria-hidden="true">/</span>
+            <span aria-current="page">{categoria.nombre}</span>
+          </nav>
+          <div class="portada-textos">
+            <p class="portada-etiqueta">MODEC · CATÁLOGO</p>
+            <h1 id="titulo-categoria">{categoria.nombre}</h1>
+            <span class="portada-rayita" aria-hidden="true"></span>
+            <p>{descripcion}. Conoce nuestras opciones y encuentra la que mejor se adapte a tu proyecto.</p>
+            <a href="#modelos" class="portada-explorar">Explorar modelos <span aria-hidden="true">↓</span></a>
+          </div>
+          <div class="portada-firma" aria-hidden="true">MODEC</div>
+        </div>
+      </section>
+
+      <section class="categoria-modelos" id="modelos" aria-labelledby="titulo-modelos">
+        <div class="categoria-presentacion">
+          <div>
+            <p class="categoria-micro">CATÁLOGO / {categoria.nombre.toUpperCase()}</p>
+            <h2 id="titulo-modelos">DISEÑO A TU MEDIDA</h2>
+          </div>
+          <p>Explora las diferentes opciones de {categoria.nombre.toLowerCase()} y solicita asesoría para tu espacio.</p>
+        </div>
+
+        {categoria.tipos.length > 0 ? (
+          categoria.tipos.map((tipo, indice) => (
+            <BloqueProducto
+              categoria={categoria.slug}
+              nombreCategoria={categoria.nombre}
+              producto={tipo}
+              indice={indice}
+              enlaceCotizacion={cotizar(`Hola, me interesa ${categoria.nombre}: ${tipo.nombre}. Me gustaría solicitar una cotización.`)}
+            />
+          ))
+        ) : (
+          <div class="categoria-sin-tipos">
+            <h3>CONOCE NUESTROS {categoria.nombre.toUpperCase()}</h3>
+            <p>Estamos preparando el catálogo de modelos. Podemos asesorarte directamente sobre los acabados y opciones disponibles.</p>
+            <a href={cotizar(`Hola, me gustaría recibir información sobre ${categoria.nombre}.`)} target="_blank" rel="noopener noreferrer">Consultar opciones ↗</a>
+          </div>
+        )}
+      </section>
+
+      <section class="categoria-cierre" aria-labelledby="titulo-cierre">
+        <div class="categoria-cierre-interior">
+          <div>
+            <p class="categoria-micro">TU PROYECTO EMPIEZA AQUÍ</p>
+            <h2 id="titulo-cierre">¿NECESITAS ASESORÍA?</h2>
+            <p>Cuéntanos qué buscas y te ayudamos a elegir una opción de {categoria.nombre.toLowerCase()} para tu espacio.</p>
+          </div>
+          <a href={cotizar(`Hola, quiero asesoría sobre ${categoria.nombre}.`)} target="_blank" rel="noopener noreferrer">Cotizar por WhatsApp <span aria-hidden="true">↗</span></a>
+        </div>
+      </section>
+    </main>
+    <PiePagina />
+    <BotonWhatsApp />
+  </div>
+</Layout>
+
+<style>
+  .categoria-portada { position: relative; min-height: 470px; overflow: hidden; background: var(--negro); color: var(--blanco); }
+  .portada-fotografia { position: absolute; inset: 0 0 0 44%; background: var(--naranja); }
+  .portada-fotografia img { width: 100%; height: 100%; object-fit: cover; }
+  .portada-capa { position: absolute; inset: 0; background: linear-gradient(90deg, var(--negro) 0%, var(--negro) 35%, rgb(0 0 0 / 75%) 57%, rgb(0 0 0 / 10%) 100%); }
+  .portada-interior { position: relative; z-index: 1; width: min(1300px, calc(100% - 48px)); margin: 0 auto; padding: 23px 0 70px; }
+  .categoria-ruta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; font: 400 12px var(--fuente-textos); color: var(--blanco); }
+  .categoria-ruta a { color: inherit; text-decoration: none; }
+  .categoria-ruta a:hover { color: var(--primario); }
+  .portada-textos { margin-top: 76px; max-width: 620px; }
+  .portada-etiqueta { font: 700 11px var(--fuente-textos); letter-spacing: .13em; }
+  .portada-textos h1 { margin: 12px 0 15px; font: 400 clamp(51px, 7vw, 97px)/1 var(--fuente-titulos); text-transform: uppercase; overflow-wrap: anywhere; }
+  .portada-rayita { display: block; width: 100px; height: 2px; background: var(--primario); }
+  .portada-textos > p:last-of-type { margin: 23px 0; max-width: 460px; font: 400 14px/1.75 var(--fuente-textos); }
+  .portada-explorar { display: inline-flex; align-items: center; gap: 20px; color: var(--primario); font: 600 12px var(--fuente-textos); text-decoration: none; }
+  .portada-firma { position: absolute; right: 10px; bottom: 36px; font: 700 16px var(--fuente-textos); writing-mode: vertical-rl; letter-spacing: .2em; color: var(--primario); }
+  .categoria-modelos { background: var(--blanco); }
+  .categoria-presentacion { width: min(1300px, calc(100% - 48px)); margin: 0 auto; display: flex; justify-content: space-between; align-items: end; gap: 32px; padding: 54px 0 35px; }
+  .categoria-micro { margin: 0 0 13px; font: 700 11px var(--fuente-textos); letter-spacing: .12em; color: var(--negro); }
+  .categoria-presentacion h2, .categoria-cierre h2 { margin: 0; font: 400 clamp(29px, 3.5vw, 47px)/1.1 var(--fuente-titulos); color: var(--negro); }
+  .categoria-presentacion > p { margin: 0; max-width: 400px; font: 400 13px/1.7 var(--fuente-textos); color: var(--negro); }
+  .categoria-sin-tipos { width: min(1300px, calc(100% - 48px)); margin: 0 auto; padding: 35px 28px 70px; background: var(--blanco); color: var(--negro); border-top: 3px solid var(--primario); }
+  .categoria-sin-tipos h3 { font: 400 30px var(--fuente-titulos); }
+  .categoria-sin-tipos p { max-width: 580px; font: 400 14px/1.7 var(--fuente-textos); }
+  .categoria-sin-tipos a { display: inline-block; background: var(--primario); color: var(--negro); padding: 13px 20px; text-decoration: none; font: 600 13px var(--fuente-textos); }
+  .categoria-cierre { padding: 50px 24px; background: var(--primario); }
+  .categoria-cierre-interior { max-width: 1300px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 28px; }
+  .categoria-cierre p:last-child { max-width: 560px; font: 400 13px/1.7 var(--fuente-textos); }
+  .categoria-cierre a { display: inline-flex; align-items: center; gap: 24px; justify-content: center; flex-shrink: 0; background: var(--negro); color: var(--blanco); padding: 14px 23px; font: 600 13px var(--fuente-textos); text-decoration: none; }
+  .categoria-cierre a:hover { background: var(--naranja); color: var(--negro); }
+  .categoria-cierre a:focus-visible, .categoria-ruta a:focus-visible, .portada-explorar:focus-visible { outline: 2px solid var(--primario); outline-offset: 4px; }
+  @media (max-width: 700px) {
+    .categoria-portada { min-height: 430px; }
+    .portada-fotografia { left: 20%; }
+    .portada-capa { background: linear-gradient(90deg, rgb(0 0 0 / 92%), rgb(0 0 0 / 65%)); }
+    .portada-interior, .categoria-presentacion, .categoria-sin-tipos { width: calc(100% - 32px); }
+    .portada-interior { padding-bottom: 50px; }
+    .portada-textos { margin-top: 70px; }
+    .portada-textos h1 { font-size: clamp(43px, 12vw, 60px); }
+    .categoria-presentacion { flex-direction: column; align-items: flex-start; gap: 12px; padding: 35px 0 24px; }
+    .categoria-cierre { padding: 42px 16px; }
+    .categoria-cierre-interior { flex-direction: column; align-items: stretch; }
+    .categoria-cierre a { width: 100%; }
+  }
+</style>

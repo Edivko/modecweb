@@ -351,52 +351,6 @@ h2 {
   padding-top: 20px;
   margin-top: 32px !important;
 }
-
-/* ========================================================= */
-/* BOTÓN UNIFICADO DE WHATSAPP (ÚNICO BLOQUE EN TODO EL CSS) */
-/* ========================================================= */
-.whatsapp {
-  position: fixed !important;
-  right: 24px !important;
-  bottom: 24px !important;
-  top: auto !important;
-  left: auto !important;
-  z-index: 9999 !important;
-
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-
-  width: 62px !important;
-  height: 62px !important;
-  border-radius: 50% !important;
-
-  background-color: #25d366 !important;
-  color: #ffffff !important;
-
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35) !important;
-  text-decoration: none !important;
-  transition: transform 0.25s ease, box-shadow 0.25s ease !important;
-}
-
-.whatsapp svg {
-  width: 38px !important;
-  height: 38px !important;
-}
-
-/* Punto rojo de notificación */
-.whatsapp::after {
-  content: '';
-  position: absolute;
-  top: 2px;
-  right: 2px;
-  width: 11px;
-  height: 11px;
-  border-radius: 50%;
-  background-color: #e90036;
-  border: 2px solid #ffffff;
-}
-
 /* Accesibilidad & Interacciones generales */
 .saltar {
   position: fixed;
@@ -417,7 +371,7 @@ h2 {
   scroll-margin-top: 24px;
 }
 
-.modec :is(.boton, .nav-contacto, .menu-boton, .whatsapp, .producto) {
+.modec :is(.boton, .nav-contacto, .menu-boton, .producto) {
   transition: background-color 180ms ease, color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
 }
 
@@ -467,17 +421,13 @@ h2 {
   .modec .producto:hover img {
     transform: scale(1.035);
   }
-  .whatsapp:hover {
-    transform: scale(1.1) !important;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4) !important;
-  }
   .modec nav a:not(.nav-contacto):hover {
     text-decoration: underline;
     text-underline-offset: 6px;
   }
 }
 
-.modec :is(.boton, .nav-contacto, .menu-boton, .whatsapp):active {
+.modec :is(.boton, .nav-contacto, .menu-boton):active {
   transform: translateY(1px);
   box-shadow: none;
 }
@@ -736,18 +686,6 @@ h2 {
   .pie-marca {
     grid-column: 1 / -1;
   }
-  /* WhatsApp */
-  .whatsapp {
-    width: 52px !important;
-    height: 52px !important;
-    right: 16px !important;
-    bottom: 16px !important;
-  }
-
-  .whatsapp svg {
-    width: 30px !important;
-    height: 30px !important;
-  }
 }
 
 /* CELULARES MUY PEQUEÑOS */
@@ -781,8 +719,7 @@ h2 {
     .boton,
     .nav-contacto,
     .menu-boton,
-    .producto,
-    .whatsapp
+    .producto
   ):is(:hover, :active),
   .modec .producto:hover img {
     transform: none !important;
