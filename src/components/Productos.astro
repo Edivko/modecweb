@@ -25,9 +25,7 @@ import { productos, cotizar } from '../data/modec';
       {productos.map(producto => (
         <a
           class="producto"
-          href={cotizar(`Hola, me interesa cotizar ${producto.nombre.toLowerCase()}.`)}
-          target="_blank"
-          rel="noopener noreferrer"
+          href={`/productos/${producto.slug}`}
           aria-label={`Consultar sobre ${producto.nombre}`}
         >
           <img

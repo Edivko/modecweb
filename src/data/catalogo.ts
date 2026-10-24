@@ -1,7 +1,9 @@
-
 export interface TipoCatalogo {
   nombre: string;
   slug: string;
+  descripcion?: string;
+  caracteristicas?: string[];
+  imagenes?: string[];
 }
 
 export interface CategoriaCatalogo {
@@ -15,7 +17,19 @@ export const categoriasCatalogo: CategoriaCatalogo[] = [
     nombre: 'Persianas',
     slug: 'persianas',
     tipos: [
-      { nombre: 'Enrollables', slug: 'enrollables' },
+      {
+        nombre: 'Enrollables',
+        slug: 'enrollables',
+        descripcion: 'Persianas de diseño sencillo y moderno que permiten regular la entrada de luz y brindar privacidad a diferentes espacios.',
+        caracteristicas: ['Control de luz', 'Privacidad', 'Diseño versátil'],
+        imagenes: [
+          '/images/catalogo/persianas/enrollables.webp',
+          '/images/catalogo/persianas/enrollables-1.webp',
+          '/images/catalogo/persianas/enrollables-2.webp',
+          '/images/catalogo/persianas/enrollables-3.webp',
+          '/images/catalogo/persianas/enrollables-4.webp'
+        ]
+      },
       { nombre: 'Sheer Elegance', slug: 'sheer-elegance' },
       { nombre: 'Verticales', slug: 'verticales' },
       { nombre: 'Horizontales', slug: 'horizontales' },

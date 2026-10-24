@@ -1,44 +1,55 @@
 // Datos compartidos: contacto, enlaces, productos y contenido de la página.
 export const negocio = {
   telefono: '55 1827 9830',
-  whatsapp: '525518279830',
+  whatsapp: '525531460489',
   correo: 'modec.jorgem@gmail.com',
+  ubicacionMaps: 'https://maps.app.goo.gl/xwc8VqZJnY3QZgPq5?g_st=iw',
   // Completa las URLs oficiales para activar los enlaces.
   redes: [
-    { nombre: 'Facebook', url: '' },
-    { nombre: 'Instagram', url: '' },
-    { nombre: 'Tiktok', url: '' },
+    { nombre: 'Facebook', url: 'https://www.facebook.com/share/17y8NcsXyW/?mibextid=wwXIfr' },
+    { nombre: 'Instagram', url: 'https://www.instagram.com/modecdecoracionyestilo' },
+    { nombre: 'Tiktok', url: 'https://www.tiktok.com/@modec.decoracin.y?_r=1&_t=ZS-9AorIffXzJU' },
   ],
 };
 export const cotizar = (texto: string) => `https://wa.me/${negocio.whatsapp}?text=${encodeURIComponent(texto)}`;
 export const whatsapp = cotizar('Hola, me gustaría solicitar una cotización para mi espacio.');
 export const menu = [
-  ['Inicio', '#inicio'], ['Productos', '#productos'], ['Servicios', '#servicios'],
-  ['Conócenos', '#nosotros'], ['Nuestro trabajo', '#nuestro-trabajo'], ['Contacto', '#contacto'],
+  ['Inicio', '/'],
+  ['Productos', '/productos'],
+  ['Servicios', '/servicios'],
+  ['Conócenos', '/nosotros'],
+  ['Nuestro trabajo', '/galeria'],
+  ['Contacto', '/contacto'],
 ];
+
 export const productos = [
   {
     nombre: 'Persianas',
+    slug: 'persianas',
     descripcion: 'Diseños para controlar luz y privacidad',
     foto: 'persiana1.jpeg'
   },
   {
     nombre: 'Decoración de muros',
+    slug: 'decoracion-muros',
     descripcion: 'Lambrín, papel tapiz y revestimientos',
     foto: 'muros.webp'
   },
   {
     nombre: 'Cortinas',
+    slug: 'cortinas',
     descripcion: 'Confección y acabados a la medida',
     foto: 'cortinas.webp'
   },
   {
     nombre: 'Pisos',
+    slug: 'pisos',
     descripcion: 'Soluciones para renovar tus espacios',
     foto: 'pisos.webp'
   },
   {
     nombre: 'Toldos',
+    slug: 'toldos',
     descripcion: 'De proyección y verticales',
     foto: 'toldos.webp'
   }

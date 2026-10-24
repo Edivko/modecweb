@@ -1,0 +1,269 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Encabezado from '../components/Encabezado.astro';
+import PiePagina from '../components/PiePagina.astro';
+import BotonWhatsApp from '../components/BotonWhatsApp.astro';
+import { categoriasCatalogo } from '../data/catalogo';
+import { trabajosGaleria } from '../data/galeria';
+import { cotizar } from '../data/modec';
+import '../styles/global.css';
+import '../styles/modec.css';
+
+const nombresCategorias = new Map(categoriasCatalogo.map(({ slug, nombre }) => [slug, nombre]));
+---
+
+<Layout title="Galería de trabajos | MODEC">
+  <div class="modec">
+    <Encabezado />
+    <main id="contenido-galeria">
+      <section class="galeria-portada" aria-labelledby="galeria-titulo">
+        <div class="galeria-portada-interior">
+          <nav class="galeria-migas" aria-label="Ruta de navegación">
+            <a href="/">Inicio</a>
+            <span aria-hidden="true">/</span>
+            <span aria-current="page">Nuestro trabajo</span>
+          </nav>
+          <p class="galeria-sello">MODEC · PORTAFOLIO</p>
+          <h1 id="galeria-titulo">NUESTROS <span>PROYECTOS</span></h1>
+          <p class="galeria-intro">Descubre nuestros trabajos de decoración e instalación. Cada fotografía refleja una solución para un espacio diferente.</p>
+          <a class="galeria-bajar" href="#trabajos">Explorar galería <span aria-hidden="true">↓</span></a>
+          <span class="galeria-adornos" aria-hidden="true">MODEC</span>
+        </div>
+      </section>
+
+      <section id="trabajos" class="galeria-seccion" aria-labelledby="trabajos-titulo">
+        <div class="galeria-contenedor">
+          <div class="galeria-presentacion">
+            <div>
+              <p class="galeria-micro">TRABAJOS MODEC</p>
+              <h2 id="trabajos-titulo">INSPIRACIÓN REAL</h2>
+            </div>
+            <p>Explora por categoría y selecciona una fotografía para verla con más detalle.</p>
+          </div>
+
+          <div class="galeria-filtros" role="group" aria-label="Filtrar fotografías por categoría">
+            <button type="button" class="galeria-filtro seleccionado" data-filtro="todos" aria-pressed="true">Todos</button>
+            {categoriasCatalogo.map(({ nombre, slug }) => (
+              <button type="button" class="galeria-filtro" data-filtro={slug} aria-pressed="false">{nombre}</button>
+            ))}
+          </div>
+
+          <p id="galeria-estado" class="galeria-estado" role="status" aria-live="polite"></p>
+
+          <div class="galeria-mosaico" id="galeria-mosaico">
+            {trabajosGaleria.map((trabajo, index) => (
+              <button
+                class:list={{ 'galeria-tarjeta': true, 'galeria-destacada': index === 0, 'galeria-ancha': index === 3 }}
+                type="button"
+                data-categoria={trabajo.categoria}
+                data-imagen={trabajo.imagen}
+                data-titulo={trabajo.titulo}
+                data-alt={trabajo.alt}
+                aria-label={`Ampliar ${trabajo.titulo}`}
+              >
+                <span class="galeria-placeholder" aria-hidden="true">
+                  <span>MODEC</span>
+                  <small>Fotografía pendiente</small>
+                </span>
+                <img src={trabajo.imagen} alt={trabajo.alt} width="900" height="680" loading="lazy" decoding="async" />
+                <span class="galeria-tarjeta-pie">
+                  <span class="galeria-tarjeta-texto">
+                    <span class="galeria-tarjeta-categoria">{nombresCategorias.get(trabajo.categoria)}</span>
+                    <strong>{trabajo.titulo}</strong>
+                  </span>
+                  <span class="galeria-expandir" aria-hidden="true">↗</span>
+                </span>
+              </button>
+            ))}
+          </div>
+          <p class="galeria-vacia" hidden>No hay fotografías de esta categoría por el momento.</p>
+        </div>
+      </section>
+
+      <section class="galeria-cta" aria-labelledby="galeria-cta-titulo">
+        <div class="galeria-cta-interior">
+          <div>
+            <p class="galeria-micro">TU ESPACIO, TU ESTILO</p>
+            <h2 id="galeria-cta-titulo">¿TIENES UN PROYECTO EN MENTE?</h2>
+            <p>Cuéntanos qué necesitas y te ayudamos a encontrar una solución a tu medida.</p>
+          </div>
+          <a href={cotizar('Hola, vi la galería de trabajos de MODEC y quiero solicitar una cotización.')} target="_blank" rel="noopener noreferrer">Solicitar cotización <span aria-hidden="true">↗</span></a>
+        </div>
+      </section>
+    </main>
+    <PiePagina />
+    <BotonWhatsApp />
+  </div>
+</Layout>
+
+<!-- El diálogo se coloca fuera del contenedor principal para evitar recortes de posición. -->
+<dialog class="galeria-modal" id="galeria-modal" aria-label="Fotografía ampliada del proyecto">
+  <div class="galeria-modal-contenido">
+    <button type="button" class="galeria-modal-cerrar" aria-label="Cerrar fotografía">×</button>
+    <button type="button" class="galeria-modal-anterior" aria-label="Fotografía anterior">←</button>
+    <figure>
+      <img class="galeria-modal-imagen" src="/images/galeria.webp" alt="" />
+      <figcaption class="galeria-modal-titulo"></figcaption>
+    </figure>
+    <button type="button" class="galeria-modal-siguiente" aria-label="Fotografía siguiente">→</button>
+  </div>
+</dialog>
+
+<script>
+  const filtros = Array.from(document.querySelectorAll<HTMLButtonElement>('.galeria-filtro'));
+  const tarjetas = Array.from(document.querySelectorAll<HTMLButtonElement>('.galeria-tarjeta'));
+  const estado = document.querySelector<HTMLElement>('#galeria-estado');
+  const vacia = document.querySelector<HTMLElement>('.galeria-vacia');
+  const modal = document.querySelector<HTMLDialogElement>('#galeria-modal');
+  const imagenGrande = modal?.querySelector<HTMLImageElement>('.galeria-modal-imagen');
+  const tituloGrande = modal?.querySelector<HTMLElement>('.galeria-modal-titulo');
+  const cerrar = modal?.querySelector<HTMLButtonElement>('.galeria-modal-cerrar');
+  const anterior = modal?.querySelector<HTMLButtonElement>('.galeria-modal-anterior');
+  const siguiente = modal?.querySelector<HTMLButtonElement>('.galeria-modal-siguiente');
+
+  let seleccionadas: HTMLButtonElement[] = [];
+  let indiceActual = 0;
+  let tarjetaAnterior: HTMLButtonElement | null = null;
+
+  const actualizarFiltro = (categoria: string): void => {
+    filtros.forEach(boton => {
+      const activo = boton.dataset.filtro === categoria;
+      boton.classList.toggle('seleccionado', activo);
+      boton.setAttribute('aria-pressed', String(activo));
+    });
+
+    tarjetas.forEach(tarjeta => {
+      tarjeta.hidden = categoria !== 'todos' && tarjeta.dataset.categoria !== categoria;
+    });
+
+    seleccionadas = tarjetas.filter(tarjeta => !tarjeta.hidden && !tarjeta.disabled);
+    const visibles = tarjetas.filter(tarjeta => !tarjeta.hidden).length;
+    if (estado) estado.textContent = `${visibles} ${visibles === 1 ? 'proyecto' : 'proyectos'} en esta selección`;
+    if (vacia) vacia.hidden = visibles > 0;
+  };
+
+  filtros.forEach(boton => {
+    boton.addEventListener('click', () => actualizarFiltro(boton.dataset.filtro ?? 'todos'));
+  });
+
+  // Si una imagen no existe, conservar el marcador y desactivar su ampliación.
+  tarjetas.forEach(tarjeta => {
+    const imagen = tarjeta.querySelector<HTMLImageElement>('img');
+    if (!imagen) return;
+    const cargada = (): void => tarjeta.classList.add('imagen-lista');
+    const error = (): void => {
+      tarjeta.classList.remove('imagen-lista');
+      tarjeta.disabled = true;
+      seleccionadas = seleccionadas.filter(item => item !== tarjeta);
+    };
+    imagen.addEventListener('load', cargada);
+    imagen.addEventListener('error', error);
+    if (imagen.complete) (imagen.naturalWidth > 0 ? cargada : error)();
+  });
+
+  const mostrar = (indice: number): void => {
+    if (!imagenGrande || !tituloGrande || seleccionadas.length === 0) return;
+    indiceActual = (indice + seleccionadas.length) % seleccionadas.length;
+    const tarjeta = seleccionadas[indiceActual];
+    imagenGrande.src = tarjeta.dataset.imagen ?? '';
+    imagenGrande.alt = tarjeta.dataset.alt ?? '';
+    tituloGrande.textContent = tarjeta.dataset.titulo ?? '';
+    if (anterior) anterior.hidden = seleccionadas.length < 2;
+    if (siguiente) siguiente.hidden = seleccionadas.length < 2;
+  };
+
+  tarjetas.forEach(tarjeta => {
+    tarjeta.addEventListener('click', () => {
+      if (tarjeta.disabled || !modal) return;
+      seleccionadas = tarjetas.filter(item => !item.hidden && !item.disabled);
+      const indice = seleccionadas.indexOf(tarjeta);
+      if (indice === -1) return;
+      tarjetaAnterior = tarjeta;
+      mostrar(indice);
+      if (!modal.open) modal.showModal();
+    });
+  });
+
+  anterior?.addEventListener('click', () => mostrar(indiceActual - 1));
+  siguiente?.addEventListener('click', () => mostrar(indiceActual + 1));
+  cerrar?.addEventListener('click', () => modal?.close());
+
+  modal?.addEventListener('click', evento => {
+    if (evento.target === modal) modal.close();
+  });
+  modal?.addEventListener('keydown', evento => {
+    if (evento.key === 'ArrowLeft') { evento.preventDefault(); mostrar(indiceActual - 1); }
+    if (evento.key === 'ArrowRight') { evento.preventDefault(); mostrar(indiceActual + 1); }
+  });
+  modal?.addEventListener('close', () => tarjetaAnterior?.focus());
+
+  actualizarFiltro('todos');
+</script>
+
+<style>
+  .galeria-portada {
+    position: relative;
+    background:
+      linear-gradient(rgba(0, 0, 0, .70), rgba(0, 0, 0, .80)),
+      url('/images/trabajos/portada.webp') center / cover no-repeat;
+    background-color: var(--negro);
+    color: var(--blanco);
+    overflow: hidden;
+  }
+  .galeria-portada::after { content: ''; position: absolute; right: -7%; top: -90px; width: 35%; height: 130%; transform: rotate(19deg); background: var(--naranja); opacity: .85; pointer-events: none; }
+  .galeria-portada-interior { position: relative; z-index: 1; max-width: 1300px; width: calc(100% - 48px); margin-inline: auto; padding: 28px 0 90px; }
+  .galeria-migas { display: flex; gap: 12px; align-items: center; font: 400 12px var(--fuente-textos); }
+  .galeria-migas a { color: inherit; text-decoration: none; }
+  .galeria-migas a:hover { color: var(--primario); }
+  .galeria-sello { margin: 80px 0 14px; font: 700 11px var(--fuente-textos); letter-spacing: .14em; }
+  .galeria-portada h1 { position: relative; margin: 0; max-width: 980px; font: 400 clamp(48px, 8vw, 100px)/1.05 var(--fuente-titulos); overflow-wrap: normal; }
+  .galeria-portada h1 span { display: block; color: var(--primario); }
+  .galeria-intro { max-width: 560px; margin: 23px 0; font: 400 14px/1.8 var(--fuente-textos); }
+  .galeria-bajar { display: inline-flex; gap: 25px; align-items: center; color: var(--primario); text-decoration: none; font: 600 13px var(--fuente-textos); }
+  .galeria-adornos { position: absolute; right: 4%; bottom: 45px; writing-mode: vertical-rl; font: 700 14px var(--fuente-textos); letter-spacing: .2em; color: var(--negro); }
+  .galeria-seccion { background: var(--blanco); padding: 65px 24px 85px; }
+  .galeria-contenedor { max-width: 1300px; margin-inline: auto; }
+  .galeria-presentacion { display: flex; align-items: end; justify-content: space-between; gap: 40px; margin-bottom: 34px; }
+  .galeria-micro { margin: 0 0 12px; font: 700 11px var(--fuente-textos); letter-spacing: .12em; }
+  .galeria-presentacion h2 { margin: 0; font: 400 clamp(30px, 4vw, 48px)/1.15 var(--fuente-titulos); color: var(--negro); }
+  .galeria-presentacion > p { margin: 0; max-width: 340px; font: 400 13px/1.7 var(--fuente-textos); }
+  .galeria-filtros { display: flex; flex-wrap: wrap; gap: 9px; margin: 0 0 15px; }
+  .galeria-filtro { min-height: 42px; padding: 10px 17px; border: 1px solid var(--negro); border-radius: 999px; color: var(--negro); background: transparent; font: 600 12px var(--fuente-textos); cursor: pointer; transition: background-color .2s ease; }
+  .galeria-filtro.seleccionado, .galeria-filtro:hover { background: var(--primario); }
+  .galeria-estado { margin: 0 0 22px; font: 400 12px var(--fuente-textos); }
+  .galeria-mosaico { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: 180px; grid-auto-flow: dense; gap: 12px; }
+  .galeria-tarjeta { position: relative; min-width: 0; min-height: 0; border: 0; padding: 0; overflow: hidden; background: var(--negro); color: var(--blanco); cursor: zoom-in; text-align: left; border-radius: 10px; }
+  .galeria-tarjeta[hidden] { display: none !important; }
+  .galeria-tarjeta:disabled { cursor: default; }
+  .galeria-destacada { grid-column: span 2; grid-row: span 2; }
+  .galeria-ancha { grid-column: span 2; }
+  .galeria-tarjeta img { display: block; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: transform .45s ease, opacity .2s ease; }
+  .galeria-tarjeta.imagen-lista img { opacity: 1; }
+  .galeria-placeholder { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; color: var(--blanco); }
+  .galeria-placeholder > span { font: 400 38px var(--fuente-titulos); }
+  .galeria-placeholder small { font: 400 11px var(--fuente-textos); }
+  .galeria-tarjeta-pie { position: absolute; bottom: 0; left: 0; right: 0; padding: 45px 16px 16px; display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; background: linear-gradient(transparent, rgb(0 0 0 / 85%)); }
+  .galeria-tarjeta-texto { display: grid; gap: 5px; font-family: var(--fuente-textos); }
+  .galeria-tarjeta-categoria { font-size: 10px; text-transform: uppercase; letter-spacing: .1em; }
+  .galeria-tarjeta-texto strong { font-size: 14px; }
+  .galeria-expandir { font-size: 24px; }
+  .galeria-vacia { font: 400 14px var(--fuente-textos); }
+  .galeria-cta { background: var(--primario); padding: 46px 24px; }
+  .galeria-cta-interior { max-width: 1300px; margin: auto; display: flex; align-items: center; justify-content: space-between; gap: 35px; }
+  .galeria-cta h2 { margin: 0; font: 400 clamp(27px, 3vw, 43px) var(--fuente-titulos); }
+  .galeria-cta p:last-child { font: 400 13px/1.7 var(--fuente-textos); }
+  .galeria-cta a { flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 14px 23px; background: var(--negro); color: var(--blanco); text-decoration: none; font: 600 13px var(--fuente-textos); }
+  .galeria-modal { max-width: min(1100px, 94vw); max-height: 94vh; padding: 0; border: 2px solid var(--primario); background: var(--negro); color: var(--blanco); }
+  .galeria-modal::backdrop { background: rgb(0 0 0 / 85%); }
+  .galeria-modal-contenido { display: flex; align-items: center; gap: 12px; padding: 48px 16px 18px; }
+  .galeria-modal figure { margin: 0; min-width: 0; display: grid; gap: 12px; }
+  .galeria-modal-imagen { display: block; max-width: min(850px, 70vw); max-height: 72vh; width: auto; height: auto; object-fit: contain; }
+  .galeria-modal-titulo { text-align: center; font: 600 13px var(--fuente-textos); }
+  .galeria-modal button { flex: 0 0 auto; width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--blanco); background: var(--negro); color: var(--blanco); font-size: 22px; cursor: pointer; }
+  .galeria-modal .galeria-modal-cerrar { position: absolute; top: 6px; right: 8px; }
+  .galeria-modal :is(button, a):focus-visible, .galeria-filtro:focus-visible, .galeria-tarjeta:focus-visible { outline: 3px solid var(--primario); outline-offset: 3px; }
+  @media (hover: hover) and (pointer: fine) { .galeria-tarjeta:not(:disabled):hover img { transform: scale(1.055); } .galeria-cta a:hover { background: var(--naranja); color: var(--negro); } .galeria-modal button:hover { background: var(--primario); color: var(--negro); } }
+  @media (max-width: 850px) { .galeria-mosaico { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: 160px; } .galeria-presentacion { align-items: flex-start; flex-direction: column; gap: 12px; } }
+  @media (max-width: 600px) { .galeria-portada-interior { width: calc(100% - 32px); padding-bottom: 65px; } .galeria-sello { margin-top: 65px; } .galeria-portada h1 { font-size: clamp(43px, 10vw, 65px); } .galeria-portada::after { opacity: .3; } .galeria-adornos { display: none; } .galeria-seccion { padding: 48px 14px 65px; } .galeria-mosaico { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 130px; gap: 8px; } .galeria-destacada { grid-column: span 2; grid-row: span 2; } .galeria-ancha { grid-column: span 2; } .galeria-filtro { padding: 9px 12px; font-size: 11px; } .galeria-cta { padding: 42px 16px; } .galeria-cta-interior { flex-direction: column; align-items: stretch; } .galeria-cta a { justify-content: center; } .galeria-modal-contenido { gap: 5px; padding-inline: 7px; } .galeria-modal-imagen { max-width: 68vw; } .galeria-modal button { width: 32px; height: 32px; font-size: 17px; } }
+  @media (prefers-reduced-motion: reduce) { .galeria-tarjeta img, .galeria-filtro { transition: none; } }
+</style>

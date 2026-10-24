@@ -14,7 +14,7 @@ const categorias = categoriasCatalogo.map((categoria) => {
   return {
     ...categoria,
     descripcion: informacion?.descripcion ?? 'Soluciones decorativas para tu espacio.',
-    imagen: informacion?.foto ? `/images/productos/${informacion.foto}` : '',
+    imagen: informacion?.foto ? `/images/${informacion.foto}` : '',
     href: `/productos/${categoria.slug}`,
   };
 });
@@ -122,47 +122,57 @@ const etiquetas = ['Control de luz', 'Textiles', 'Acabados', 'Diseño interior',
 
 <style>
   .catalogo-contenedor, .catalogo-portada-interior { width: min(1300px, calc(100% - 48px)); margin-inline: auto; }
-  .catalogo-portada { background: #211916; color: #fff; position: relative; overflow: hidden; }
-  .catalogo-portada::after { content: ''; position: absolute; width: 420px; height: 420px; border: 1px solid rgba(252,192,9,.17); border-radius: 50%; top: -160px; right: -110px; pointer-events: none; }
+  /* Imagen en public/images/catalogo/portada-general.webp */
+  .catalogo-portada {
+    background-color: var(--negro);
+    background-image: linear-gradient(90deg, rgba(0, 0, 0, .86) 0%, rgba(0, 0, 0, .65) 52%, rgba(0, 0, 0, .38) 100%), url('/images/catalogo/portada-general.webp');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: var(--blanco);
+    position: relative;
+    overflow: hidden;
+  }
+  .catalogo-portada::after { content: ''; position: absolute; width: 420px; height: 420px; border: 1px solid rgba(252, 192, 9, .17); border-radius: 50%; top: -160px; right: -110px; pointer-events: none; }
   .catalogo-portada-interior { position: relative; z-index: 1; padding-block: 24px 85px; }
-  .catalogo-migas { display: flex; gap: 12px; align-items: center; color: #c5b6af; font: 400 12px var(--fuente-textos); }
-  .catalogo-migas a { color: #f2e8df; text-decoration: none; }
+  .catalogo-migas { display: flex; gap: 12px; align-items: center; color: var(--blanco); font: 400 12px var(--fuente-textos); }
+  .catalogo-migas a { color: var(--blanco); text-decoration: none; }
   .catalogo-migas a:hover { color: var(--primario); }
   .catalogo-portada-contenido { display: flex; align-items: end; justify-content: space-between; gap: 32px; margin-top: 76px; }
   .catalogo-ceja { margin: 0 0 18px; color: var(--primario); letter-spacing: .18em; font: 700 11px var(--fuente-textos); }
   .catalogo-portada h1 { margin: 0; font: 400 clamp(47px, 7vw, 100px)/.99 var(--fuente-titulos); letter-spacing: -.025em; }
   .catalogo-portada h1 em { color: var(--primario); font-style: normal; }
-  .catalogo-introduccion { max-width: 555px; margin: 24px 0 27px; color: #e0d8d3; font: 400 14px/1.85 var(--fuente-textos); }
-  .catalogo-enlace-portada { display: inline-flex; align-items: center; gap: 26px; border-bottom: 1px solid var(--primario); padding-bottom: 9px; color: #fff; font: 600 13px var(--fuente-textos); text-decoration: none; }
+  .catalogo-introduccion { max-width: 555px; margin: 24px 0 27px; color: var(--blanco); font: 400 14px/1.85 var(--fuente-textos); }
+  .catalogo-enlace-portada { display: inline-flex; align-items: center; gap: 26px; border-bottom: 1px solid var(--primario); padding-bottom: 9px; color: var(--blanco); font: 600 13px var(--fuente-textos); text-decoration: none; }
   .catalogo-enlace-portada span { color: var(--primario); font-size: 21px; }
-  .catalogo-portada-ornamento { display: flex; flex-direction: column; align-items: end; gap: 15px; flex-shrink: 0; padding-bottom: 20px; color: #d7c9c1; font: 500 10px var(--fuente-textos); letter-spacing: .12em; }
-  .catalogo-portada-ornamento span:first-child { font: 400 60px var(--fuente-titulos); color: rgba(255,255,255,.13); letter-spacing: 0; }
+  .catalogo-portada-ornamento { display: flex; flex-direction: column; align-items: end; gap: 15px; flex-shrink: 0; padding-bottom: 20px; color: var(--blanco); font: 500 10px var(--fuente-textos); letter-spacing: .12em; }
+  .catalogo-portada-ornamento span:first-child { font: 400 60px var(--fuente-titulos); color: rgba(229, 228, 225, .20); letter-spacing: 0; }
   .catalogo-ornamento-linea { height: 1px; width: 180px; background: var(--primario); }
-  .catalogo-seccion { background: #f5f3ef; padding: 85px 0 75px; }
+  .catalogo-seccion { background: var(--blanco); padding: 85px 0 75px; }
   .catalogo-seccion-encabezado { display: flex; justify-content: space-between; align-items: end; gap: 35px; margin-bottom: 36px; }
-  .catalogo-ceja-oscura { color: #986400; }
-  .catalogo-seccion-encabezado h2, .catalogo-asesoria h2 { margin: 0; font: 400 clamp(29px, 3.6vw, 46px)/1.12 var(--fuente-titulos); color: #241c17; }
-  .catalogo-seccion-encabezado > p { margin: 0; max-width: 330px; color: #61564e; font: 400 13px/1.75 var(--fuente-textos); }
+  .catalogo-ceja-oscura { color: var(--negro); }
+  .catalogo-seccion-encabezado h2, .catalogo-asesoria h2 { margin: 0; font: 400 clamp(29px, 3.6vw, 46px)/1.12 var(--fuente-titulos); color: var(--negro); }
+  .catalogo-seccion-encabezado > p { margin: 0; max-width: 330px; color: var(--negro); font: 400 13px/1.75 var(--fuente-textos); }
   .catalogo-cuadricula { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 15px; }
-  .catalogo-tarjeta { position: relative; display: block; grid-column: span 2; min-width: 0; min-height: 360px; overflow: hidden; background: #77675a; color: white; border-radius: 9px; isolation: isolate; text-decoration: none; }
+  .catalogo-tarjeta { position: relative; display: block; grid-column: span 2; min-width: 0; min-height: 360px; overflow: hidden; background: var(--negro); color: var(--blanco); border-radius: 9px; isolation: isolate; text-decoration: none; }
   .catalogo-tarjeta-grande { grid-column: span 3; min-height: 420px; }
   .catalogo-tarjeta img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .55s ease; }
   .catalogo-tarjeta-sombra { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.22), rgba(0,0,0,.03) 35%, rgba(0,0,0,.79) 100%); z-index: 1; }
   .catalogo-tarjeta-numero { position: absolute; top: 23px; left: 23px; z-index: 2; font: 500 11px var(--fuente-textos); letter-spacing: .16em; }
   .catalogo-tarjeta-contenido { position: absolute; left: 24px; right: 70px; bottom: 27px; z-index: 2; display: flex; flex-direction: column; gap: 9px; }
-  .catalogo-tarjeta-etiqueta { font: 600 11px var(--fuente-textos); color: #ffe5a0; letter-spacing: .08em; text-transform: uppercase; }
+  .catalogo-tarjeta-etiqueta { font: 600 11px var(--fuente-textos); color: var(--primario); letter-spacing: .08em; text-transform: uppercase; }
   .catalogo-tarjeta-titulo { font: 400 clamp(24px, 2.5vw, 36px)/1.12 var(--fuente-titulos); text-transform: uppercase; }
-  .catalogo-tarjeta-descripcion { font: 400 12px/1.55 var(--fuente-textos); color: #f2eae6; }
-  .catalogo-tarjeta-flecha { position: absolute; bottom: 27px; right: 24px; z-index: 2; display: grid; place-items: center; width: 40px; height: 40px; background: var(--primario); color: #18130d; border-radius: 50%; font-size: 21px; transition: transform .25s ease; }
-  .catalogo-nota { margin: 25px 0 0; color: #63574f; text-align: center; font: 400 12px/1.7 var(--fuente-textos); }
-  .catalogo-asesoria { background: #fcc009; padding: 49px 0; }
+  .catalogo-tarjeta-descripcion { font: 400 12px/1.55 var(--fuente-textos); color: var(--blanco); }
+  .catalogo-tarjeta-flecha { position: absolute; bottom: 27px; right: 24px; z-index: 2; display: grid; place-items: center; width: 40px; height: 40px; background: var(--primario); color: var(--negro); border-radius: 50%; font-size: 21px; transition: transform .25s ease; }
+  .catalogo-nota { margin: 25px 0 0; color: var(--negro); text-align: center; font: 400 12px/1.7 var(--fuente-textos); }
+  .catalogo-asesoria { background: var(--primario); padding: 49px 0; }
   .catalogo-asesoria-interior { display: flex; justify-content: space-between; align-items: center; gap: 40px; }
   .catalogo-asesoria h2 { max-width: 640px; font-size: clamp(27px, 3vw, 40px); }
-  .catalogo-asesoria p:not(.catalogo-ceja) { margin: 14px 0 0; max-width: 650px; font: 400 13px/1.75 var(--fuente-textos); color: #4c3a20; }
-  .catalogo-boton { flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; gap: 24px; padding: 15px 24px; min-height: 48px; background: #211916; border-radius: 30px; color: #fff !important; text-decoration: none; font: 600 13px var(--fuente-textos); }
+  .catalogo-asesoria p:not(.catalogo-ceja) { margin: 14px 0 0; max-width: 650px; font: 400 13px/1.75 var(--fuente-textos); color: var(--negro); }
+  .catalogo-boton { flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; gap: 24px; padding: 15px 24px; min-height: 48px; background: var(--negro); border-radius: 30px; color: var(--blanco) !important; text-decoration: none; font: 600 13px var(--fuente-textos); }
   .catalogo-boton span { font-size: 18px; }
-  .catalogo-tarjeta:focus-visible, .catalogo-boton:focus-visible, .catalogo-enlace-portada:focus-visible { outline: 3px solid #f4981a; outline-offset: 4px; }
-  @media (hover: hover) and (pointer: fine) { .catalogo-tarjeta:hover img { transform: scale(1.055); } .catalogo-tarjeta:hover .catalogo-tarjeta-flecha { transform: translate(3px,-3px); } .catalogo-boton:hover { background: #3a2a23; } }
+  .catalogo-tarjeta:focus-visible, .catalogo-boton:focus-visible, .catalogo-enlace-portada:focus-visible { outline: 3px solid var(--naranja); outline-offset: 4px; }
+  @media (hover: hover) and (pointer: fine) { .catalogo-tarjeta:hover img { transform: scale(1.055); } .catalogo-tarjeta:hover .catalogo-tarjeta-flecha { transform: translate(3px,-3px); } .catalogo-boton:hover { background: var(--negro); } }
   @media (max-width: 960px) { .catalogo-tarjeta, .catalogo-tarjeta-grande { grid-column: span 3; min-height: 340px; } .catalogo-tarjeta:last-child { grid-column: span 6; min-height: 310px; } .catalogo-portada-ornamento { display: none; } }
   @media (max-width: 650px) { .catalogo-contenedor, .catalogo-portada-interior { width: min(100% - 30px, 1300px); } .catalogo-portada-interior { padding-bottom: 58px; } .catalogo-portada-contenido { margin-top: 48px; } .catalogo-portada h1 { font-size: clamp(43px, 12vw, 62px); } .catalogo-introduccion { font-size: 13px; } .catalogo-seccion { padding: 56px 0; } .catalogo-seccion-encabezado { flex-direction: column; align-items: flex-start; gap: 12px; } .catalogo-cuadricula { grid-template-columns: 1fr; gap: 13px; } .catalogo-tarjeta, .catalogo-tarjeta-grande, .catalogo-tarjeta:last-child { grid-column: 1; min-height: 330px; } .catalogo-tarjeta-titulo { font-size: 30px; } .catalogo-asesoria { padding: 45px 0; } .catalogo-asesoria-interior { flex-direction: column; align-items: flex-start; gap: 22px; } .catalogo-boton { width: 100%; } }
   @media (prefers-reduced-motion: reduce) { .catalogo-tarjeta img, .catalogo-tarjeta-flecha { transition: none; } }

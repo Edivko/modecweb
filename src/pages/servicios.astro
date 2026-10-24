@@ -1,0 +1,192 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Encabezado from '../components/Encabezado.astro';
+import PiePagina from '../components/PiePagina.astro';
+import BotonWhatsApp from '../components/BotonWhatsApp.astro';
+import { cotizar } from '../data/modec';
+import '../styles/global.css';
+import '../styles/modec.css';
+
+const servicios = [
+  {
+    id: 'reparacion-persianas',
+    numero: '01',
+    nombre: 'Reparación de persianas',
+    descripcion: 'Revisión de mecanismos, ajustes y evaluación de piezas para recuperar el funcionamiento de tus persianas.',
+    icono: 'persianas'
+  },
+  {
+    id: 'reparacion-pisos',
+    numero: '02',
+    nombre: 'Reparación de pisos',
+    descripcion: 'Evaluación de áreas dañadas y orientación sobre las opciones de reparación de pisos y acabados.',
+    icono: 'pisos'
+  },
+  {
+    id: 'instalacion',
+    numero: '03',
+    nombre: 'Instalación',
+    descripcion: 'Colocación de productos y acabados, con atención a las medidas, los detalles y el resultado final.',
+    icono: 'instalacion'
+  },
+  {
+    id: 'mantenimiento',
+    numero: '04',
+    nombre: 'Mantenimiento',
+    descripcion: 'Revisión, ajustes y recomendaciones de cuidado para conservar tus productos en buenas condiciones.',
+    icono: 'mantenimiento'
+  },
+  {
+    id: 'motorizacion',
+    numero: '05',
+    nombre: 'Motorización',
+    descripcion: 'Asesoría para integrar sistemas motorizados compatibles y facilitar el accionamiento de tus persianas.',
+    icono: 'motorizacion'
+  }
+];
+---
+
+<Layout title="Servicios | MODEC">
+  <div class="modec">
+    <Encabezado />
+    <main>
+      <section class="servicios-portada" aria-labelledby="titulo-servicios">
+        <div class="servicios-fondo" aria-hidden="true"></div>
+        <div class="servicios-oscurecer" aria-hidden="true"></div>
+        <div class="servicios-portada-interior">
+          <nav class="servicios-ruta" aria-label="Ruta de navegación">
+            <a href="/">Inicio</a><span aria-hidden="true">/</span><span aria-current="page">Servicios</span>
+          </nav>
+          <div class="servicios-hero-textos">
+            <p class="servicios-micro">MODEC · ATENCIÓN ESPECIALIZADA</p>
+            <h1 id="titulo-servicios">NUESTROS<br /><em>SERVICIOS</em></h1>
+            <span class="servicios-linea" aria-hidden="true"></span>
+            <p>Atención para la instalación, reparación, mantenimiento y motorización de tus espacios.</p>
+            <a href="#lista-servicios" class="servicios-descubrir">Conocer servicios <span aria-hidden="true">↓</span></a>
+          </div>
+          <span class="servicios-firma" aria-hidden="true">MODEC</span>
+        </div>
+      </section>
+
+      <section class="servicios-listado" id="lista-servicios" aria-labelledby="titulo-listado">
+        <div class="servicios-listado-interior">
+          <div class="servicios-introduccion">
+            <div>
+              <p class="servicios-micro servicios-micro-oscuro">¿EN QUÉ PODEMOS AYUDARTE?</p>
+              <h2 id="titulo-listado">SOLUCIONES PARA <span>CADA ESPACIO</span></h2>
+            </div>
+            <p>Te acompañamos para identificar el servicio adecuado según las necesidades de tu proyecto.</p>
+          </div>
+
+          <div class="servicios-grid">
+            {servicios.map((servicio) => (
+              <article class="servicio-tarjeta" id={servicio.id}>
+                <div class="servicio-superior">
+                  <span class="servicio-numero">{servicio.numero} / 05</span>
+                  <span class="servicio-adorno" aria-hidden="true"></span>
+                </div>
+                <div class="servicio-cuerpo">
+                  <h3>{servicio.nombre}</h3>
+                  <p>{servicio.descripcion}</p>
+                </div>
+                <div class="servicio-inferior">
+                  <a
+                    href={cotizar(`Hola, me gustaría recibir información sobre el servicio de ${servicio.nombre.toLowerCase()}.`)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Consultar por WhatsApp sobre ${servicio.nombre}`}
+                  >
+                    <span class="servicio-flecha" aria-hidden="true">↗</span>
+                    <span>Consultar servicio</span>
+                  </a>
+                  <span class="servicio-simbolo" aria-hidden="true">
+                    {servicio.icono === 'persianas' && <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2"><rect x="12" y="10" width="40" height="44" rx="2"/><path d="M12 20h40M12 30h40M12 40h40M12 50h40M45 10v44"/></svg>}
+                    {servicio.icono === 'pisos' && <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2"><path d="m7 20 25-13 25 13-25 13L7 20Zm0 12 25 13 25-13M7 44l25 13 25-13M32 33v24"/></svg>}
+                    {servicio.icono === 'instalacion' && <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2"><path d="m11 51 23-23M29 19l16-9 9 9-9 16-16-16ZM11 51l-3 5 5-3M22 40l9 9M38 13l13 13"/></svg>}
+                    {servicio.icono === 'mantenimiento' && <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2"><path d="M51 21a17 17 0 0 0-22-10l10 10-9 9-10-10A17 17 0 0 0 43 42L55 54l-9 9-14-14"/></svg>}
+                    {servicio.icono === 'motorizacion' && <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2"><rect x="10" y="17" width="44" height="30" rx="5"/><path d="M18 17v30M45 17v30M30 24l-6 10h8l-5 8"/></svg>}
+                  </span>
+                </div>
+              </article>
+            ))}
+            <a class="servicio-tarjeta servicio-contacto" href={cotizar('Hola, me gustaría recibir asesoría sobre los servicios de MODEC.')} target="_blank" rel="noopener noreferrer">
+              <span class="servicio-contacto-etiqueta">ATENCIÓN PERSONALIZADA</span>
+              <strong>¿NO SABES QUÉ SERVICIO NECESITAS?</strong>
+              <span class="servicio-contacto-cierre">Cuéntanos sobre tu proyecto <span aria-hidden="true">↗</span></span>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+    <PiePagina />
+    <BotonWhatsApp />
+  </div>
+</Layout>
+
+<style>
+  .servicios-portada { position: relative; min-height: 600px; overflow: hidden; background: var(--negro); color: var(--blanco); }
+  .servicios-fondo { position: absolute; inset: 0; background: url('/images/servicios.webp') center / cover no-repeat; }
+  .servicios-oscurecer { position: absolute; inset: 0; background: linear-gradient(90deg, var(--negro) 0%, rgb(0 0 0 / 90%) 23%, rgb(0 0 0 / 55%) 65%, rgb(0 0 0 / 30%) 100%); }
+  .servicios-portada-interior { position: relative; z-index: 1; width: min(1300px, calc(100% - 48px)); min-height: 600px; margin: 0 auto; padding: 26px 0 70px; display: flex; flex-direction: column; }
+  .servicios-ruta { display: flex; align-items: center; gap: 11px; font: 400 12px var(--fuente-textos); }
+  .servicios-ruta a { text-decoration: none; color: inherit; }
+  .servicios-ruta a:hover { color: var(--primario); }
+  .servicios-hero-textos { margin-top: auto; max-width: 750px; }
+  .servicios-micro { margin: 0; font: 700 11px var(--fuente-textos); letter-spacing: .13em; color: var(--primario); }
+  .servicios-hero-textos h1 { margin: 16px 0 18px; font: 400 clamp(54px, 7.4vw, 108px)/.97 var(--fuente-titulos); }
+  .servicios-hero-textos h1 em { font-style: normal; color: var(--primario); }
+  .servicios-linea { display: block; width: 110px; height: 2px; background: var(--primario); }
+  .servicios-hero-textos > p:last-of-type { max-width: 530px; margin: 22px 0 24px; font: 400 15px/1.7 var(--fuente-textos); }
+  .servicios-descubrir { display: inline-flex; align-items: center; gap: 24px; font: 600 13px var(--fuente-textos); color: var(--primario); text-decoration: none; }
+  .servicios-firma { position: absolute; right: 8px; bottom: 40px; writing-mode: vertical-rl; font: 700 14px var(--fuente-textos); letter-spacing: .25em; color: var(--primario); }
+
+  .servicios-listado { background: var(--blanco); color: var(--negro); padding: 74px 24px 95px; }
+  .servicios-listado-interior { max-width: 1300px; margin: 0 auto; }
+  .servicios-introduccion { display: flex; align-items: end; justify-content: space-between; gap: 32px; margin-bottom: 35px; }
+  .servicios-micro-oscuro { color: var(--negro); }
+  .servicios-introduccion h2 { max-width: 680px; margin: 12px 0 0; font: 400 clamp(32px, 4.2vw, 58px)/1.06 var(--fuente-titulos); }
+  .servicios-introduccion h2 span { color: var(--naranja); }
+  .servicios-introduccion > p { margin: 0 0 4px; max-width: 340px; font: 400 13px/1.75 var(--fuente-textos); }
+  .servicios-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 17px; }
+  .servicio-tarjeta { position: relative; display: flex; flex-direction: column; min-height: 270px; padding: 23px 24px 20px; background: var(--blanco); border: 1px solid rgb(0 0 0 / 14%); overflow: hidden; transition: transform .2s ease, box-shadow .2s ease; }
+  .servicio-tarjeta::before { content: ''; position: absolute; left: 0; top: 0; width: 100%; height: 3px; background: var(--naranja); transform: scaleX(0); transform-origin: left; transition: transform .2s ease; }
+  .servicio-superior { display: flex; justify-content: space-between; align-items: center; }
+  .servicio-numero { font: 600 11px var(--fuente-textos); letter-spacing: .1em; }
+  .servicio-adorno { width: 36px; height: 1px; background: var(--naranja); }
+  .servicio-cuerpo { position: relative; z-index: 1; margin-top: 21px; max-width: 320px; }
+  .servicio-cuerpo h3 { margin: 0 0 12px; font: 700 18px/1.3 var(--fuente-textos); }
+  .servicio-cuerpo p { margin: 0; font: 400 13px/1.7 var(--fuente-textos); }
+  .servicio-inferior { position: relative; z-index: 1; display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; margin-top: auto; padding-top: 24px; }
+  .servicio-inferior > a { display: inline-flex; align-items: center; gap: 12px; font: 600 12px var(--fuente-textos); text-decoration: none; color: var(--negro); }
+  .servicio-flecha { display: grid; place-items: center; width: 38px; height: 38px; flex-shrink: 0; border-radius: 50%; color: var(--negro); background: var(--primario); font-size: 18px; }
+  .servicio-simbolo { display: block; width: 75px; height: 75px; margin-right: -9px; margin-bottom: -12px; color: var(--naranja); opacity: .7; }
+  .servicio-simbolo svg { display: block; width: 100%; height: 100%; }
+  .servicio-contacto { justify-content: space-between; color: var(--blanco); background: var(--negro); text-decoration: none; }
+  .servicio-contacto-etiqueta { color: var(--primario); font: 700 11px var(--fuente-textos); letter-spacing: .1em; }
+  .servicio-contacto strong { max-width: 270px; margin: 24px 0; font: 400 clamp(25px, 2.8vw, 38px)/1.1 var(--fuente-titulos); }
+  .servicio-contacto-cierre { display: flex; justify-content: space-between; align-items: center; gap: 20px; font: 600 12px var(--fuente-textos); }
+  .servicio-contacto-cierre > span { display: grid; place-items: center; width: 40px; height: 40px; flex-shrink: 0; border-radius: 50%; background: var(--primario); color: var(--negro); font-size: 20px; }
+  @media (hover: hover) and (pointer: fine) {
+    .servicio-tarjeta:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgb(0 0 0 / 12%); }
+    .servicio-tarjeta:hover::before { transform: scaleX(1); }
+  }
+  .servicios-portada :is(a):focus-visible, .servicios-listado a:focus-visible { outline: 3px solid var(--primario); outline-offset: 4px; }
+  @media (max-width: 950px) {
+    .servicios-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .servicios-introduccion { align-items: start; }
+  }
+  @media (max-width: 650px) {
+    .servicios-portada, .servicios-portada-interior { min-height: 520px; }
+    .servicios-portada-interior { width: calc(100% - 32px); padding-bottom: 48px; }
+    .servicios-oscurecer { background: linear-gradient(90deg, rgb(0 0 0 / 92%), rgb(0 0 0 / 58%)); }
+    .servicios-hero-textos h1 { font-size: clamp(48px, 11vw, 72px); }
+    .servicios-hero-textos > p:last-of-type { font-size: 13px; }
+    .servicios-listado { padding: 52px 16px 65px; }
+    .servicios-introduccion { flex-direction: column; gap: 12px; }
+    .servicios-grid { grid-template-columns: 1fr; gap: 13px; }
+    .servicio-tarjeta { min-height: 245px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .servicio-tarjeta, .servicio-tarjeta::before { transition: none; }
+  }
+</style>

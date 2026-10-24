@@ -68,7 +68,7 @@ const redesActivas = negocio.redes.filter(red => red.url);
       <div class="pie-columna">
         <h2>Contacto</h2>
 
-        <a href={`tel:+${negocio.whatsapp}`}>
+        <a href={`tel:+52${negocio.telefono.replace(/\D/g, '')}`}>
           <span class="icono" aria-hidden="true">☎</span>
           {negocio.telefono}
         </a>
@@ -80,11 +80,10 @@ const redesActivas = negocio.redes.filter(red => red.url);
           </a>
         )}
 
-        <p>
+        <a href={negocio.ubicacionMaps} target="_blank" rel="noopener noreferrer">
           <span class="icono" aria-hidden="true">⌖</span>
-          Ecatepec de Morelos,<br />
-          Estado de México
-        </p>
+          Ver ubicación en Google Maps ↗
+        </a>
       </div>
 
       <!-- Atención -->
@@ -111,9 +110,6 @@ const redesActivas = negocio.redes.filter(red => red.url);
         © {anio} MODEC. Todos los derechos reservados.
       </p>
 
-      <a href="#inicio" class="volver-inicio">
-        Volver arriba ↑
-      </a>
     </div>
 
   </div>
@@ -291,16 +287,16 @@ const redesActivas = negocio.redes.filter(red => red.url);
   .pie-inferior {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     flex-wrap: wrap;
     gap: 16px;
+    text-align: center;
 
     padding-top: 22px;
     border-top: 1px var(--primario) solid;
   }
 
-  .pie-inferior p,
-  .volver-inicio {
+  .pie-inferior p {
     color: #BCA8A2;
     font-family: var(--fuente-textos);
     font-size: 11px;
@@ -312,8 +308,7 @@ const redesActivas = negocio.redes.filter(red => red.url);
      ================================== */
 
   @media (hover: hover) and (pointer: fine) {
-    .pie-columna a:hover,
-    .volver-inicio:hover {
+    .pie-columna a:hover {
       color: var(--primario);
     }
 
@@ -370,7 +365,7 @@ const redesActivas = negocio.redes.filter(red => red.url);
     }
     .pie-inferior {
       flex-direction: column;
-      align-items: flex-start;
+      align-items: center;
     }
   }
 

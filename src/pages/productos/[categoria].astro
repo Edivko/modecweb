@@ -20,7 +20,15 @@ export const getStaticPaths = (() =>
 interface Props { categoria: CategoriaCatalogo }
 const { categoria } = Astro.props;
 const informacion = productos.find(item => item.nombre === categoria.nombre);
-const portada = `/images/catalogo/${categoria.slug}/portada.webp`;
+// Reutilizamos las fotos ya existentes sin crear portadas duplicadas.
+const portadas: Record<string, string> = {
+  persianas: '/images/catalogo/persianas/portada.webp',
+  cortinas: '/images/cortinas.webp',
+  pisos: '/images/pisos.webp',
+  'decoracion-muros': '/images/muros.webp',
+  toldos: '/images/toldos.webp',
+};
+const portada = portadas[categoria.slug] ?? '/images/fondo_hero.webp';
 const descripcion = informacion?.descripcion ?? 'Soluciones de decoración para tus espacios.';
 ---
 
@@ -107,7 +115,7 @@ const descripcion = informacion?.descripcion ?? 'Soluciones de decoración para 
   .categoria-ruta a:hover { color: var(--primario); }
   .portada-textos { margin-top: 76px; max-width: 620px; }
   .portada-etiqueta { font: 700 11px var(--fuente-textos); letter-spacing: .13em; }
-  .portada-textos h1 { margin: 12px 0 15px; font: 400 clamp(51px, 7vw, 97px)/1 var(--fuente-titulos); text-transform: uppercase; overflow-wrap: anywhere; }
+  .portada-textos h1 { margin: 12px 0 15px; font: 400 clamp(42px, 5.4vw, 78px)/1.05 var(--fuente-titulos); text-transform: uppercase; overflow-wrap: normal; word-break: normal; }
   .portada-rayita { display: block; width: 100px; height: 2px; background: var(--primario); }
   .portada-textos > p:last-of-type { margin: 23px 0; max-width: 460px; font: 400 14px/1.75 var(--fuente-textos); }
   .portada-explorar { display: inline-flex; align-items: center; gap: 20px; color: var(--primario); font: 600 12px var(--fuente-textos); text-decoration: none; }

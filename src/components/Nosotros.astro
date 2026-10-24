@@ -1,6 +1,5 @@
 
 ---
-import { cotizar } from '../data/modec';
 
 const beneficios = [
   {
@@ -29,7 +28,7 @@ const beneficios = [
 
       <div class="foto-principal">
         <img
-          src="/images/nosotros.webp"
+          src="/images/persiana1.jpeg"
           alt="Proyecto de decoración de interiores de MODEC"
           width="700"
           height="800"
@@ -39,7 +38,7 @@ const beneficios = [
 
       <div class="foto-secundaria">
         <img
-          src="/images/fondo_hero.jpeg"
+          src="/images/muros.webp"
           alt="Persianas instaladas en un espacio interior"
           width="500"
           height="650"
@@ -88,11 +87,9 @@ const beneficios = [
       <div class="sobre-acciones">
         <a
           class="boton-conocer"
-          href={cotizar('Hola, me gustaría conocer más sobre MODEC y sus servicios.')}
-          target="_blank"
-          rel="noopener noreferrer"
+          href="/nosotros"
         >
-          Conoce más por WhatsApp
+          Conoce más sobre MODEC
           <span aria-hidden="true">↗</span>
         </a>
       </div>
@@ -143,7 +140,7 @@ const beneficios = [
   position: relative;
   overflow: hidden;
   border-radius: 12px;
-  background: #30201D;
+  background: var(--negro);
 }
 
 .foto-principal {
@@ -187,7 +184,7 @@ const beneficios = [
 .galeria-etiqueta p {
   font-family: var(--fuente-textos);
   font-size: 11px;
-  color: #FFFFFF;
+  color: var(--blanco);
   margin-top: 5px;
 }
 
@@ -206,7 +203,7 @@ const beneficios = [
   margin-bottom: 17px;
 
   border-radius: 4px;
-  background: rgba(247, 45, 0, 0.12);
+  background: rgba(252, 192, 9, 0.35);
   color:var(--negro);
 
   font-family: var(--fuente-textos);
@@ -286,7 +283,7 @@ const beneficios = [
 
 /* Título de la fortaleza */
 .sobre-tarjeta h3 {
-  color: #FFFFFF;
+  color: var(--blanco);
   font-family: var(--fuente-textos);
   font-size: 12px;
   font-weight: 700;
@@ -296,7 +293,7 @@ const beneficios = [
 
 /* Descripción */
 .sobre-tarjeta p {
-  color: #E5E4E1;
+  color: var(--blanco);
   font-family: var(--fuente-textos);
   font-size: 11px;
   line-height: 1.5;
@@ -323,7 +320,7 @@ const beneficios = [
   border-radius: 30px;
 
   background: var(--negro);
-  color: #FFFFFF;
+  color: var(--blanco);
 
   font-family: var(--fuente-textos);
   font-size: 13px;
@@ -351,7 +348,7 @@ const beneficios = [
 
   .sobre-tarjeta:hover {
     transform: translateY(-4px);
-    box-shadow: 0 10px 22px rgba(44, 27, 23, 0.18);
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18);
   }
 
   .boton-conocer:hover {

@@ -1,0 +1,230 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Encabezado from '../components/Encabezado.astro';
+import PiePagina from '../components/PiePagina.astro';
+import BotonWhatsApp from '../components/BotonWhatsApp.astro';
+import { cotizar } from '../data/modec';
+import '../styles/global.css';
+import '../styles/modec.css';
+
+// Fotografías existentes del proyecto. Puedes sustituirlas por trabajos reales.
+const imagenPortada = '/images/nosotros.webp';
+const imagenPrincipal = '/images/persiana1.jpeg';
+const imagenSecundaria = '/images/muros.webp';
+
+const principios = [
+  {
+    numero: '01',
+    titulo: 'Atención personalizada',
+    texto: 'Escuchamos las necesidades de cada cliente para proponer soluciones que se adapten a su espacio.'
+  },
+  {
+    numero: '02',
+    titulo: 'Pasión por el detalle',
+    texto: 'Cuidamos la elección de materiales, texturas y acabados para lograr espacios con identidad.'
+  },
+  {
+    numero: '03',
+    titulo: 'Diseño y funcionalidad',
+    texto: 'Buscamos el equilibrio entre estética, comodidad y las necesidades de cada proyecto.'
+  }
+];
+---
+
+<Layout title="Nosotros | MODEC — Decoración integral">
+  <div class="modec">
+    <Encabezado />
+
+    <main id="contenido-principal">
+      <section class="nosotros-portada" aria-labelledby="nosotros-titulo">
+        <img class="nosotros-fondo" src={imagenPortada} alt="" width="1600" height="900" decoding="async" />
+        <div class="nosotros-portada-capa" aria-hidden="true"></div>
+        <div class="nosotros-portada-contenido">
+          <nav class="nosotros-ruta" aria-label="Ruta de navegación">
+            <a href="/">Inicio</a>
+            <span aria-hidden="true">/</span>
+            <span aria-current="page">Nosotros</span>
+          </nav>
+          <p class="nosotros-portada-etiqueta">CONOCE MODEC</p>
+          <h1 id="nosotros-titulo">NUESTRA <span>HISTORIA</span></h1>
+          <span class="nosotros-raya" aria-hidden="true"></span>
+          <p>Creemos que cada detalle puede transformar un espacio y la forma en que lo vivimos.</p>
+        </div>
+      </section>
+
+      <section class="nosotros-intro" aria-labelledby="historia-titulo">
+        <div class="nosotros-contenedor">
+          <div class="nosotros-intro-grid">
+            <div class="nosotros-intro-titulos">
+              <p class="nosotros-sobretitulo">SOBRE NOSOTROS</p>
+              <h2 id="historia-titulo">LA PASIÓN POR <span>TRANSFORMAR ESPACIOS</span></h2>
+            </div>
+            <div class="nosotros-intro-texto">
+              <p>Todo comenzó con la firme convicción de que los espacios que habitamos influyen directamente en cómo nos sentimos y vivimos. MODEC nació de la pasión por los detalles: la luz adecuada que entra por una cortina, la textura cálida de un piso o la elegancia de un muro decorativo pueden transformar por completo un ambiente.</p>
+              <p>Lo que inició como un proyecto enfocado en vestir ventanas y dar vida a las paredes con acabados de calidad evolucionó hacia una propuesta integral de decoración. A lo largo de nuestra trayectoria hemos acompañado a familias y empresas a convertir sus espacios en lugares acogedores, funcionales y con personalidad.</p>
+              <p>Hoy combinamos soluciones actuales, como persianas motorizadas, lambrines y pisos decorativos, con una atención cercana y detallista. No solo ofrecemos elementos decorativos: ayudamos a dar forma a los lugares donde suceden los momentos importantes de la vida.</p>
+            </div>
+          </div>
+
+          <div class="nosotros-principios">
+            {principios.map((principio) => (
+              <article class="nosotros-principio">
+                <span class="principio-numero" aria-hidden="true">{principio.numero}</span>
+                <div>
+                  <h3>{principio.titulo}</h3>
+                  <p>{principio.texto}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <div class="nosotros-collage" aria-label="Fotografías de espacios decorados">
+            <figure class="collage-grande">
+              <img src={imagenPrincipal} alt="Persianas instaladas en un espacio interior" loading="lazy" decoding="async" width="1100" height="760" />
+              <figcaption>DETALLES QUE TRANSFORMAN</figcaption>
+            </figure>
+            <figure class="collage-pequeno">
+              <img src={imagenSecundaria} alt="Espacio interior con persianas" loading="lazy" decoding="async" width="750" height="570" />
+              <figcaption>DISEÑO A TU MEDIDA</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="nosotros-proposito" aria-labelledby="proposito-titulo">
+        <div class="nosotros-contenedor">
+          <div class="proposito-encabezado">
+            <p class="nosotros-sobretitulo">LO QUE NOS GUÍA</p>
+            <h2 id="proposito-titulo">NUESTRO <span>PROPÓSITO</span></h2>
+            <p>La esencia de MODEC está en crear espacios que combinen estilo, funcionalidad y bienestar.</p>
+          </div>
+          <div class="proposito-grid">
+            <article class="proposito-tarjeta">
+              <div class="proposito-cabecera">
+                <span class="proposito-numero">01 / MODEC</span>
+                <span class="proposito-simbolo" aria-hidden="true">↗</span>
+              </div>
+              <h3>MISIÓN</h3>
+              <p>Transformar espacios residenciales y comerciales mediante soluciones de decoración de interiores de alta calidad, funcionales y con estilo. Nos comprometemos a brindar un asesoramiento personalizado en cortinas, persianas y revestimientos, garantizando que cada proyecto refleje la personalidad, comodidad y elegancia que nuestros clientes merecen.</p>
+            </article>
+            <article class="proposito-tarjeta proposito-vision">
+              <div class="proposito-cabecera">
+                <span class="proposito-numero">02 / MODEC</span>
+                <span class="proposito-simbolo" aria-hidden="true">↗</span>
+              </div>
+              <h3>VISIÓN</h3>
+              <p>Ser reconocidos como la marca referente en decoración de interiores y revestimiento de espacios, destacando por la innovación en nuestros materiales, la excelencia en el servicio y la capacidad de crear ambientes que inspiran bienestar y distinción en cada detalle.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="nosotros-contactar" aria-labelledby="contactar-titulo">
+        <div class="nosotros-contenedor contactar-interior">
+          <div>
+            <p class="nosotros-sobretitulo">HAGAMOS REALIDAD TU IDEA</p>
+            <h2 id="contactar-titulo">TRANSFORMEMOS <span>TU ESPACIO</span></h2>
+          </div>
+          <a href={cotizar('Hola, conocí la historia de MODEC y me gustaría recibir asesoría para mi espacio.')} target="_blank" rel="noopener noreferrer">
+            Solicitar asesoría <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <PiePagina />
+    <BotonWhatsApp />
+  </div>
+</Layout>
+
+<style>
+  /* Identidad cromática MODEC: solo variables oficiales y sus transparencias. */
+  .nosotros-portada {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 560px;
+    background: var(--negro);
+    color: var(--blanco);
+    overflow: hidden;
+  }
+  .nosotros-fondo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .nosotros-portada-capa { position: absolute; inset: 0; background: linear-gradient(90deg, rgb(0 0 0 / 88%) 0%, rgb(0 0 0 / 66%) 55%, rgb(0 0 0 / 45%) 100%); }
+  .nosotros-portada-contenido { position: relative; z-index: 1; width: min(1300px, calc(100% - 48px)); margin-inline: auto; padding: 30px 0 66px; }
+  .nosotros-ruta { display: flex; gap: 12px; align-items: center; margin-bottom: 75px; font: 400 12px var(--fuente-textos); }
+  .nosotros-ruta a { color: inherit; text-decoration: none; }
+  .nosotros-ruta a:hover { color: var(--primario); }
+  .nosotros-portada-etiqueta, .nosotros-sobretitulo { margin: 0 0 14px; font: 700 12px var(--fuente-textos); letter-spacing: .14em; }
+  .nosotros-portada-etiqueta { color: var(--primario); }
+  .nosotros-portada h1 { max-width: 950px; margin: 0; font: 400 clamp(49px, 6.9vw, 96px)/1.05 var(--fuente-titulos); text-transform: uppercase; }
+  .nosotros-portada h1 span { color: var(--primario); }
+  .nosotros-raya { display: block; width: 105px; height: 2px; background: var(--primario); margin: 24px 0; }
+  .nosotros-portada-contenido > p:last-child { max-width: 535px; font: 400 14px/1.8 var(--fuente-textos); }
+
+  .nosotros-contenedor { width: min(1300px, calc(100% - 48px)); margin-inline: auto; }
+  .nosotros-intro { background: var(--blanco); color: var(--negro); padding: 90px 0 105px; }
+  .nosotros-intro-grid { display: grid; grid-template-columns: .95fr 1.05fr; gap: clamp(35px, 6vw, 110px); align-items: start; }
+  .nosotros-sobretitulo { color: var(--naranja); }
+  .nosotros-intro-titulos h2, .proposito-encabezado h2, .contactar-interior h2 {
+    margin: 0;
+    font: 400 clamp(34px, 3.8vw, 57px)/1.12 var(--fuente-titulos);
+    text-transform: uppercase;
+  }
+  .nosotros-intro-titulos h2 span { color: var(--naranja); }
+  .nosotros-intro-texto { display: grid; gap: 17px; }
+  .nosotros-intro-texto p { margin: 0; font: 400 14px/1.9 var(--fuente-textos); }
+  .nosotros-principios { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 17px; margin-top: 55px; }
+  .nosotros-principio { display: flex; gap: 17px; align-items: flex-start; padding: 22px; background: rgb(0 0 0 / 5%); border-bottom: 3px solid var(--primario); }
+  .principio-numero { flex: 0 0 44px; height: 44px; display: grid; place-items: center; border-radius: 50%; background: var(--primario); font: 700 13px var(--fuente-textos); }
+  .nosotros-principio h3 { margin: 1px 0 7px; font: 700 15px var(--fuente-textos); text-transform: none; }
+  .nosotros-principio p { margin: 0; font: 400 12px/1.65 var(--fuente-textos); }
+
+  .nosotros-collage { display: grid; grid-template-columns: 1.2fr .9fr; align-items: center; margin-top: 70px; gap: 0; min-height: 460px; }
+  .nosotros-collage figure { position: relative; margin: 0; overflow: hidden; background: var(--negro); }
+  .nosotros-collage img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .collage-grande { height: 465px; }
+  .collage-pequeno { height: 325px; margin-left: -70px !important; border: 9px solid var(--blanco); z-index: 1; transform: translateY(32px); }
+  .nosotros-collage figcaption { position: absolute; bottom: 0; left: 0; right: 0; padding: 25px; color: var(--blanco); font: 700 12px var(--fuente-textos); letter-spacing: .08em; background: linear-gradient(0deg, rgb(0 0 0 / 80%), transparent); }
+
+  .nosotros-proposito { padding: 90px 0 100px; background: var(--negro); color: var(--blanco); }
+  .proposito-encabezado { max-width: 750px; margin: 0 auto 40px; text-align: center; }
+  .proposito-encabezado h2 span { color: var(--primario); }
+  .proposito-encabezado > p:last-child { margin: 18px 0 0; font: 400 14px/1.75 var(--fuente-textos); }
+  .proposito-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+  .proposito-tarjeta { padding: clamp(28px, 3.2vw, 48px); background: var(--blanco); color: var(--negro); border-top: 6px solid var(--primario); }
+  .proposito-vision { background: var(--primario); border-top-color: var(--naranja); }
+  .proposito-cabecera { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 38px; }
+  .proposito-numero { font: 700 11px var(--fuente-textos); letter-spacing: .1em; }
+  .proposito-simbolo { font: 400 27px var(--fuente-textos); }
+  .proposito-tarjeta h3 { margin: 0 0 17px; font: 400 clamp(34px, 3.5vw, 50px) var(--fuente-titulos); }
+  .proposito-tarjeta > p { margin: 0; max-width: 550px; font: 400 14px/1.85 var(--fuente-textos); }
+
+  .nosotros-contactar { padding: 52px 0; background: var(--secundario); color: var(--negro); }
+  .contactar-interior { display: flex; justify-content: space-between; align-items: center; gap: 30px; }
+  .contactar-interior .nosotros-sobretitulo { color: var(--negro); }
+  .contactar-interior h2 span { display: block; }
+  .contactar-interior a { display: inline-flex; align-items: center; justify-content: space-between; gap: 25px; flex-shrink: 0; min-height: 48px; padding: 13px 23px; background: var(--negro); color: var(--blanco); font: 700 13px var(--fuente-textos); text-decoration: none; transition: transform .2s ease; }
+  .contactar-interior a:hover { transform: translateY(-2px); }
+  .nosotros-ruta a:focus-visible, .contactar-interior a:focus-visible { outline: 2px solid var(--primario); outline-offset: 4px; }
+
+  @media (max-width: 850px) {
+    .nosotros-intro-grid { grid-template-columns: 1fr; gap: 23px; }
+    .nosotros-principios { grid-template-columns: 1fr; gap: 13px; }
+  }
+  @media (max-width: 650px) {
+    .nosotros-portada { min-height: 460px; }
+    .nosotros-portada-contenido, .nosotros-contenedor { width: calc(100% - 32px); }
+    .nosotros-ruta { margin-bottom: 55px; }
+    .nosotros-portada h1 { font-size: clamp(42px, 12vw, 65px); }
+    .nosotros-intro, .nosotros-proposito { padding: 60px 0; }
+    .nosotros-principios { margin-top: 35px; }
+    .nosotros-collage { margin-top: 45px; min-height: 0; grid-template-columns: 1fr; gap: 16px; }
+    .collage-grande { height: 315px; }
+    .collage-pequeno { height: 250px; margin-left: 0 !important; transform: none; border: 0; }
+    .proposito-grid { grid-template-columns: 1fr; }
+    .proposito-cabecera { margin-bottom: 20px; }
+    .contactar-interior { flex-direction: column; align-items: stretch; }
+    .contactar-interior a { justify-content: center; }
+  }
+  @media (prefers-reduced-motion: reduce) { .contactar-interior a { transition: none; } }
+</style>

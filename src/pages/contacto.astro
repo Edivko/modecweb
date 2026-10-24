@@ -1,0 +1,250 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Encabezado from '../components/Encabezado.astro';
+import PiePagina from '../components/PiePagina.astro';
+import BotonWhatsApp from '../components/BotonWhatsApp.astro';
+import { negocio, cotizar } from '../data/modec';
+import '../styles/global.css';
+import '../styles/modec.css';
+
+// URL de inserción del mapa proporcionada por MODEC.
+const mapaEmbedUrl = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3763.6776202768465!2d-99.13395100000001!3d19.3831068!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1fe59d25f7523%3A0x7b3660f0b55dfbef!2sPlaya%20Pichilingue%201%2C%20Militar%20Marte%2C%20Iztacalco%2C%2008830%20Ciudad%20de%20M%C3%A9xico%2C%20CDMX!5e0!3m2!1sen!2smx!4v1792824449842!5m2!1sen!2smx';
+
+const categorias = ['Persianas', 'Cortinas', 'Pisos', 'Decoración de muros', 'Toldos', 'Servicios', 'Otro'];
+---
+
+<Layout title="Contacto | MODEC">
+  <div class="modec">
+    <Encabezado />
+    <main>
+      <section class="contacto-portada" aria-labelledby="titulo-contacto">
+        <div class="contacto-portada-foto" aria-hidden="true"></div>
+        <div class="contacto-portada-capa" aria-hidden="true"></div>
+        <div class="contacto-portada-interior">
+          <nav class="contacto-migas" aria-label="Ruta de navegación">
+            <a href="/">Inicio</a><span aria-hidden="true">/</span><span aria-current="page">Contacto</span>
+          </nav>
+          <div class="contacto-hero-texto">
+            <p class="contacto-sobretitulo">MODEC · ESTAMOS PARA AYUDARTE</p>
+            <h1 id="titulo-contacto">HABLEMOS DE <em>TU ESPACIO</em></h1>
+            <span class="contacto-linea" aria-hidden="true"></span>
+            <p>Cuéntanos tu idea. Te orientamos para encontrar una solución que se adapte a lo que necesitas.</p>
+            <a class="contacto-bajar" href="#contactar">Contáctanos <span aria-hidden="true">↓</span></a>
+          </div>
+          <span class="contacto-marca" aria-hidden="true">MODEC</span>
+        </div>
+      </section>
+
+      <section class="contacto-seccion" id="contactar" aria-labelledby="titulo-formulario">
+        <div class="contacto-contenedor">
+          <div class="contacto-titular">
+            <div>
+              <p class="contacto-sobretitulo">ATENCIÓN PERSONALIZADA</p>
+              <h2 id="titulo-formulario">ESTAMOS EN <span>CONTACTO</span></h2>
+            </div>
+            <p>Escríbenos acerca de tu proyecto o comunícate directamente por los canales disponibles.</p>
+          </div>
+
+          <div class="contacto-columnas">
+            <div class="contacto-formulario-panel">
+              <p class="formulario-eyebrow">CUÉNTANOS TU IDEA</p>
+              <h3>¿EN QUÉ PODEMOS AYUDARTE?</h3>
+              <p class="formulario-ayuda">Llena los campos para preparar tu consulta en WhatsApp.</p>
+              <form id="formulario-contacto" data-telefono={negocio.whatsapp}>
+                <div class="formulario-campo">
+                  <label for="contacto-nombre">Nombre <span aria-hidden="true">*</span></label>
+                  <input id="contacto-nombre" name="nombre" type="text" autocomplete="name" maxlength="80" placeholder="Tu nombre" required />
+                </div>
+                <div class="formulario-campo">
+                  <label for="contacto-telefono">Teléfono <span aria-hidden="true">*</span></label>
+                  <input id="contacto-telefono" name="telefono" type="tel" autocomplete="tel" inputmode="tel" maxlength="24" placeholder="Tu teléfono" required />
+                </div>
+                <div class="formulario-campo">
+                  <label for="contacto-servicio">¿Qué te interesa? <span aria-hidden="true">*</span></label>
+                  <select id="contacto-servicio" name="servicio" required>
+                    <option value="" disabled selected>Selecciona una opción</option>
+                    {categorias.map(categoria => <option value={categoria}>{categoria}</option>)}
+                  </select>
+                </div>
+                <div class="formulario-campo">
+                  <label for="contacto-mensaje">Cuéntanos más</label>
+                  <textarea id="contacto-mensaje" name="mensaje" rows="5" maxlength="1000" placeholder="Describe brevemente tu proyecto"></textarea>
+                </div>
+                <button type="submit" class="formulario-enviar">Continuar por WhatsApp <span aria-hidden="true">↗</span></button>
+                <p class="formulario-aviso">Se abrirá WhatsApp con tu mensaje preparado. Podrás revisarlo antes de enviarlo.</p>
+              </form>
+            </div>
+
+            <div class="contacto-informacion">
+              <p class="contacto-sobretitulo">HABLEMOS</p>
+              <h3>UN PROYECTO EMPIEZA CON UNA CONVERSACIÓN.</h3>
+              <p class="contacto-introduccion">¿Tienes preguntas sobre persianas, cortinas, pisos, revestimientos o servicios? Escríbenos y te orientaremos.</p>
+              <div class="contacto-datos">
+                <div class="contacto-dato">
+                  <span class="dato-icono" aria-hidden="true">☎</span>
+                  <div><h4>Teléfono</h4><a href={`tel:+52${negocio.telefono.replace(/\D/g, '')}`}>{negocio.telefono}</a></div>
+                </div>
+                <div class="contacto-dato">
+                  <span class="dato-icono" aria-hidden="true">✉</span>
+                  <div><h4>Correo electrónico</h4><a href={`mailto:${negocio.correo}`}>{negocio.correo}</a></div>
+                </div>
+                <div class="contacto-dato">
+                  <span class="dato-icono" aria-hidden="true">↗</span>
+                  <div><h4>WhatsApp</h4><a href={cotizar('Hola, me gustaría recibir información sobre MODEC.')} target="_blank" rel="noopener noreferrer">Iniciar conversación</a></div>
+                </div>
+                <div class="contacto-dato">
+                  <span class="dato-icono" aria-hidden="true">⌖</span>
+                  <div><h4>Ubicación de MODEC</h4><a href={negocio.ubicacionMaps} target="_blank" rel="noopener noreferrer">Ver ubicación exacta en Google Maps ↗</a></div>
+                </div>
+              </div>
+              <div class="contacto-nota">
+                <span aria-hidden="true">✦</span>
+                <p>Asesoría para renovar tus espacios con soluciones de decoración y acabados.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="contacto-mapa" aria-labelledby="titulo-mapa">
+        <div class="contacto-mapa-interior">
+          <div class="contacto-mapa-encabezado">
+            <div>
+              <p class="contacto-sobretitulo">VISÍTANOS</p>
+              <h2 id="titulo-mapa">ENCUÉNTRANOS EN EL MAPA</h2>
+            </div>
+            <p>Consulta nuestra ubicación oficial y obtén indicaciones para llegar a MODEC.</p>
+          </div>
+          <div class="contacto-mapa-marco">
+            <iframe
+              title="Ubicación de MODEC en Google Maps"
+              src={mapaEmbedUrl}
+              loading="lazy"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen
+            ></iframe>
+          </div>
+          <p class="contacto-mapa-aclaracion"><a href={negocio.ubicacionMaps} target="_blank" rel="noopener noreferrer">Cómo llegar a MODEC ↗</a></p>
+        </div>
+      </section>
+    </main>
+    <PiePagina />
+    <BotonWhatsApp />
+  </div>
+</Layout>
+
+<script>
+  const formulario = document.querySelector<HTMLFormElement>('#formulario-contacto');
+  formulario?.addEventListener('submit', (evento: SubmitEvent) => {
+    evento.preventDefault();
+    if (!formulario.reportValidity()) return;
+    const datos = new FormData(formulario);
+    const nombre = String(datos.get('nombre') ?? '').trim();
+    const telefono = String(datos.get('telefono') ?? '').trim();
+    const servicio = String(datos.get('servicio') ?? '').trim();
+    const mensaje = String(datos.get('mensaje') ?? '').trim();
+    const numero = formulario.dataset.telefono;
+    if (!numero || !nombre || !telefono || !servicio) return;
+    const texto = [
+      'Hola MODEC, me gustaría solicitar información.',
+      `Nombre: ${nombre}`,
+      `Teléfono: ${telefono}`,
+      `Interés: ${servicio}`,
+      ...(mensaje ? [`Mensaje: ${mensaje}`] : [])
+    ].join('\n');
+    window.location.assign(`https://wa.me/${numero}?text=${encodeURIComponent(texto)}`);
+  });
+</script>
+
+<style>
+  /* Portada: proporción coherente con Productos / Servicios */
+  .contacto-portada { position: relative; min-height: 560px; overflow: hidden; background: var(--negro); color: var(--blanco); }
+  .contacto-portada-foto { position: absolute; inset: 0; background: url('/images/fondo_hero.jpeg') center 45% / cover no-repeat; }
+  .contacto-portada-capa { position: absolute; inset: 0; background: linear-gradient(90deg, rgb(0 0 0 / 94%), rgb(0 0 0 / 79%) 48%, rgb(0 0 0 / 45%)); }
+  .contacto-portada-interior { position: relative; z-index: 1; max-width: 1300px; width: calc(100% - 48px); min-height: 560px; margin: auto; padding: 25px 0 65px; display: flex; flex-direction: column; }
+  .contacto-migas { display: flex; align-items: center; flex-wrap: wrap; gap: 13px; font: 400 12px var(--fuente-textos); }
+  .contacto-migas a { text-decoration: none; color: inherit; }
+  .contacto-migas a:hover { color: var(--primario); }
+  .contacto-hero-texto { margin: auto 0; max-width: 850px; padding: 58px 0 0; }
+  .contacto-sobretitulo { margin: 0; font: 700 11px var(--fuente-textos); letter-spacing: .15em; color: var(--primario); }
+  .contacto-hero-texto h1 { margin: 16px 0 20px; font: 400 clamp(48px, 6.2vw, 90px)/1.02 var(--fuente-titulos); }
+  .contacto-hero-texto h1 em { color: var(--primario); font-style: normal; }
+  .contacto-linea { display: block; width: 90px; height: 2px; background: var(--primario); }
+  .contacto-hero-texto > p:not(.contacto-sobretitulo) { max-width: 500px; margin: 22px 0 26px; font: 400 14px/1.8 var(--fuente-textos); }
+  .contacto-bajar { display: inline-flex; align-items: center; gap: 24px; color: var(--primario); text-decoration: none; font: 700 12px var(--fuente-textos); }
+  .contacto-marca { position: absolute; right: 5px; bottom: 35px; writing-mode: vertical-rl; color: var(--primario); font: 700 15px var(--fuente-textos); letter-spacing: .25em; }
+  /* Fondo claro y tarjeta de formulario negra */
+  .contacto-seccion { background: var(--blanco); color: var(--negro); padding: 80px 24px 95px; }
+  .contacto-contenedor { max-width: 1300px; margin: auto; }
+  .contacto-titular { display: flex; justify-content: space-between; align-items: end; gap: 45px; margin-bottom: 40px; }
+  .contacto-titular h2 { margin: 13px 0 0; font: 400 clamp(32px, 4vw, 55px)/1.08 var(--fuente-titulos); color: var(--negro); }
+  .contacto-titular h2 span { color: var(--naranja); }
+  .contacto-titular .contacto-sobretitulo, .contacto-informacion .contacto-sobretitulo, .contacto-mapa .contacto-sobretitulo { color: var(--negro); }
+  .contacto-titular > p { max-width: 400px; margin: 0; font: 400 13px/1.7 var(--fuente-textos); color: var(--negro); }
+  .contacto-columnas { display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr); gap: clamp(24px, 5vw, 85px); align-items: start; }
+  .contacto-formulario-panel { padding: clamp(26px, 3.5vw, 48px); background: var(--negro); border: 1px solid var(--negro); color: var(--blanco); }
+  .formulario-eyebrow { margin: 0 0 10px; font: 700 11px var(--fuente-textos); color: var(--primario); letter-spacing: .14em; }
+  .contacto-formulario-panel h3 { margin: 0; font: 400 clamp(26px, 2.7vw, 39px)/1.14 var(--fuente-titulos); color: var(--blanco); }
+  .formulario-ayuda { margin: 12px 0 30px; font: 400 13px/1.7 var(--fuente-textos); color: rgb(229 228 225 / 82%); }
+  #formulario-contacto { display: grid; gap: 20px; }
+  .formulario-campo { display: grid; gap: 8px; }
+  .formulario-campo label { font: 500 12px var(--fuente-textos); color: var(--blanco); }
+  .formulario-campo label span { color: var(--primario); }
+  .formulario-campo input, .formulario-campo select, .formulario-campo textarea { box-sizing: border-box; width: 100%; min-width: 0; border: 1px solid rgb(229 228 225 / 33%); border-radius: 0; padding: 13px 15px; background: rgb(229 228 225 / 9%); color: var(--blanco); font: 400 14px var(--fuente-textos); }
+  .formulario-campo select option { background: var(--negro); color: var(--blanco); }
+  .formulario-campo input::placeholder, .formulario-campo textarea::placeholder { color: rgb(229 228 225 / 60%); }
+  .formulario-campo textarea { resize: vertical; min-height: 118px; }
+  .formulario-campo :is(input, select, textarea):focus-visible { outline: 2px solid var(--primario); outline-offset: 2px; }
+  .formulario-enviar { display: flex; justify-content: space-between; align-items: center; gap: 15px; width: 100%; min-height: 48px; padding: 13px 18px; border: 0; background: var(--primario); color: var(--negro); font: 700 13px var(--fuente-textos); cursor: pointer; }
+  .formulario-enviar:hover { background: var(--secundario); }
+  .formulario-enviar span { font-size: 19px; }
+  .formulario-aviso { margin: -4px 0 0; font: 400 11px/1.6 var(--fuente-textos); color: rgb(229 228 225 / 78%); }
+  .contacto-informacion { padding: 12px 0; color: var(--negro); }
+  .contacto-informacion h3 { max-width: 620px; margin: 12px 0 17px; font: 400 clamp(28px, 3.5vw, 47px)/1.12 var(--fuente-titulos); color: var(--negro); }
+  .contacto-introduccion { margin: 0 0 36px; max-width: 510px; font: 400 14px/1.75 var(--fuente-textos); color: var(--negro); }
+  .contacto-datos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 33px 22px; }
+  .contacto-dato { display: flex; align-items: flex-start; gap: 15px; min-width: 0; }
+  .dato-icono { width: 38px; height: 38px; display: grid; place-items: center; flex-shrink: 0; border: 1px solid var(--naranja); border-radius: 50%; color: var(--negro); font: 400 21px var(--fuente-textos); }
+  .contacto-dato h4 { margin: 0 0 6px; font: 700 13px var(--fuente-textos); color: var(--negro); }
+  .contacto-dato a, .contacto-dato p { margin: 0; color: var(--negro); text-decoration: none; overflow-wrap: anywhere; font: 400 12px/1.7 var(--fuente-textos); }
+  .contacto-dato a:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .contacto-nota { display: flex; align-items: center; gap: 15px; margin-top: 50px; padding: 22px; border-left: 3px solid var(--primario); background: rgb(0 0 0 / 6%); }
+  .contacto-nota span { color: var(--naranja); font-size: 28px; }
+  .contacto-nota p { margin: 0; font: 400 13px/1.7 var(--fuente-textos); }
+
+  /* Mapa en lugar de la franja de cierre */
+  .contacto-mapa { background: var(--blanco); color: var(--negro); padding: 0 24px 90px; }
+  .contacto-mapa-interior { max-width: 1300px; margin: auto; }
+  .contacto-mapa-encabezado { display: flex; justify-content: space-between; align-items: end; gap: 30px; border-top: 1px solid rgb(0 0 0 / 18%); padding: 45px 0 26px; }
+  .contacto-mapa h2 { margin: 13px 0 0; font: 400 clamp(30px, 4vw, 52px)/1.1 var(--fuente-titulos); color: var(--negro); }
+  .contacto-mapa-encabezado > p { margin: 0; max-width: 435px; font: 400 13px/1.7 var(--fuente-textos); }
+  .contacto-mapa-marco { width: 100%; height: 420px; overflow: hidden; border: 3px solid var(--negro); background: var(--blanco); }
+  .contacto-mapa-marco iframe { display: block; width: 100%; height: 100%; border: 0; }
+  .contacto-mapa-enlace { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 16px; width: 100%; height: 100%; padding: 30px; background: rgb(0 0 0 / 4%); }
+  .contacto-mapa-icono { display: grid; place-items: center; width: 66px; height: 66px; border-radius: 50%; background: var(--primario); color: var(--negro); font-size: 38px; }
+  .contacto-mapa-enlace h3 { margin: 0; font: 400 clamp(26px, 3vw, 40px)/1.2 var(--fuente-titulos); color: var(--negro); }
+  .contacto-mapa-enlace p { margin: 0; font: 400 13px/1.7 var(--fuente-textos); }
+  .contacto-mapa-enlace a { display: inline-flex; align-items: center; justify-content: center; padding: 15px 22px; background: var(--negro); color: var(--blanco); font: 600 13px/1.3 var(--fuente-textos); text-decoration: none; border-radius: 5px; }
+  .contacto-mapa-enlace a:hover { background: var(--naranja); color: var(--negro); }
+  .contacto-mapa-enlace a:focus-visible { outline: 3px solid var(--primario); outline-offset: 4px; }
+  .contacto-mapa-aclaracion { margin: 13px 0 0; font: 400 12px/1.7 var(--fuente-textos); }
+  .contacto-migas a:focus-visible, .contacto-bajar:focus-visible, .contacto-dato a:focus-visible { outline: 2px solid var(--primario); outline-offset: 4px; }
+  @media (max-width: 900px) { .contacto-columnas { gap: 28px; } .contacto-datos { grid-template-columns: 1fr; gap: 25px; } }
+  @media (max-width: 700px) {
+    .contacto-portada, .contacto-portada-interior { min-height: 470px; }
+    .contacto-portada-interior { width: calc(100% - 32px); padding-bottom: 40px; }
+    .contacto-hero-texto h1 { font-size: clamp(42px, 11vw, 64px); }
+    .contacto-seccion { padding: 55px 16px 65px; }
+    .contacto-titular, .contacto-mapa-encabezado { display: block; }
+    .contacto-titular > p, .contacto-mapa-encabezado > p { margin-top: 14px; }
+    .contacto-columnas { grid-template-columns: 1fr; }
+    .contacto-formulario-panel { padding: 25px 19px; }
+    .contacto-informacion { padding: 22px 4px 0; }
+    .contacto-datos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .contacto-marca { right: 0; }
+    .contacto-mapa { padding: 0 16px 65px; }
+    .contacto-mapa-marco { height: 340px; }
+  }
+  @media (max-width: 460px) { .contacto-datos { grid-template-columns: 1fr; } }
+  @media (prefers-reduced-motion: reduce) { .formulario-enviar { transition: none; } }
+</style>

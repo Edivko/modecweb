@@ -1,8 +1,10 @@
 ---
+import type { TipoCatalogo } from '../../data/catalogo';
+
 interface Props {
   categoria: string;
   nombreCategoria: string;
-  producto: { nombre: string; slug: string };
+  producto: TipoCatalogo;
   indice: number;
   enlaceCotizacion: string;
 }
@@ -10,8 +12,17 @@ interface Props {
 const { categoria, nombreCategoria, producto, indice, enlaceCotizacion } = Astro.props;
 const invertido = indice % 2 === 1;
 const ruta = `/images/catalogo/${categoria}/${producto.slug}`;
-const fotoPrincipal = `${ruta}.webp`;
-const miniaturas = [1, 2, 3, 4].map(numero => `${ruta}-${numero}.webp`);
+
+// Si el producto aún no tiene imágenes configuradas, usa las rutas anteriores.
+const fotoPrincipal = producto.imagenes?.[0] ?? `${ruta}.webp`;
+const miniaturas = producto.imagenes?.slice(1) ??
+  [1, 2, 3, 4].map(numero => `${ruta}-${numero}.webp`);
+
+const descripcion = producto.descripcion ??
+  `Conoce la línea ${producto.nombre.toLowerCase()} de ${nombreCategoria.toLowerCase()}. Te asesoramos para elegir materiales, acabados y medidas que se adapten a tu espacio.`;
+const atributos = producto.caracteristicas?.length
+  ? producto.caracteristicas
+  : ['Asesoría', 'Medición', 'Instalación'];
 ---
 
 <article id={producto.slug} class:list={{ 'bloque-producto': true, 'invertido': invertido }} aria-labelledby={`titulo-${producto.slug}`}>
@@ -27,10 +38,7 @@ const miniaturas = [1, 2, 3, 4].map(numero => `${ruta}-${numero}.webp`);
       <strong>{producto.nombre.toUpperCase()}</strong>
     </h2>
 
-    <p class="bloque-descripcion">
-      Conoce la línea {producto.nombre.toLowerCase()} de {nombreCategoria.toLowerCase()}.
-      Te asesoramos para elegir materiales, acabados y medidas que se adapten a tu espacio.
-    </p>
+    <p class="bloque-descripcion">{descripcion}</p>
 
     <div class="bloque-muestras" aria-label={`Fotografías adicionales de ${producto.nombre}`}>
       {miniaturas.map((imagen, miniIndice) => (
@@ -59,10 +67,8 @@ const miniaturas = [1, 2, 3, 4].map(numero => `${ruta}-${numero}.webp`);
       Solicitar cotización <span aria-hidden="true">↗</span>
     </a>
 
-    <div class="bloque-atributos" aria-label="Servicios incluidos en la atención">
-      <span>Asesoría</span>
-      <span>Medición</span>
-      <span>Instalación</span>
+    <div class="bloque-atributos" aria-label="Características y servicios del producto">
+      {atributos.map(atributo => <span>{atributo}</span>)}
     </div>
   </div>
 
