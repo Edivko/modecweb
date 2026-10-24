@@ -39,7 +39,7 @@ import { productos, cotizar } from '../data/modec';
           <div class="producto-info">
             <h3>{producto.nombre}</h3>
             <p>{producto.descripcion}</p>
-            <span aria-hidden="true">↗</span>
+            <span aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-0.12em;flex-shrink:0" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
           </div>
         </a>
       ))}
@@ -48,7 +48,7 @@ import { productos, cotizar } from '../data/modec';
     <!-- Controles inferiores -->
     <div class="productos-controles">
       <a class="boton-catalogo" href="#contacto">
-        Solicitar cotización <span aria-hidden="true">↗</span>
+        Solicitar cotización <span aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-0.12em;flex-shrink:0" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
       </a>
 
       <div class="flechas">
@@ -58,14 +58,14 @@ import { productos, cotizar } from '../data/modec';
           aria-label="Productos anteriores"
           aria-controls="lista-productos"
           disabled
-        >←</button>
+        ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-0.12em;flex-shrink:0" aria-hidden="true"><path d="M20 12H4m6-6-6 6 6 6"/></svg></button>
 
         <button
           class="flecha siguiente"
           type="button"
           aria-label="Siguientes productos"
           aria-controls="lista-productos"
-        >→</button>
+        ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-0.12em;flex-shrink:0" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6"/></svg></button>
       </div>
     </div>
   </div>

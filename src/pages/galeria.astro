@@ -71,7 +71,7 @@ const nombresCategorias = new Map(categoriasCatalogo.map(({ slug, nombre }) => [
                     <span class="galeria-tarjeta-categoria">{nombresCategorias.get(trabajo.categoria)}</span>
                     <strong>{trabajo.titulo}</strong>
                   </span>
-                  <span class="galeria-expandir" aria-hidden="true">↗</span>
+                  <span class="galeria-expandir" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-0.12em;flex-shrink:0" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
                 </span>
               </button>
             ))}
@@ -87,7 +87,7 @@ const nombresCategorias = new Map(categoriasCatalogo.map(({ slug, nombre }) => [
             <h2 id="galeria-cta-titulo">¿TIENES UN PROYECTO EN MENTE?</h2>
             <p>Cuéntanos qué necesitas y te ayudamos a encontrar una solución a tu medida.</p>
           </div>
-          <a href={cotizar('Hola, vi la galería de trabajos de MODEC y quiero solicitar una cotización.')} target="_blank" rel="noopener noreferrer">Solicitar cotización <span aria-hidden="true">↗</span></a>
+          <a href={cotizar('Hola, vi la galería de trabajos de MODEC y quiero solicitar una cotización.')} target="_blank" rel="noopener noreferrer">Solicitar cotización <span aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-0.12em;flex-shrink:0" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a>
         </div>
       </section>
     </main>
@@ -100,12 +100,12 @@ const nombresCategorias = new Map(categoriasCatalogo.map(({ slug, nombre }) => [
 <dialog class="galeria-modal" id="galeria-modal" aria-label="Fotografía ampliada del proyecto">
   <div class="galeria-modal-contenido">
     <button type="button" class="galeria-modal-cerrar" aria-label="Cerrar fotografía">×</button>
-    <button type="button" class="galeria-modal-anterior" aria-label="Fotografía anterior">←</button>
+    <button type="button" class="galeria-modal-anterior" aria-label="Fotografía anterior"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-0.12em;flex-shrink:0" aria-hidden="true"><path d="M20 12H4m6-6-6 6 6 6"/></svg></button>
     <figure>
       <img class="galeria-modal-imagen" src="/images/galeria.webp" alt="" />
       <figcaption class="galeria-modal-titulo"></figcaption>
     </figure>
-    <button type="button" class="galeria-modal-siguiente" aria-label="Fotografía siguiente">→</button>
+    <button type="button" class="galeria-modal-siguiente" aria-label="Fotografía siguiente"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-0.12em;flex-shrink:0" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6"/></svg></button>
   </div>
 </dialog>
 

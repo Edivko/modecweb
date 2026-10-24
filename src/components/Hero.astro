@@ -1,430 +1,296 @@
-
 ---
 import { indicadores } from '../data/modec';
-import BotonWhatsApp from './BotonWhatsApp.astro';
 ---
 
 <section class="hero" aria-labelledby="titulo">
-  <BotonWhatsApp />
-
-  <div class="contenedor hero-interior">
-
-    <!-- Contenido principal -->
+  <div class="hero-interior">
     <div class="hero-texto">
-      <p class="hero-nota">
-        ¡Somos fabricantes de persianas!
-      </p>
-
+      <p class="hero-nota">¡Somos fabricantes de persianas!</p>
       <h1 id="titulo">
         Decoración &amp;<br />
         <span>Estilo para tus espacios</span>
       </h1>
-
-      <p class="hero-subtitulo">
-        Venta e instalación de alta calidad.
-      </p>
+      <p class="hero-subtitulo">Venta e instalación de alta calidad.</p>
 
       <div class="acciones">
         <a class="boton amarillo" href="/productos">
           Ver productos
-          <span aria-hidden="true">⟶</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6" /></svg>
         </a>
-
         <a class="boton cristal" href="/servicios">
           Nuestros Servicios
-          <span aria-hidden="true">⟶</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6" /></svg>
         </a>
       </div>
     </div>
+  </div>
 
-    <!-- Estadísticas -->
-    <div class="indicadores" aria-label="MODEC en cifras" data-animar>
-      {indicadores.map((item, index) => (
-        <div class="indicador">
-          <div class="indicador-imagen">
-            <img
-              src={`/images/calidad/calidad-${index + 1}.png`}
-              alt=""
-              width="80"
-              height="80"
-            />
-          </div>
-
-          <div class="indicador-texto">
-            <p class="cifra">{item.cifra}</p>
-            <p>{item.texto}</p>
-          </div>
+  <!-- Mitad de la franja sobre la fotografía, mitad fuera de ella -->
+  <div class="indicadores" aria-label="MODEC en cifras" data-animar>
+    {indicadores.map((item, index) => (
+      <div class="indicador">
+        <div class="indicador-imagen">
+          <img
+            src={`/images/calidad/calidad-${index + 1}.png`}
+            alt=""
+            width="60"
+            height="60"
+            loading="lazy"
+          />
         </div>
-      ))}
-    </div>
-
+        <div class="indicador-texto">
+          <p class="cifra">{item.cifra}</p>
+          <p>{item.texto}</p>
+        </div>
+      </div>
+    ))}
   </div>
 </section>
+
 <script>
-  const franja = document.querySelector<HTMLElement>(
-    '.indicadores[data-animar]'
-  );
-
-  if (franja && 'IntersectionObserver' in window) {
-    const observador = new IntersectionObserver(
-      (entradas) => {
-        if (entradas[0].isIntersecting) {
-          franja.classList.add('visible');
-          observador.disconnect();
-        }
-      },
-      { threshold: 0.2 }
-    );
-
-    if (window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
-      franja.classList.add('animacion-lista');
-      observador.observe(franja);
-    }
+  const franja = document.querySelector<HTMLElement>('.indicadores[data-animar]');
+  if (franja && 'IntersectionObserver' in window &&
+      window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+    const observador = new IntersectionObserver((entradas) => {
+      if (entradas[0]?.isIntersecting) {
+        franja.classList.add('visible');
+        observador.disconnect();
+      }
+    }, { threshold: 0.15 });
+    franja.classList.add('animacion-lista');
+    observador.observe(franja);
   }
 </script>
+
 <style>
-  /* Sección principal */
   .hero {
     position: relative;
+    isolation: isolate;
+    overflow: visible;
+    margin-bottom: 52px;
+    color: var(--blanco);
     background:
-      linear-gradient(
-        90deg,
+      linear-gradient(90deg,
         rgba(0, 0, 0, 0.65) 0%,
         rgba(0, 0, 0, 0.35) 50%,
-        rgba(0, 0, 0, 0.05) 100%
-      ),
+        rgba(0, 0, 0, 0.05) 100%),
       url('/images/fondo_hero.webp') center / cover no-repeat;
-
-    background-color: #252525;
-    color: #FFFFFF;
+    background-color: var(--negro);
   }
 
-  /* Distribución del contenido */
-
-.hero-interior {
-  width: 100%;
-  min-height: 700px;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
-  padding: 90px 20px 40px;
-  gap: 60px;
-}
-
-
-  /* Ajustes responsive */
-  @media (max-width: 800px) {
-    .hero-interior {
-      width: calc(100% - 24px);
-      min-height: 620px;
-      padding-block: 100px 28px;
-      gap: 65px;
-    }
-  }
-
-  @media (max-width: 500px) {
-    .hero-interior {
-      padding-top: 65px;
-      gap: 45px;
-    }
-  }
-  
-/* Contenido principal del Hero */
-.hero-texto {
-  padding-inline: 3.5%;
-}
-
-/* Texto superior */
-.hero-nota {
-  font-family: var(--fuente-textos);
-  font-size: 14px;
-  font-weight: 700;
-  margin-bottom: 12px;
-}
-
-/* Título principal */
-.hero h1 {
-  font-family: var(--fuente-titulos);
-  font-size: clamp(36px, 4.15vw, 68px);
-  font-weight: 400;
-  line-height: 1.05;
-  letter-spacing: -1px;
-  text-transform: uppercase;
-}
-
-/* Segunda línea del título */
-.hero h1 span {
-  color: var(--secundario);
-}
-
-/* Texto informativo */
-.hero-subtitulo {
-  font-family: var(--fuente-textos);
-  font-size: 14px;
-  font-weight: 400;
-  margin-top: 18px;
-}
-
-/* Botones del Hero */
-.acciones {
-  display: flex;
-  gap: 14px;
-  margin-top: 28px;
-}
-
-.acciones .boton {
-  display: inline-flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  min-width: 195px;
-  min-height: 46px;
-  padding: 11px 26px;
-  border-radius: 3px;
-  font-family: var(--fuente-textos);
-  font-size: 14px;
-  font-weight: 500;
-  font-style: italic;
-  text-decoration: none;
-}
-
-/* Botón principal */
-.acciones .amarillo {
-  background: var(--secundario);
-  color: var(--negro);
-}
-
-/* Botón secundario */
-.acciones .cristal {
-  background: rgba(56, 56, 56, 0.65);
-  border: 1px solid #aaa;
-  color: #fff;
-}
-
-/* Flechas */
-.acciones .boton span {
-  font-size: 24px;
-  line-height: 1;
-}
-
-/* Responsive */
-@media (max-width: 500px) {
-  .acciones {
-    flex-direction: column;
+  /* El fondo llega de borde a borde; solo el texto se alinea al contenedor. */
+  .hero-interior {
+    width: 100%;
+    min-height: 0;
+    height: clamp(490px, calc(100svh - 240px), 650px);
+    box-sizing: border-box;
+    padding: 56px max(5%, calc((100% - 1500px) / 2)) 90px;
+    display: flex;
     align-items: flex-start;
   }
-}
 
-
-/* ==================================
-   FRANJA DE ESTADÍSTICAS
-   ================================== */
-
-.indicadores {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  align-items: center;
-  gap: 50px;
-  
-  width: 100%;
-  max-width: 1300px;
-  margin-inline: auto;
-  padding: 18px 3%;
-  background: rgba(255, 255, 255, 0.88);
-  border-radius: 20px;
-  color: var(--negro);
-}
-
-/* Cada estadística */
-.indicador {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  min-width: 0;
-}
-
-/* Contenedor del icono */
-.indicador-imagen {
-  flex: 0 0 60px;
-  width: 60px;
-  height: 60px;
-  display: grid;
-  place-items: center;
-}
-
-.indicador-imagen img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
-/* Textos */
-.indicador-texto {
-  min-width: 0;
-}
-
-.cifra {
-  color: var(--naranja);
-  font-family: var(--fuente-textos);
-  font-size: 25px;
-  font-weight: 400;
-  font-style: italic;
-  line-height: 1.2;
-}
-
-.indicador-texto p:not(.cifra) {
-  font-family: var(--fuente-textos);
-  font-size: 11px;
-  font-style: italic;
-  line-height: 1.3;
-}
-
-/* Tablets */
-@media (max-width: 1050px) {
-  .indicadores {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 20px;
+  .hero-texto {
+    width: 100%;
+    max-width: 1100px;
+    animation: aparecer-hero .8s ease-out both;
   }
-}
 
-/* Celulares */
-@media (max-width: 500px) {
+  .hero-nota {
+    margin: 0 0 12px;
+    font-family: var(--fuente-textos);
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .hero h1 {
+    margin: 0;
+    font-family: var(--fuente-titulos);
+    font-size: clamp(36px, 4.15vw, 68px);
+    line-height: 1.05;
+    letter-spacing: -1px;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+
+  .hero h1 span { color: var(--secundario); }
+
+  .hero-subtitulo {
+    margin: 18px 0 0;
+    font-family: var(--fuente-textos);
+    font-size: 14px;
+  }
+
+  .acciones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 28px;
+  }
+
+  .acciones .boton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    min-width: 195px;
+    min-height: 46px;
+    padding: 11px 26px;
+    border-radius: 3px;
+    font-family: var(--fuente-textos);
+    font-size: 14px;
+    font-weight: 500;
+    font-style: italic;
+    text-decoration: none;
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+
+  .acciones .amarillo {
+    background: var(--secundario);
+    color: var(--negro);
+  }
+
+  .acciones .cristal {
+    background: rgba(0, 0, 0, .35);
+    border: 1px solid rgba(229, 228, 225, .5);
+    color: var(--blanco);
+  }
+
+  .acciones svg {
+    width: 25px;
+    height: 25px;
+    flex: 0 0 25px;
+  }
+
+  /* Barra superpuesta: su centro coincide con el borde inferior del Hero. */
   .indicadores {
-    gap: 16px;
-    padding: 18px 12px;
+    position: absolute;
+    z-index: 2;
+    left: 50%;
+    bottom: 0;
+    transform: translate(-50%, 50%);
+    width: min(88%, 1120px);
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    align-items: center;
+    gap: 18px;
+    margin: 0;
+    padding: 14px 22px;
+    border-radius: 21px;
+    background: rgba(229, 228, 225, .95);
+    color: var(--negro);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, .15);
   }
 
   .indicador {
-    gap: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
   }
 
   .indicador-imagen {
-    flex-basis: 40px;
-    width: 40px;
-    height: 40px;
+    flex: 0 0 46px;
+    width: 46px;
+    height: 46px;
+    display: grid;
+    place-items: center;
   }
 
-  .cifra {
+  .indicador-imagen img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .indicador-texto { min-width: 0; }
+
+  .indicador-texto .cifra {
+    margin: 0 0 2px;
+    color: var(--naranja);
+    font-family: var(--fuente-textos);
     font-size: 21px;
+    font-style: italic;
+    line-height: 1.15;
   }
 
   .indicador-texto p:not(.cifra) {
+    margin: 0;
+    font-family: var(--fuente-textos);
     font-size: 10px;
-  }
-}
-
-/* Pantallas muy pequeñas */
-@media (max-width: 360px) {
-  .indicadores {
-    grid-template-columns: 1fr;
-  }
-}
-
-
-/* Ajustes para tablets */
-@media (max-width: 800px) {
-  .hero-texto {
-    padding-inline: 10px;
+    font-style: italic;
+    line-height: 1.25;
   }
 
-  .hero h1 {
-    font-size: clamp(32px, 5.4vw, 44px);
-    letter-spacing: -0.5px;
-  }
-}
-
-/* Ajustes para móviles */
-@media (max-width: 500px) {
-  .hero h1 {
-    font-size: 33px;
-  }
-}
-
-/* Entrada suave del contenido */
-@keyframes aparecer-hero {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
+  @media (hover: hover) and (pointer: fine) {
+    .acciones .boton:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, .25);
+    }
   }
 
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.hero-texto {
-  animation: aparecer-hero 0.8s ease-out both;
-}
-
-/* Accesibilidad: respetar movimiento reducido */
-@media (prefers-reduced-motion: reduce) {
-  .hero-texto {
-    animation: none;
-  }
-}
-
-/* Transición suave de los botones */
-.acciones .boton {
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.acciones .boton span {
-  display: inline-block;
-  transition: transform 0.25s ease;
-}
-
-/* Efectos al pasar el cursor */
-@media (hover: hover) and (pointer: fine) {
-  .acciones .boton:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+  @media (max-width: 1050px) {
+    .hero { margin-bottom: 80px; }
+    .indicadores {
+      width: min(90%, 760px);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px 24px;
+    }
   }
 
-  .acciones .boton:hover span {
-    transform: translateX(5px);
-  }
-}
-
-/* Accesibilidad */
-@media (prefers-reduced-motion: reduce) {
-  .acciones .boton,
-  .acciones .boton span {
-    transition: none;
-  }
-}
-
-/* Animación de las estadísticas */
-@media (prefers-reduced-motion: no-preference) {
-  .indicadores[data-animar].animacion-lista .indicador {
-    opacity: 0;
-    transform: translateY(18px);
-    transition:
-      opacity 0.6s ease,
-      transform 0.6s ease;
+  @media (max-width: 800px) {
+    .hero-interior {
+      height: auto;
+      min-height: 620px;
+      padding: 74px 24px 130px;
+    }
+    .hero h1 { font-size: clamp(32px, 5.4vw, 44px); letter-spacing: -.5px; }
   }
 
-  .indicadores[data-animar].animacion-lista.visible .indicador {
-    opacity: 1;
-    transform: translateY(0);
+  @media (max-width: 500px) {
+    .hero { margin-bottom: 88px; }
+    .hero-interior { min-height: 600px; padding: 58px 20px 120px; }
+    .hero h1 { font-size: 33px; }
+    .acciones { flex-direction: column; align-items: flex-start; }
+    .indicadores {
+      width: calc(100% - 24px);
+      padding: 14px 12px;
+      gap: 14px 8px;
+      border-radius: 16px;
+    }
+    .indicador { gap: 7px; }
+    .indicador-imagen { flex-basis: 36px; width: 36px; height: 36px; }
+    .indicador-texto .cifra { font-size: 18px; }
+    .indicador-texto p:not(.cifra) { font-size: 9px; }
   }
 
-  /* Aparición progresiva */
-  .indicador:nth-child(2) {
-    transition-delay: 120ms;
+  @media (max-width: 360px) {
+    .hero { margin-bottom: 145px; }
+    .indicadores { grid-template-columns: 1fr; }
   }
 
-  .indicador:nth-child(3) {
-    transition-delay: 240ms;
+  @keyframes aparecer-hero {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
-  .indicador:nth-child(4) {
-    transition-delay: 360ms;
+  @media (prefers-reduced-motion: no-preference) {
+    .indicadores.animacion-lista .indicador {
+      opacity: 0;
+      translate: 0 18px;
+      transition: opacity .6s ease, translate .6s ease;
+    }
+    .indicadores.animacion-lista.visible .indicador {
+      opacity: 1;
+      translate: 0 0;
+    }
+    .indicador:nth-child(2) { transition-delay: 120ms; }
+    .indicador:nth-child(3) { transition-delay: 240ms; }
+    .indicador:nth-child(4) { transition-delay: 360ms; }
   }
-}
 
-
+  @media (prefers-reduced-motion: reduce) {
+    .hero-texto { animation: none; }
+    .acciones .boton { transition: none; }
+  }
 </style>
