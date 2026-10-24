@@ -29,3 +29,112 @@ body {
 h1, h2, h3 {
   font-family: var(--fuente-titulos);
 }
+
+/* ==========================================
+   MODEC — MENÚ MÓVIL CENTRADO
+   ========================================== */
+
+@media (max-width: 800px) {
+
+  .modec #menu-principal {
+    width: 100%;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .modec #menu-principal > a {
+    width: 100%;
+    min-height: 54px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  /* Contenedor de Productos */
+  .modec #menu-principal > :not(a) {
+    width: 100%;
+    text-align: center;
+  }
+
+  .modec .menu-productos-boton {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  /* Contacto conserva su diseño */
+  .modec #menu-principal .nav-contacto {
+    width: 100%;
+    margin-top: 8px;
+    justify-content: center;
+  }
+
+  /* Evitar diferencias de color entre navegadores */
+  .modec .menu-boton {
+    color: var(--negro);
+    background: var(--blanco);
+    border: 1px solid var(--negro);
+    -webkit-appearance: none;
+    appearance: none;
+  }
+}
+
+/* ====================================================
+   MODEC — ESCALA COMPACTA PARA ESCRITORIO
+   Ajustes reales de CSS; no se modifica el zoom.
+   No afecta a móviles ni tabletas (hasta 1100px).
+   ==================================================== */
+@media (min-width: 1101px) {
+  /* Encabezado */
+  .modec .barra-interior { min-height: 28px; }
+  .modec .barra, .modec .redes { font-size: 12px; }
+  .modec .dato-correo { font-size: 11px; }
+  .modec .datos a:last-child { font-size: 14px; }
+  .modec .icono-encabezado { width: 17px; height: 17px; flex-basis: 17px; }
+  .modec .navegacion { min-height: 68px; gap: 2%; }
+  .modec .marca { flex-basis: 24%; height: 56px; }
+  .modec .marca img { width: 205px; height: auto; max-height: 56px; object-fit: contain; }
+  .modec #menu-principal { font-size: 13px; gap: 10px; }
+  .modec #menu-principal .nav-contacto { min-width: 118px; padding: 6px 12px; font-size: 13px; }
+
+  /* Productos de Inicio y marcas */
+  .modec .productos { padding-top: 38px; }
+  .modec .productos-contenedor { max-width: 1200px; padding: 34px; }
+  .modec .productos-encabezado h2 { font-size: clamp(27px, 2.55vw, 36px); }
+  .modec .producto { height: 285px; }
+  .modec .proveedores-contenedor { max-width: 1200px; }
+
+  /* Instalación y proceso */
+  .modec .servicios { padding-block: 52px; }
+  .modec .servicios-contenedor { max-width: 1200px; padding: 38px 34px; }
+  .modec .servicios-encabezado h2 { font-size: clamp(26px, 2.5vw, 36px); }
+  .modec .servicios-foto { height: 380px; }
+  .modec .paso-informacion { padding: 14px 12px; }
+
+  /* Sobre nosotros */
+  .modec .sobre-nosotros { padding-block: 60px; }
+  .modec .sobre-contenedor { max-width: 1200px; }
+  .modec .sobre-contenido h2 { font-size: clamp(29px, 2.6vw, 39px); }
+  .modec .sobre-tarjeta { min-height: 140px; padding: 18px 14px; }
+
+  /* Portafolio */
+  .modec .trabajos { padding-block: 65px; }
+  .modec .trabajos-contenedor { max-width: 1200px; }
+  .modec .trabajos-encabezado h2 { font-size: clamp(28px, 3.2vw, 42px); }
+
+  /* Testimonios */
+  .modec .testimonios { padding-block: 60px; }
+  .modec .testimonios-contenedor { max-width: 1200px; }
+  .modec .testimonios-encabezado h2 { font-size: clamp(26px, 2.5vw, 36px); }
+  .modec .testimonio-card { min-height: 260px; padding: 19px 18px; }
+
+  /* Contacto en Inicio */
+  .modec .contacto-contenedor { min-height: 530px; }
+  .modec .contacto-visual { padding: 30px 40px 38px; }
+  .modec .contacto-formulario { padding: 38px; }
+  .modec .contacto-visual h2 { font-size: clamp(32px, 2.8vw, 46px); }
+
+  /* Ajustes genéricos solo donde las clases ya existen */
+  .modec .seccion { padding-block: 64px; }
+}

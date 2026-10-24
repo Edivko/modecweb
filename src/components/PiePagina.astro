@@ -1,54 +1,28 @@
-
 ---
-import { negocio, menu, whatsapp } from '../data/modec';
+import { negocio, menu } from '../data/modec';
 
 const anio = new Date().getFullYear();
-
 const redesActivas = negocio.redes.filter(red => red.url);
 ---
 
 <footer class="pie" aria-label="Pie de página de MODEC">
-
   <div class="pie-contenedor">
-
-    <!-- Información principal -->
     <div class="pie-grid">
-
       <!-- Marca -->
       <div class="pie-identidad">
-        <a href="#inicio" class="pie-marca" aria-label="Volver al inicio de MODEC">
-          <img
-            src="/images/logo.jpeg"
-            alt="MODEC"
-            width="210"
-            height="64"
-            loading="lazy"
-          />
+        <a href="/" class="pie-marca" aria-label="Ir al inicio de MODEC">
+          <img src="/images/logo.jpeg" alt="MODEC" width="210" height="64" loading="lazy" />
         </a>
-
         <p class="pie-descripcion">
           Decoración y estilo para tus espacios.
           Soluciones a la medida para transformar
           cada ambiente.
         </p>
-
-        <!-- Redes sociales configuradas -->
         {redesActivas.length > 0 && (
           <div class="pie-redes" aria-label="Redes sociales">
             {redesActivas.map(red => (
-              <a
-                href={red.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`Visitar ${red.nombre} de MODEC`}
-              >
-                <img
-                  src={`/icons/${red.nombre.toLowerCase()}.svg`}
-                  alt=""
-                  width="22"
-                  height="22"
-                  loading="lazy"
-                />
+              <a href={red.url} target="_blank" rel="noopener noreferrer" aria-label={`Visitar ${red.nombre} de MODEC`}>
+                <img src={`/icons/${red.nombre.toLowerCase()}.svg`} alt="" width="22" height="22" loading="lazy" />
               </a>
             ))}
           </div>
@@ -58,71 +32,68 @@ const redesActivas = negocio.redes.filter(red => red.url);
       <!-- Navegación -->
       <nav class="pie-columna" aria-label="Navegación del pie de página">
         <h2>Explora</h2>
-
         {menu.map(([nombre, href]) => (
-          <a href={href}>{nombre}</a>
+          <a href={nombre === 'Productos' ? '/productos' : href}>{nombre}</a>
         ))}
       </nav>
 
       <!-- Contacto -->
       <div class="pie-columna">
         <h2>Contacto</h2>
-
         <a href={`tel:+52${negocio.telefono.replace(/\D/g, '')}`}>
-          <span class="icono" aria-hidden="true">☎</span>
-          {negocio.telefono}
+          <svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.8 19.8 0 0 1 3.09 5.18 2 2 0 0 1 5.08 3h3a2 2 0 0 1 2 1.72l.42 2.81a2 2 0 0 1-.57 1.7L8.1 11a16 16 0 0 0 4.9 4.9l1.77-1.83a2 2 0 0 1 1.7-.57l2.81.42A2 2 0 0 1 22 16.92Z" />
+          </svg>
+          <span>{negocio.telefono}</span>
         </a>
-
         {negocio.correo && (
           <a href={`mailto:${negocio.correo}`}>
-            <span class="icono" aria-hidden="true">✉</span>
-            {negocio.correo}
+            <svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="2" y="4" width="20" height="16" rx="2" />
+              <path d="m3 6 9 7 9-7" />
+            </svg>
+            <span>{negocio.correo}</span>
           </a>
         )}
-
         <a href={negocio.ubicacionMaps} target="_blank" rel="noopener noreferrer">
-          <span class="icono" aria-hidden="true">⌖</span>
-          Ver ubicación en Google Maps ↗
+          <svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z" />
+            <circle cx="12" cy="10" r="2.5" />
+          </svg>
+          <span>Ver ubicación en Google Maps</span>
+          <svg class="flecha" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M7 17 17 7M8 7h9v9" />
+          </svg>
         </a>
       </div>
 
       <!-- Atención -->
       <div class="pie-columna">
         <h2>Atención personalizada</h2>
-
         <p>
           ¿Tienes un proyecto en mente?
           Te ayudamos a encontrar la mejor
           solución para tu espacio.
         </p>
-
-        <a class="enlace-atencion" href="#contacto">
+        <a class="enlace-atencion" href="/contacto">
           Solicitar asesoría
-          <span aria-hidden="true">↗</span>
+          <svg class="flecha" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M7 17 17 7M8 7h9v9" />
+          </svg>
         </a>
       </div>
-
     </div>
 
-    <!-- Parte inferior -->
     <div class="pie-inferior">
-      <p>
-        © {anio} MODEC. Todos los derechos reservados.
-      </p>
-
+      <p>© {anio} MODEC. Todos los derechos reservados.</p>
     </div>
-
   </div>
 </footer>
 
 <style>
-  /* ==================================
-     MODEC - FOOTER
-     ================================== */
-
   .pie {
     background: var(--negro);
-    color: #E5E4E1;
+    color: var(--blanco);
     padding: 65px 24px 25px;
   }
 
@@ -132,10 +103,6 @@ const redesActivas = negocio.redes.filter(red => red.url);
     margin-inline: auto;
   }
 
-  /* ==================================
-     DISTRIBUCIÓN PRINCIPAL
-     ================================== */
-
   .pie-grid {
     display: grid;
     grid-template-columns: 1.3fr 0.8fr 1.15fr 1fr;
@@ -144,7 +111,6 @@ const redesActivas = negocio.redes.filter(red => red.url);
     padding-bottom: 45px;
   }
 
-  /* Marca */
   .pie-identidad {
     display: flex;
     flex-direction: column;
@@ -155,7 +121,7 @@ const redesActivas = negocio.redes.filter(red => red.url);
   .pie-marca {
     display: inline-block;
     padding: 7px;
-    background: #FFFFFF;
+    background: var(--blanco);
     border-radius: 6px;
   }
 
@@ -168,13 +134,13 @@ const redesActivas = negocio.redes.filter(red => red.url);
 
   .pie-descripcion {
     max-width: 255px;
-    color: #CFBEBA;
+    color: var(--blanco);
+    opacity: .85;
     font-family: var(--fuente-textos);
     font-size: 12px;
     line-height: 1.8;
   }
 
-  /* Redes */
   .pie-redes {
     display: flex;
     align-items: center;
@@ -186,11 +152,9 @@ const redesActivas = negocio.redes.filter(red => red.url);
     height: 40px;
     display: grid;
     place-items: center;
-    background: #E5E4E1;
+    background: var(--blanco);
     border-radius: 50%;
-    transition:
-      transform 0.25s ease,
-      background 0.25s ease;
+    transition: transform .25s ease, background .25s ease;
   }
 
   .pie-redes img {
@@ -199,7 +163,6 @@ const redesActivas = negocio.redes.filter(red => red.url);
     object-fit: contain;
   }
 
-  /* Columnas */
   .pie-columna {
     display: flex;
     flex-direction: column;
@@ -218,7 +181,7 @@ const redesActivas = negocio.redes.filter(red => red.url);
 
   .pie-columna a,
   .pie-columna p {
-    color: #DFD0CB;
+    color: var(--blanco);
     font-family: var(--fuente-textos);
     font-size: 12px;
     line-height: 1.7;
@@ -226,15 +189,33 @@ const redesActivas = negocio.redes.filter(red => red.url);
     overflow-wrap: anywhere;
   }
 
+  .pie-columna p { opacity: .9; }
+
   .pie-columna a {
-    transition: color 0.25s ease;
+    transition: color .25s ease;
+  }
+
+  .pie-columna a:has(.icono) {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
   }
 
   .pie-columna .icono {
     display: inline-block;
-    width: 22px;
+    flex: 0 0 17px;
+    width: 17px;
+    height: 17px;
     color: var(--primario);
-    font-size: 16px;
+  }
+
+  .pie-columna .flecha {
+    display: inline-block;
+    flex: 0 0 14px;
+    width: 14px;
+    height: 14px;
+    color: var(--primario);
+    vertical-align: middle;
   }
 
   .pie-columna .enlace-atencion {
@@ -246,44 +227,6 @@ const redesActivas = negocio.redes.filter(red => red.url);
     margin-top: 6px;
   }
 
-  /* ==================================
-     COTIZACIÓN
-     ================================== */
-
-  .pie-cta {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 30px;
-
-    padding: 27px 32px;
-    margin-bottom: 37px;
-
-    border: 1px solid var(--primario);
-    border-radius: 14px;
-    background: var(--negro);
-  }
-
-  .pie-cta h2 {
-    color: #FFFFFF;
-    font-family: var(--fuente-titulos);
-    font-size: clamp(22px, 2.4vw, 30px);
-    font-weight: 400;
-    line-height: 1.2;
-  }
-
-  .pie-cta p {
-    color: #D6C8C3;
-    font-family: var(--fuente-textos);
-    font-size: 12px;
-    line-height: 1.6;
-    margin-top: 8px;
-  }
-
-  /* ==================================
-     COPYRIGHT
-     ================================== */
-
   .pie-inferior {
     display: flex;
     align-items: center;
@@ -291,27 +234,20 @@ const redesActivas = negocio.redes.filter(red => red.url);
     flex-wrap: wrap;
     gap: 16px;
     text-align: center;
-
     padding-top: 22px;
-    border-top: 1px var(--primario) solid;
+    border-top: 1px solid var(--primario);
   }
 
   .pie-inferior p {
-    color: #BCA8A2;
+    color: var(--blanco);
+    opacity: .78;
     font-family: var(--fuente-textos);
     font-size: 11px;
     text-decoration: none;
   }
 
-  /* ==================================
-     INTERACCIONES
-     ================================== */
-
   @media (hover: hover) and (pointer: fine) {
-    .pie-columna a:hover {
-      color: var(--primario);
-    }
-
+    .pie-columna a:hover { color: var(--primario); }
     .pie-redes a:hover {
       transform: translateY(-3px);
       background: var(--primario);
@@ -323,10 +259,6 @@ const redesActivas = negocio.redes.filter(red => red.url);
     outline-offset: 4px;
   }
 
-  /* ==================================
-     TABLETS
-     ================================== */
-
   @media (max-width: 1000px) {
     .pie-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -334,35 +266,15 @@ const redesActivas = negocio.redes.filter(red => red.url);
     }
   }
 
-  /* ==================================
-     CELULARES
-     ================================== */
-
   @media (max-width: 600px) {
-    .pie {
-      padding: 45px 18px 24px;
-    }
-
+    .pie { padding: 45px 18px 24px; }
     .pie-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 30px 18px;
       padding-bottom: 35px;
     }
-
-    .pie-identidad {
-      grid-column: 1 / -1;
-    }
-
-    .pie-columna:last-child {
-      grid-column: 1 / -1;
-    }
-
-    .pie-cta {
-      flex-direction: column;
-      align-items: stretch;
-      padding: 23px 20px;
-      gap: 22px;
-    }
+    .pie-identidad { grid-column: 1 / -1; }
+    .pie-columna:last-child { grid-column: 1 / -1; }
     .pie-inferior {
       flex-direction: column;
       align-items: center;
@@ -370,20 +282,12 @@ const redesActivas = negocio.redes.filter(red => red.url);
   }
 
   @media (max-width: 380px) {
-    .pie-grid {
-      grid-template-columns: 1fr;
-    }
-
+    .pie-grid { grid-template-columns: 1fr; }
     .pie-identidad,
-    .pie-columna:last-child {
-      grid-column: auto;
-    }
+    .pie-columna:last-child { grid-column: auto; }
   }
 
-  /* Accesibilidad */
   @media (prefers-reduced-motion: reduce) {
-    .pie a {
-      transition: none;
-    }
+    .pie a { transition: none; }
   }
 </style>

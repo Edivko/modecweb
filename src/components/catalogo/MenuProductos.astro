@@ -21,7 +21,7 @@ import { categoriasCatalogo } from '../../data/catalogo';
   <div class="menu-productos-panel" id="panel-productos" hidden>
           <!-- Enlace al catálogo general -->
   <a href="/productos" class="enlace-catalogo-general">
-    Ver catálogo completo <span aria-hidden="true">→</span>
+    Ver catálogo completo <span aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-0.12em;flex-shrink:0" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6"/></svg></span>
   </a>
     <div class="menu-productos-categorias">
       <p class="menu-productos-etiqueta">CATEGORÍAS</p>
@@ -49,7 +49,7 @@ import { categoriasCatalogo } from '../../data/catalogo';
             href={`/productos/${categoria.slug}`}
             aria-label={`Ver categoría ${categoria.nombre}`}
           >
-            <span aria-hidden="true">→</span>
+            <span aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-0.12em;flex-shrink:0" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6"/></svg></span>
           </a>
         </div>
       ))}
@@ -71,7 +71,7 @@ import { categoriasCatalogo } from '../../data/catalogo';
             href={`/productos/${categoria.slug}`}
           >
             Ver {categoria.nombre.toLowerCase()}
-            <span aria-hidden="true">↗</span>
+            <span aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-0.12em;flex-shrink:0" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
           </a>
 
           {categoria.tipos.length > 0 ? (
