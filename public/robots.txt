@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://modecc.com/sitemap-index.xml
