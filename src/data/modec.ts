@@ -1,8 +1,8 @@
 // Datos compartidos: contacto, enlaces, productos y contenido de la página.
 export const negocio = {
   telefono: '55 1827 9830',
-  whatsapp: '525531460489',
-  correo: 'modec.jorgem@gmail.com',
+  whatsapp: '5215518279830',
+  correo: 'modec.jorgem@outlook.com',
   ubicacionMaps: 'https://maps.app.goo.gl/xwc8VqZJnY3QZgPq5?g_st=iw',
   // Completa las URLs oficiales para activar los enlaces.
   redes: [
